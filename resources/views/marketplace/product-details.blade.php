@@ -53,10 +53,11 @@
           </div>
         </div>
         <div class="ps-product__info">
-
           <h1>{{$product->name}}</h1>
           <p class="ps-product__category"><a href="#"> {{$product->category->name}}</a></p>
-          <h3 class="ps-product__price">{{$product->price_sell}} <del>{{($product->price_sell)+5000}}</del></h3>
+          <h3 class="ps-product__price">{{GlobalHelper::idrFormat($product->total_price)}} 
+            <del>{{GlobalHelper::idrFormat(GlobalHelper::ratePromo($product->total_price))}}</del>
+          </h3>
           <div class="ps-product__block ps-product__quickview">
             <h4>QUICK REVIEW</h4>
             <p>{{$product->description}}</p>
@@ -71,9 +72,20 @@
             <div class="form-group">
               <input class="form-control" type="number" value="1">
             </div>
+            <div class="form-group">
+              <label>Catatan Produk</label>
+              <textarea class="form-control" name="note" style="width: 345px;">
+                
+              </textarea>
+            </div>
           </div>
-          <div class="ps-product__shopping"><a class="ps-btn mb-10" href="cart.html">Add to cart<i class="ps-icon-next"></i></a>
-            <div class="ps-product__actions"><a class="mr-10" href="whishlist.html"><i class="ps-icon-heart"></i></a><a href="#"><i class="ps-icon-share"></i></a></div>
+          <div class="ps-product__shopping">
+            <a class="ps-btn mb-5" href="#">+ Keranjang
+              <i class="ps-icon-next"></i>
+            </a>
+            <a class="ps-btn mb-5" href="#">Beli
+              <i class="ps-icon-next"></i>
+            </a>
           </div>
         </div>
         <div class="clearfix"></div>

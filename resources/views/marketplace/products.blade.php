@@ -57,7 +57,7 @@
                     <a href="#">{{$value->category->name}}</a>
                   </p>
                     <span class="ps-shoe__price">
-                      <del>{{($value->price_sell)+1000}}</del> {{$value->price_sell}}
+                      <del>{{GlobalHelper::ratePromo($value->total_price)}}</del> {{$value->total_price}}
                     </span>
                 </div>
               </div>

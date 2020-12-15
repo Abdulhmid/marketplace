@@ -35,6 +35,9 @@ class ProductsController extends Controller
             $data = Products::with('variant')->latest()->get();
             return Datatables::of($data)
                     ->addIndexColumn()
+                    ->editColumn('total_price', function($row){
+                            return \GlobalHelper::idrFormat($row->total_price);
+                    })
                     ->editColumn('status', function($row){
                             $statusDisplay='Active';
                             if ($row->status == '0') {
@@ -125,8 +128,8 @@ class ProductsController extends Controller
                 'slug' => 'required',
                 'short_desc' => 'required',
                 'description' => 'required',
-                'price_buy' => 'required',
-                'price_sell' => 'required',
+                'commission_price' => 'required',
+                'produsen_price' => 'required',
                 'product_category_id' => 'required',
                 'produsen_id' => 'required',
                 'status' => 'required',
@@ -168,6 +171,7 @@ class ProductsController extends Controller
                 $rulesData['image_4'] = "public/imagesProducts/"."$fileImage4";
             }
 
+            $rulesData['total_price'] = $request['produsen_price']+$request['commission_price'];
             $rulesData['updated_by'] = Auth::user()->id;
             $rulesData['updated_at'] = \Carbon\Carbon::now();
             Products::whereId($isEdit)->update($rulesData);
@@ -195,8 +199,8 @@ class ProductsController extends Controller
                 'slug' => 'required',
                 'short_desc' => 'required',
                 'description' => 'required',
-                'price_buy' => 'required',
-                'price_sell' => 'required',
+                'produsen_price' => 'required',
+                'commission_price' => 'required',
                 'product_category_id' => 'required',
                 'produsen_id' => 'required',
                 'status' => 'required',
@@ -244,6 +248,7 @@ class ProductsController extends Controller
             $files4->move($destinationPath, $fileImage4);
             $rulesData['image_4'] = "public/imagesProducts/"."$fileImage4";
         }
+        $rulesData['total_price'] = $request['produsen_price']+$request['commission_price'];
 
 
         $createProduct = Products::create($rulesData);

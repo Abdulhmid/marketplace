@@ -88,7 +88,7 @@
                 {data: 'slug', name: 'slug'},
                 {data: 'product_type_id', name: 'product_type_id'},
                 {data: 'product_category_id', name: 'product_category_id'},
-                {data: 'price_sell', name: 'price_sell'},
+                {data: 'total_price', name: 'total_price'},
                 {data: 'variant', name: 'variant'},
                 {data: 'status', name: 'status'},
                 {data: 'created_at', name: 'created_at'},

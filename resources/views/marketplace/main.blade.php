@@ -29,8 +29,8 @@
                 <div class="grid-item__content-wrapper">
                   <div class="ps-shoe mb-30">
                     <div class="ps-shoe__thumbnail">
-                      <a class="ps-shoe__favorite" href="{{url('products/detail/'.$value->slug)}}"><
-                        i class="ps-icon-heart"></i>
+                      <a class="ps-shoe__favorite" href="{{url('products/detail/'.$value->slug)}}">
+                        <i class="ps-icon-heart"></i>
                       </a>
                       <img src="{{$value->image}}" alt="">
                       <a class="ps-shoe__overlay" href="{{url('products/detail/'.$value->slug)}}"></a>
@@ -53,7 +53,7 @@
                         </select> -->
                       </div>
                       <div class="ps-shoe__detail"><a class="ps-shoe__name" href="#">{{$value->name}}</a>
-                        <p class="ps-shoe__categories"><a href="#">{{$value->category->name}}</a></p><span class="ps-shoe__price"> {{$value->price_sell}}</span>
+                        <p class="ps-shoe__categories"><a href="#">{{$value->category->name}}</a></p><span class="ps-shoe__price"> {{GlobalHelper::idrFormat($value->total_price)}}</span>
                       </div>
                     </div>
                   </div>

@@ -78,13 +78,14 @@
                           </select>
                         </div>
                         <div class="form-group">
-                          <label for="name">Price Buy</label>
-                          <input type="number" min="1" class="form-control" required="" name="price_buy" aria-describedby="price_buy" value="{{isset($row)?$row->price_buy:''}}" placeholder="Enter Price Buy">
+                          <label for="name">Harga Produsen</label>
+                          <input type="number" min="1" class="form-control" required="" name="produsen_price" aria-describedby="produsen_price" value="{{isset($row)?$row->produsen_price:''}}" placeholder="Enter Podusen Price">
                         </div>
                         <div class="form-group">
-                          <label for="name">Price Sell</label>
-                          <input type="number" min="1" class="form-control" required="" name="price_sell" aria-describedby="price_sell" value="{{isset($row)?$row->price_sell:''}}" placeholder="Enter Price Sell">
+                          <label for="name">Komisi</label>
+                          <input type="number" min="1" class="form-control" required="" name="commission_price" aria-describedby="commission_price" value="{{isset($row)?$row->commission_price:''}}" placeholder="Masukkan Harga Komisi">
                         </div>
+                        
                         <div class="form-group">
                           <label for="short_desc">Short Description</label>
                           <textarea class="form-control" required="" name="short_desc">

@@ -21,4 +21,14 @@ class GlobalHelper {
         return $row;
     }
 
+    public static function idrFormat($nominal) {
+        $row = number_format($nominal, 0, ',', '.');
+        return $row;
+    }
+
+    public static function ratePromo($rate) {
+        $row = $rate+5000;
+        return $row;
+    }
+
 }

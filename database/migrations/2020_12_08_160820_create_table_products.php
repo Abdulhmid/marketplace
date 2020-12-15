@@ -23,8 +23,9 @@ class CreateTableProducts extends Migration
             $table->string('name');
             $table->string('short_desc');
             $table->text('description');
-            $table->double('price_buy');
-            $table->double('price_sell');
+            $table->double('produsen_price');
+            $table->double('commission_price');
+            $table->double('total_price');
             $table->string('image')->nullable();
             $table->integer('product_category_id')->unsigned();
             $table->integer('product_type_id')->unsigned();
