@@ -16,4 +16,9 @@ class GlobalHelper {
     	return App\Sliders::select('id','name','image','description')->get();
     }
 
+    public static function productType() {
+        $row = App\Product_types::select('id','name','status','description')->get();
+        return $row;
+    }
+
 }
