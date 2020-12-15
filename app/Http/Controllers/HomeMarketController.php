@@ -41,7 +41,7 @@ class HomeMarketController extends Controller
         		'menus' => $menus,
                 'slider' => $slider,
                 'banners' => $banners,
-        		'products' => $products->paginate(8),
+        		'products' => $products->paginate(16),
         		'products_top' => $products->paginate(5),
         		'category' => $product_category
         	]
