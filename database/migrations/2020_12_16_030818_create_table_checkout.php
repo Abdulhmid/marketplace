@@ -1,0 +1,41 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateTableCheckout extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('tj_checkouts', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            $table->id();
+            $table->timestamps();
+            $table->integer('created_by')->default(1);
+            $table->integer('updated_by');
+            $table->integer('status')->default(1);
+            $table->integer('product_id')->unsigned();
+            $table->string('varian')->nullable();
+            $table->text('note_items');
+            $table->integer('qty')->default(0);
+            $table->double('total_price');
+            $table->string('ip_or_mac_address')->nullable();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('tj_checkouts');
+    }
+}
