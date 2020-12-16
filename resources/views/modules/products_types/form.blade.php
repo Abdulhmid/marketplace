@@ -25,6 +25,10 @@
                           <input type="name"  class="form-control" required="" name="name" aria-describedby="name" placeholder="Enter name" value="{{isset($row)?$row->name:''}}">
                         </div>
                         <div class="form-group">
+                          <label for="name">Slug</label>
+                          <input type="text" readonly="true" id="slug"  class="form-control" required="" name="slug" aria-describedby="slug" placeholder="Enter slug" value="{{isset($row)?$row->slug:''}}">
+                        </div>
+                        <div class="form-group">
                           <label for="description">Description</label>
                           <textarea class="form-control" required="" name="description">
                             {{isset($row)?$row->description:''}}
@@ -75,6 +79,12 @@
         return false;
       }
     });
+
+    $("input[name=name]").on("keyup change", function(e) {
+        var value = $(this).val().replace(/\s+/g, '-').toLowerCase();
+        $("input[name=slug]").val(value);
+    })
+
   });
 </script>
 @stop

@@ -83,6 +83,7 @@ class ProductsTypesController extends Controller
 
         $rulesData = $request->validate([
           'name' => 'required',
+          'slug' => 'required',
           'description' => 'required',
           'status' => 'required'
         ]);
@@ -97,6 +98,7 @@ class ProductsTypesController extends Controller
 
         Product_types::create([
             'name' => $request->name,
+            'slug' => $request->slug,
             'description' => $request->description,
             'status' => $request->status,
             'created_by' => Auth::user()->id,

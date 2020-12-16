@@ -25,6 +25,7 @@
                             <thead>
                                 <tr>
                                     <th>Name</th>
+                                    <th>Slug</th>
                                     <th>Status</th>
                                     <th>Description</th>
                                     <th>Created</th>
@@ -73,6 +74,7 @@
             ajax: "{{ route('products-types.index') }}",
             columns: [
                 {data: 'name', name: 'name'},
+                {data: 'slug', name: 'slug'},
                 {data: 'status', name: 'status'},
                 {data: 'description', name: 'description'},
                 {data: 'created_at', name: 'created_at'},

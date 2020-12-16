@@ -17,7 +17,26 @@ class GlobalHelper {
     }
 
     public static function productType() {
-        $row = App\Product_types::select('id','name','status','description')->get();
+        $row = App\Product_types::select(
+                        'id','name','slug','status',
+                        'description'
+                    )->get();
+        return $row;
+    }
+
+    public static function productCategories() {
+        $row = App\Product_category::select(
+                        'id','name','status',
+                        'description'
+                    )->get();
+        return $row;
+    }
+
+    public static function produsen() {
+        $row = App\Produsen::select(
+                        'id','name','email','phone','status',
+                        'address'
+                    )->get();
         return $row;
     }
 

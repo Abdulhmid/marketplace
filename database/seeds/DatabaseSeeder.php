@@ -217,6 +217,7 @@ class DatabaseSeeder extends Seeder
         $dataProductType = [
           [
             'name' => "Produksi",
+            'slug' => "type-produksi",
             'description' => "This data for data",
             'created_at' => now(),
             'updated_at' => now(),
@@ -225,6 +226,7 @@ class DatabaseSeeder extends Seeder
             'status' => 1
           ],[
             'name' => "Ready Stock",
+            'slug' => "type-ready-stok",
             'description' => "This data for data",
             'created_at' => now(),
             'updated_at' => now(),
@@ -233,6 +235,7 @@ class DatabaseSeeder extends Seeder
             'status' => 1
           ],[
             'name' => "Pesanan",
+            'slug' => "type-pesanan",
             'description' => "This data for data",
             'created_at' => now(),
             'updated_at' => now(),

@@ -70,7 +70,7 @@
           <div class="navigation__column center">
                 <ul class="main-menu menu">
                   @foreach(GlobalHelper::productType() as $value)
-                    <li class="menu-item"><a href="{{url($value->id)}}">{{$value->name}}</a></li>
+                    <li class="menu-item"><a href="{{url('products/'.$value->slug)}}">{{$value->name}}</a></li>
                   @endforeach
                 </ul>
           </div>

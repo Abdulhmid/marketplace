@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Redirect,Response;
 use App\Sliders;
 use App\Product_category;
+use App\Product_types;
 use App\Products;
 use App\Banners;
 use App\Produsen;
@@ -116,6 +117,31 @@ class HomeMarketController extends Controller
                 'product'  => $products->where('slug',$slug)->first(),
                 'category'  => $product_category,
                 'menus'     => $menus,
+            ]
+        );
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function productsCategory(
+        Request $request,
+        Products $products,
+        Product_types $products_type,
+        $slug
+
+    )
+    {
+        $catId = $products_type->where('slug',$slug)->first()->id;
+        $products = $products->with(['category','variant'])
+                        ->where('product_type_id',$catId)
+                        ->paginate(16);
+
+        return view('marketplace.products',
+            [
+                'products'  => $products
             ]
         );
     }
