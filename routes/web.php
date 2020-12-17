@@ -20,6 +20,7 @@ Route::get('/products/{category}', 'HomeMarketController@productsCategory')
 Route::get('/products/detail/{slug}', 'HomeMarketController@productsDetail')
 		->name('productsDetail');
 Route::post('/products/checkout', 'HomeMarketController@checkout')->name('checkout');
+Route::post('/products/data-checkout', 'HomeMarketController@checkoutData')->name('checkoutData');
 
 Auth::routes();
 

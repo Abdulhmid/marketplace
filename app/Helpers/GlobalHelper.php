@@ -50,4 +50,18 @@ class GlobalHelper {
         return $row;
     }
 
+    public static function checkout($ip, $type) {
+        if ($type='count') {
+            return App\Checkouts::select(
+                        'id','ip_or_mac_address','total_price','qty','note_items',
+                        'varian_id','varian_name','product_id','product_name','status'
+                    )->where('ip_or_mac_address',$ip)->count();
+        }else{
+            return App\Checkouts::select(
+                        'id','ip_or_mac_address','total_price','qty','note_items',
+                        'varian_id','varian_name','product_id','product_name','status'
+                    )->where('ip_or_mac_address',$ip)->get();
+        }
+    }
+
 }

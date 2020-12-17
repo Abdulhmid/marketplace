@@ -172,4 +172,29 @@ class HomeMarketController extends Controller
         return $checkouts->create($rowData);
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function checkoutData(
+        Request $request,
+        Checkouts $checkouts
+    )
+    {
+        // return $request->all();
+        if ($request['type']=='count') {
+            $data = Checkouts::select(
+                        'id','ip_or_mac_address','total_price','qty','note_items',
+                        'varian_id','varian_name','product_id','product_name','status'
+                    )->where('ip_or_mac_address',$request['ipAddress'])->count();
+        }else{
+            $data = Checkouts::select(
+                        'id','ip_or_mac_address','total_price','qty','note_items',
+                        'varian_id','varian_name','product_id','product_name','status'
+                    )->where('ip_or_mac_address',$request['ipAddress'])->get();
+        }
+        return $data;
+    }
+
 }

@@ -221,42 +221,47 @@
       $.getJSON("http://jsonip.com?callback=?", function (data) {
         $('#ip-address').val(data.ip);
         // Count
-        // $.ajax({
-        //   url: '{{url("products/data-checkout")}}',
-        //   type: 'POST',
-        //   data: {
-        //     _token: "{{ csrf_token() }}", 
-        //     ipAddress : data.ip,
-        //     type : 'count'
-        //   },
-        //   success: function (data){
-        //       $('#total-checkout').html(data);
-        //   },
-        //   error: function (xhr, textStatus, errorThrown) {
-        //     console.log("XHR",xhr);
-        //     console.log("status",textStatus);
-        //     console.log("Error in",errorThrown);
-        //   }
-        // });
+        $.ajax({
+          url: '{{url("products/data-checkout")}}',
+          type: 'POST',
+          data: {
+            _token: "{{ csrf_token() }}", 
+            ipAddress : data.ip,
+            type : 'count'
+          },
+          success: function (data){
+              $('#total-checkout').html(data);
+          },
+          error: function (xhr, textStatus, errorThrown) {
+            console.log("XHR",xhr);
+            console.log("status",textStatus);
+            console.log("Error in",errorThrown);
+          }
+        });
 
         // list checkout
-        // $.ajax({
-        //   url: '{{url("products/data-checkout")}}',
-        //   type: 'POST',
-        //   data: {
-        //     _token: "{{ csrf_token() }}", 
-        //     ipAddress : data.ip,
-        //     type : 'data'
-        //   },
-        //   success: function (data){
-        //       console.log(data);
-        //   },
-        //   error: function (xhr, textStatus, errorThrown) {
-        //     console.log("XHR",xhr);
-        //     console.log("status",textStatus);
-        //     console.log("Error in",errorThrown);
-        //   }
-        // });
+        $.ajax({
+          url: '{{url("products/data-checkout")}}',
+          type: 'POST',
+          data: {
+            _token: "{{ csrf_token() }}", 
+            ipAddress : data.ip,
+            type : 'data'
+          },
+          success: function (data){
+              console.log(data);
+              // var dS = '';
+              // $.each(data, function(k, v) {
+              //     dS +='';
+              // });
+              // $('.ps-cart__content').html(dS);
+          },
+          error: function (xhr, textStatus, errorThrown) {
+            console.log("XHR",xhr);
+            console.log("status",textStatus);
+            console.log("Error in",errorThrown);
+          }
+        });
 
       });
 
