@@ -217,48 +217,22 @@
 
     <script type="text/javascript">
     $(document).ready(function(){
+      // localStorage.clear();
+      var checkoutsData = JSON.parse(localStorage.getItem("checkouts") || "[]");
+      $('#total-checkout').html(
+        checkoutsData.length
+      );
 
       $.getJSON("http://jsonip.com?callback=?", function (data) {
         $('#ip-address').val(data.ip);
-        // Count
-        // $.ajax({
-        //   url: '{{url("products/data-checkout")}}',
-        //   type: 'POST',
-        //   data: {
-        //     _token: "{{ csrf_token() }}", 
-        //     ipAddress : data.ip,
-        //     type : 'count'
-        //   },
-        //   success: function (data){
-        //       $('#total-checkout').html(data);
-        //   },
-        //   error: function (xhr, textStatus, errorThrown) {
-        //     console.log("XHR",xhr);
-        //     console.log("status",textStatus);
-        //     console.log("Error in",errorThrown);
-        //   }
-        // });
-
-        // list checkout
-        // $.ajax({
-        //   url: '{{url("products/data-checkout")}}',
-        //   type: 'POST',
-        //   data: {
-        //     _token: "{{ csrf_token() }}", 
-        //     ipAddress : data.ip,
-        //     type : 'data'
-        //   },
-        //   success: function (data){
-        //       console.log(data);
-        //   },
-        //   error: function (xhr, textStatus, errorThrown) {
-        //     console.log("XHR",xhr);
-        //     console.log("status",textStatus);
-        //     console.log("Error in",errorThrown);
-        //   }
-        // });
-
       });
+
+      $.each(checkoutsData, function(k, v) {
+        // dt0+=v.nameProduct;
+      });
+      console.log(checkoutsData);
+
+
 
     });
     </script>

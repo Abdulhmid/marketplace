@@ -204,33 +204,6 @@
         note: $('#note').val(),
         ipAddress: $('#ip-address').val()
       });
-
-      console.log(checkouts);
-
-
-      // $.ajax({
-      //   url: '{{url("products/checkout")}}',
-      //   type: 'POST',
-      //   data: {
-      //     _token: "{{ csrf_token() }}", 
-      //     idProduct: $('#product-id').val(),
-      //     nameProduct: $('#nameProduct').val(),
-      //     price : $('#price').val(),
-      //     qty : $('#qty').val(),
-      //     variantId : $('#variantId').val().split("-")[0],
-      //     variantName : $('#variantId').val().split("-")[1],
-      //     note : $('#note').val(),
-      //     ipAddress : $('#ip-address').val(),
-      //   },
-      //   success: function (data){
-      //       console.log(data);
-      //   },
-      //   error: function (xhr, textStatus, errorThrown) {
-      //     console.log("XHR",xhr);
-      //     console.log("status",textStatus);
-      //     console.log("Error in",errorThrown);
-      //   }
-      // });
     }); 
 
     $('a[href="#buy"]').click(function(){
