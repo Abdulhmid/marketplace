@@ -218,7 +218,13 @@
     <script type="text/javascript">
     $(document).ready(function(){
       // localStorage.clear();
-      var checkoutsData = JSON.parse(localStorage.getItem("checkouts") || "[]");
+      // localStorage.removeItem(key);
+      if ("checkouts" in localStorage) {
+        var checkoutsData = JSON.parse(localStorage.getItem("checkouts"));  
+      }else{
+        var checkoutsData = JSON.parse("[]");
+      }
+    
       $('#total-checkout').html(
         checkoutsData.length
       );
@@ -230,7 +236,6 @@
       $.each(checkoutsData, function(k, v) {
         // dt0+=v.nameProduct;
       });
-      console.log(checkoutsData);
 
 
 

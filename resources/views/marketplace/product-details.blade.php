@@ -191,9 +191,14 @@
 @section('js')
 <script type="text/javascript">
   $(document).ready(function(){
-    checkouts = JSON.parse(localStorage.getItem("checkouts") || "[]");
+
+    if ("checkouts" in localStorage) {
+      var checkouts = JSON.parse(localStorage.getItem("checkouts"));  
+    }else{
+      var checkouts = JSON.parse("[]");
+    }
+
     $('a[href="#checkout"]').click(function(){
-      localStorage.setItem("checkouts", JSON.stringify(checkouts));
       checkouts.push({
         idProduct: $('#product-id').val(),
         nameProduct: $('#nameProduct').val(),
@@ -204,6 +209,7 @@
         note: $('#note').val(),
         ipAddress: $('#ip-address').val()
       });
+      localStorage.setItem("checkouts", JSON.stringify(checkouts));
     }); 
 
     $('a[href="#buy"]').click(function(){
