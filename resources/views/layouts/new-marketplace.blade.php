@@ -71,7 +71,9 @@
           <div class="navigation__column center">
                 <ul class="main-menu menu">
                   @foreach(GlobalHelper::productType() as $value)
-                    <li class="menu-item"><a href="{{url('products/'.$value->slug)}}">{{$value->name}}</a></li>
+                    <li class="menu-item">
+                      <a href="{{url('products/'.$value->slug)}}">{{$value->name}}</a>
+                    </li>
                   @endforeach
                 </ul>
           </div>
@@ -213,14 +215,13 @@
     <script type="text/javascript" src="{{url('marketplace')}}/js/main.js"></script>
     <script type="text/javascript">
     </script>
-    @yield('js')
 
     <script type="text/javascript">
     $(document).ready(function(){
       // localStorage.clear();
       // localStorage.removeItem(key);
       if ("checkouts" in localStorage) {
-        var checkoutsData = JSON.parse(localStorage.getItem("checkouts"));  
+        var checkoutsData = JSON.parse(localStorage.getItem("checkouts"));
       }else{
         var checkoutsData = JSON.parse("[]");
       }
@@ -229,18 +230,80 @@
         checkoutsData.length
       );
 
+      updateCheckout(checkoutsData);
+
       $.getJSON("http://jsonip.com?callback=?", function (data) {
         $('#ip-address').val(data.ip);
       });
 
-      $.each(checkoutsData, function(k, v) {
-        // dt0+=v.nameProduct;
-      });
+      function idrFormat(args) {
+          "use strict";
+          var total = (args/1000).toFixed(3);
+          return total;
+      }
 
+      function updateCheckout(checkoutsData){
+        "use strict";
+        if (checkoutsData.length > 0) {
+          var dTrow ='';
+          var totalPrice = 0;
+          var i = 0;
+          $.each(checkoutsData, function(k, v) {
+            totalPrice+=v.price*v.qty;
+            dTrow ='<div class="ps-cart-item" id="ps-cart-item-id-'+i+'">'+
+                      '<a class="ps-cart-item__close" data-value="'+i+'" data-currentprice="'+v.price*v.qty+'" href="#removeChart"></a>'+
+                      '<div class="ps-cart-item__thumbnail">'+
+                          '<a href="#"></a>'+
+                          '<img src="'+v.image+'" alt="">'+
+                      '</div>'+
+                      '<div class="ps-cart-item__content">'+
+                        '<a class="ps-cart-item__title" href="product-detail.html">'+
+                          v.nameProduct+
+                        '</a>'+
+                        '<p>'+
+                          '<span>Quantity:<i>'+v.qty+'</i></span>'+
+                          '<span>Total:<i>'+idrFormat(v.price*v.qty)+'</i></span>'+
+                        '</p>'+
+                      '</div>'+
+                    '</div>';
+              $('#chart-data').append(dTrow);
+              i++;
+          });  
+          $('#totalItem').html(checkoutsData.length);
+          $('#totalItemField').val(checkoutsData.length);
+          $('#totalItemPrice').html(idrFormat(totalPrice));
+          $('#totalItemPriceField').val(totalPrice);
+        }
+      }
+
+      // Function Delete 
+      $('a[href="#removeChart"]').click(function(){
+
+        var index = $(this).data("value");
+        var price = $(this).data("currentprice");
+
+        $(this).closest(".ps-cart-item").remove();
+
+        const checkoutsData = JSON.parse(localStorage.getItem("checkouts"));
+
+        checkoutsData.splice(index, 1);
+        var localDt = localStorage.setItem("checkouts", JSON.stringify(checkoutsData));
+
+        var beforePrice = $('#totalItemPriceField').val();
+        var newPrice = parseInt(beforePrice)-parseInt(price);
+
+        $('#total-checkout').html(JSON.parse(localStorage.getItem("checkouts")).length);
+        $('#totalItem').html(JSON.parse(localStorage.getItem("checkouts")).length);
+        $('#totalItemField').val(JSON.parse(localStorage.getItem("checkouts")).length);
+        $('#totalItemPrice').html(idrFormat(newPrice));
+        $('#totalItemPriceField').val(newPrice);
+
+      });
 
 
     });
     </script>
+    @yield('js')
 
   </body>
 </html>

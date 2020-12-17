@@ -24,6 +24,7 @@
             <div class="ps-product__variants">
               <div class="item">
                 <img src="{{url($product->image)}}" alt="">
+                <input type="hidden" id="imageProduct" value="{{url($product->image)}}">
               </div>
               <div class="item"><img src="{{url($product->image_1)}}" alt=""></div>
               <div class="item"><img src="{{url($product->image_2)}}" alt=""></div>
@@ -207,14 +208,61 @@
         variantId: $('#variantId').val().split("-")[0],
         variantName: $('#variantId').val().split("-")[1],
         note: $('#note').val(),
-        ipAddress: $('#ip-address').val()
+        ipAddress: $('#ip-address').val(),
+        image: $('#imageProduct').val()
       });
       localStorage.setItem("checkouts", JSON.stringify(checkouts));
+      $('#total-checkout').html(
+        checkouts.length
+      );
+      updateCheckout(checkouts)
     }); 
 
     $('a[href="#buy"]').click(function(){
       console.log('sddsdsdsds'); 
     }); 
+
+    function idrFormat(args) {
+        "use strict";
+        var total = (args/1000).toFixed(3);
+        return total;
+    }
+
+    // Update checkout
+    function updateCheckout(checkouts){
+      var totalPrice = 0;
+      var idKey = checkouts.length - 1;
+      dTrow ='<div class="ps-cart-item" id="ps-cart-item-id-'+idKey+'">'+
+                '<a class="ps-cart-item__close" href="#removeChart"></a>'+
+                '<div class="ps-cart-item__thumbnail">'+
+                    '<a href="#"></a>'+
+                    '<img src="'+checkouts[checkouts.length-1]['image']+'" alt="">'+
+                '</div>'+
+                '<div class="ps-cart-item__content">'+
+                  '<a class="ps-cart-item__title" href="product-detail.html">'+
+                    checkouts[checkouts.length-1]['nameProduct']+
+                  '</a>'+
+                  '<p>'+
+                    '<span>Quantity:<i>'+checkouts[checkouts.length-1]['qty']+'</i></span>'+
+                    '<span>Total:<i>'+idrFormat(checkouts[checkouts.length-1]['price']*checkouts[checkouts.length-1]['qty'])+'</i></span>'+
+                  '</p>'+
+                '</div>'+
+              '</div>';
+      $('#chart-data').append(dTrow);
+
+      var beforePrice = $('#totalItemPriceField').val();
+      var plusPrice = checkouts[checkouts.length-1]['price']*checkouts[checkouts.length-1]['qty'];
+      var totalPrice=parseInt(beforePrice)+parseInt(plusPrice);
+
+      var totalItem =parseInt($('#totalItemField').val())+1;
+
+      $('#totalItem').html(totalItem);
+      $('#totalItemPrice').html(idrFormat(totalPrice));
+
+      $('#totalItemField').val(totalItem);
+      $('#totalItemPriceField').val(totalPrice);
+     
+    }
   });
 </script>
 @stop

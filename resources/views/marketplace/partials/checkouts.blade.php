@@ -6,31 +6,19 @@
     <i class="ps-icon-shopping-cart"></i>
   </a>
   <div class="ps-cart__listing">
-    <div class="ps-cart__content">
+    <div class="ps-cart__content" id="chart-data">
         <!-- strart checkout -->
-		<div class="ps-cart-item"><a class="ps-cart-item__close" href="#"></a>
-			<div class="ps-cart-item__thumbnail">
-				<a href="product-detail.html"></a>
-				<img src="{{url('marketplace')}}/images/cart-preview/1.jpg" alt="">
-			</div>
-			<div class="ps-cart-item__content">
-				<a class="ps-cart-item__title" href="product-detail.html">
-					Amazin’ Glazin’
-				</a>
-				<p>
-				  	<span>Quantity:<i>12</i></span>
-					<span>Total:<i>£176</i></span>
-				</p>
-			</div>
-		</div>
+		
         <!-- end checkout -->
     </div>
     <div class="ps-cart__total">
-      <p>Number of items:<span id="totalItem">36</span></p>
-      <p>Item Total:<span id="totalItemPrice">£528.00</span></p>
+      <p>Number of items:<span id="totalItem">0</span></p>
+      <input type="hidden" id="totalItemField" value="0">
+      <p>Item Total:<span id="totalItemPrice">0</span></p>
+      <input type="hidden" id="totalItemPriceField" value="0">
     </div>
     <div class="ps-cart__footer">
-    	<a class="ps-btn" href="cart.html">Check out
+    	<a class="ps-btn" href="#checkoutProses">Check out
     		<i class="ps-icon-arrow-left"></i>
     	</a>
     </div>
