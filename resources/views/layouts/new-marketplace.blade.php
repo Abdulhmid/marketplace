@@ -10,7 +10,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link href="apple-touch-icon.png" rel="apple-touch-icon">
-    <link href="favicon.png" rel="icon">
+    <link href="https://img.icons8.com/material/2x/maxcdn.png" rel="icon">
     <meta name="author" content="Nghia Minh Luong">
     <meta name="keywords" content="Default Description">
     <meta name="description" content="Default keyword">
@@ -43,6 +43,7 @@
   <!--[if IE 9]><body class="ie9 lt-ie10"><![endif]-->
   <body class="ps-loading">
     <div class="header--sidebar"></div>
+    <input type="hidden" id="ip-address">
     <header class="header">
       <div class="header__top">
         <div class="container-fluid">
@@ -132,7 +133,10 @@
             <div class="row">
                   <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 ">
                     <aside class="ps-widget--footer ps-widget--info">
-                      <header><a class="ps-logo" href="index.html"><img src="{{url('marketplace')}}/images/logo-white.png" alt=""></a>
+                      <header>
+                        <a class="ps-logo" href="index.html">
+                          <img src="{{url('/')}}/public/imagesGeneral/logo.png" alt="">
+                        </a>
                         <h3 class="ps-widget__title">Address Office 1</h3>
                       </header>
                       <footer>
@@ -184,7 +188,7 @@
             <div class="row">
                   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
                     <p>&copy; 
-                      <a href="#" style="display: none;">SKYTHEMES</a> All rights Resevered.
+                      <a href="#" style="display: none;">POM M TIJARI</a> All rights Resevered.
                       <a href="#" style="display: none;"> Alena Studio
                       </a>
                     </p>

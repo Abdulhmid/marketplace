@@ -21,10 +21,12 @@ class CreateTableCheckout extends Migration
             $table->integer('updated_by');
             $table->integer('status')->default(1);
             $table->integer('product_id')->unsigned();
-            $table->string('varian')->nullable();
-            $table->text('note_items');
-            $table->integer('qty')->default(0);
-            $table->double('total_price');
+            $table->string('product_name')->nullable();
+            $table->integer('varian_id')->unsigned();
+            $table->string('varian_name')->nullable();
+            $table->text('note_items')->nullable();
+            $table->integer('qty')->default(1);
+            $table->double('total_price')->default(0);
             $table->string('ip_or_mac_address')->nullable();
         });
     }

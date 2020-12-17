@@ -11,6 +11,7 @@ use App\Products;
 use App\Banners;
 use App\Produsen;
 use App\Menus;
+use App\Checkouts;
 use Auth;
 
 class HomeMarketController extends Controller
@@ -131,7 +132,6 @@ class HomeMarketController extends Controller
         Products $products,
         Product_types $products_type,
         $slug
-
     )
     {
         $catId = $products_type->where('slug',$slug)->first()->id;
@@ -144,6 +144,32 @@ class HomeMarketController extends Controller
                 'products'  => $products
             ]
         );
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function checkout(
+        Request $request,
+        Checkouts $checkouts
+    )
+    {
+        $rowData['updated_by'] = 0;
+        $rowData['updated_at'] = \Carbon\Carbon::now();
+        $rowData['created_by'] = 0;
+        $rowData['created_at'] = \Carbon\Carbon::now();
+        $rowData['product_id'] = $request['idProduct'];
+        $rowData['product_name']    = $request['nameProduct'];
+        $rowData['varian_id']       = $request['variantId'];
+        $rowData['varian_name']     = $request['variantName'];
+        $rowData['note_items']      = $request['note'];
+        $rowData['qty']             = $request['qty'];
+        $rowData['total_price']     = $request['price'];
+        $rowData['ip_or_mac_address'] = $request['ipAddress'];
+
+        return $checkouts->create($rowData);
     }
 
 }

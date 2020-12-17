@@ -17,10 +17,14 @@
     <div class="row">
       <div class="col-lg-10 col-md-12 col-lg-offset-1">
         <div class="ps-product__thumbnail">
+          <div class="hidden-data">
+            <input type="hidden" id="product-id" value="{{$product->id}}">
+          </div>
           <div class="ps-product__preview">
             <div class="ps-product__variants">
               <div class="item">
-                <img src="{{url($product->image)}}" alt=""></div>
+                <img src="{{url($product->image)}}" alt="">
+              </div>
               <div class="item"><img src="{{url($product->image_1)}}" alt=""></div>
               <div class="item"><img src="{{url($product->image_2)}}" alt=""></div>
               <div class="item"><img src="{{url($product->image_3)}}" alt=""></div>
@@ -54,36 +58,41 @@
         </div>
         <div class="ps-product__info">
           <h1>{{$product->name}}</h1>
-          <p class="ps-product__category"><a href="#"> {{$product->category->name}}</a></p>
+          <input type="hidden" id="nameProduct" value="{{$product->name}}">
+          <p class="ps-product__category">
+            <a href="#"> {{$product->category->name}}</a>
+          </p>
           <h3 class="ps-product__price">{{GlobalHelper::idrFormat($product->total_price)}} 
             <del>{{GlobalHelper::idrFormat(GlobalHelper::ratePromo($product->total_price))}}</del>
           </h3>
+          <input type="hidden" id="price" value="{{$product->total_price}}">
           <div class="ps-product__block ps-product__quickview">
             <h4>QUICK REVIEW</h4>
             <p>{{$product->description}}</p>
           </div>
           <div class="ps-product__block ps-product__size">
             <h4>CHOOSE VARIAN</h4>
-            <select class="ps-select selectpicker">
+            <select class="ps-select selectpicker" id="variantId">
               @foreach($product->variant as $vvarian)
-                <option value="{{$vvarian->id}}">{{$vvarian->name}}</option>
+                <option value="{{$vvarian->id}}-{{$vvarian->name}}">
+                  {{$vvarian->name}}
+                </option>
               @endforeach
             </select>
             <div class="form-group">
-              <input class="form-control" type="number" value="1">
+              <input class="form-control" type="number" id="qty" name="qty" value="1">
             </div>
             <div class="form-group">
               <label>Catatan Produk</label>
-              <textarea class="form-control" name="note" style="width: 345px;">
-                
+              <textarea class="form-control" id="note" name="note" style="width: 345px;">
               </textarea>
             </div>
           </div>
           <div class="ps-product__shopping">
-            <a class="ps-btn mb-5" href="#">+ Keranjang
+            <a class="ps-btn mb-5" href="#checkout">+ Keranjang
               <i class="ps-icon-next"></i>
             </a>
-            <a class="ps-btn mb-5" href="#">Beli
+            <a class="ps-btn mb-5" href="#buy">Beli
               <i class="ps-icon-next"></i>
             </a>
           </div>
@@ -181,7 +190,41 @@
 
 @section('js')
 <script type="text/javascript">
-      $(document).ready(function(){
+  $(document).ready(function(){
+
+    $.getJSON("http://jsonip.com?callback=?", function (data) {
+      $('#ip-address').val(data.ip);
+    });
+
+    $('a[href="#checkout"]').click(function(){
+      $.ajax({
+        url: '{{url("products/checkout")}}',
+        type: 'POST',
+        data: {
+          _token: "{{ csrf_token() }}", 
+          idProduct: $('#product-id').val(),
+          nameProduct: $('#nameProduct').val(),
+          price : $('#price').val(),
+          qty : $('#qty').val(),
+          variantId : $('#variantId').val().split("-")[0],
+          variantName : $('#variantId').val().split("-")[1],
+          note : $('#note').val(),
+          ipAddress : $('#ip-address').val(),
+        },
+        success: function (data){
+            console.log(data);
+        },
+        error: function (xhr, textStatus, errorThrown) {
+          console.log("XHR",xhr);
+          console.log("status",textStatus);
+          console.log("Error in",errorThrown);
+        }
       });
+    }); 
+
+    $('a[href="#buy"]').click(function(){
+      console.log('sddsdsdsds'); 
+    }); 
+  });
 </script>
 @stop

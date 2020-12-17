@@ -15,8 +15,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeMarketController@index')->name('home-market');
 Route::get('/products', 'HomeMarketController@products')->name('home-products');
-Route::get('/products/{category}', 'HomeMarketController@productsCategory')->name('productsCategory');
-Route::get('/products/detail/{slug}', 'HomeMarketController@productsDetail')->name('productsDetail');
+Route::get('/products/{category}', 'HomeMarketController@productsCategory')
+		->name('productsCategory');
+Route::get('/products/detail/{slug}', 'HomeMarketController@productsDetail')
+		->name('productsDetail');
+Route::post('/products/checkout', 'HomeMarketController@checkout')->name('checkout');
 
 Auth::routes();
 
