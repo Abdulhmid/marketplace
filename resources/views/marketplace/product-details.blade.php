@@ -232,8 +232,9 @@
     function updateCheckout(checkouts){
       var totalPrice = 0;
       var idKey = checkouts.length - 1;
+      var plusPrice = checkouts[checkouts.length-1]['price']*checkouts[checkouts.length-1]['qty'];
       dTrow ='<div class="ps-cart-item" id="ps-cart-item-id-'+idKey+'">'+
-                '<a class="ps-cart-item__close" href="#removeChart"></a>'+
+                '<a class="ps-cart-item__close" data-value="'+idKey+'" data-currentprice="'+plusPrice+'" href="#removeChart"></a>'+
                 '<div class="ps-cart-item__thumbnail">'+
                     '<a href="#"></a>'+
                     '<img src="'+checkouts[checkouts.length-1]['image']+'" alt="">'+
@@ -251,7 +252,6 @@
       $('#chart-data').append(dTrow);
 
       var beforePrice = $('#totalItemPriceField').val();
-      var plusPrice = checkouts[checkouts.length-1]['price']*checkouts[checkouts.length-1]['qty'];
       var totalPrice=parseInt(beforePrice)+parseInt(plusPrice);
 
       var totalItem =parseInt($('#totalItemField').val())+1;

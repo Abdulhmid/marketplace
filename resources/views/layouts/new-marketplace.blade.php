@@ -277,12 +277,13 @@
       }
 
       // Function Delete 
-      $('a[href="#removeChart"]').click(function(){
+      $( document ).on( "click", "a[href='#removeChart']", function( e ) {
 
         var index = $(this).data("value");
         var price = $(this).data("currentprice");
 
         $(this).closest(".ps-cart-item").remove();
+        $('#ps-cart-item-id-'+index).remove();
 
         const checkoutsData = JSON.parse(localStorage.getItem("checkouts"));
 
@@ -292,6 +293,8 @@
         var beforePrice = $('#totalItemPriceField').val();
         var newPrice = parseInt(beforePrice)-parseInt(price);
 
+        console.log(checkoutsData);
+        console.log(JSON.parse(localStorage.getItem("checkouts")).length);
         $('#total-checkout').html(JSON.parse(localStorage.getItem("checkouts")).length);
         $('#totalItem').html(JSON.parse(localStorage.getItem("checkouts")).length);
         $('#totalItemField').val(JSON.parse(localStorage.getItem("checkouts")).length);
