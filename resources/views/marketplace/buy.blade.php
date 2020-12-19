@@ -19,6 +19,30 @@
                 <label>Phone</label>
                 <input class="form-control" type="text"/>
             </div>
+            <div class="col-md-3">
+                <label>Provinsi</label>
+                <select class="form-control">
+                  <option value="-">-</option>                  
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label>Kota</label>
+                <select class="form-control">
+                  <option value="-">-</option>                  
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label>Kecamatan</label>
+                <select class="form-control">
+                  <option value="-">-</option>                  
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label>Kelurahan</label>
+                <select class="form-control">
+                  <option value="-">-</option>                  
+                </select>
+            </div>
             <div class="col-md-12">
               <label>Address<span>*</span>
               </label>
@@ -89,23 +113,37 @@
           </tbody>
         </table>
         <div>
-          <div class="form-group">
-            <label>Pesan<span>*</span>
-            </label>
-            <textarea class="form-control" rows="5" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+          <div class="col-md-8">
+            <div class="form-group">
+              <label>Pesan<span>*</span>
+              </label>
+              <textarea class="form-control" rows="5" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="ps-cart__total">
+              <h4>Biaya Ongkir 
+                <span style="float: right;"> Rp 10.000</span>
+              </h4>
+              <h4>Nominal Unik Transaksi  
+                <span style="float: right;"> Rp 5.722</span>
+              </h4>
+              <h4>Price 
+                <span style="float: right;"> Rp 15.000</span>
+              </h4>
+              <div class="clearfix"></div>
+              <h3>Total Price : 
+                <span style="float: right;"> Rp. 30.722</span>
+              </h3>
+            </div>
           </div>
         </div>
+        <div class="clearfix"></div>
         <div class="ps-cart__actions">
           <div class="ps-cart__promotion">
             <div class="form-group">
-              <button class="ps-btn ps-btn--gray">Buy</button>
+              <button class="ps-btn ps-btn--green">Buy</button>
             </div>
-          </div>
-          <div class="ps-cart__total">
-            <h3>Total Price: 
-              <span> 25.990 $</span>
-            </h3>
-            <!-- <a class="ps-btn" href="checkout.html">Process to checkout<i class="ps-icon-next"></i></a> -->
           </div>
         </div>
       </div>
