@@ -15,13 +15,13 @@ class InputWilayahIndo extends Seeder
     {
         // Province
         $now = Carbon::now();
-        $file = public_path().'/resources/csv/provinces.csv';
+        $file = public_path().'/resources/provinces.csv';
         $header = ['id', 'name', 'lat', 'long'];
 
         //  CsvToArray
         $delimiter = ',';
         if (!file_exists($file) || !is_readable($file)) {
-            return false;
+           return false;
         }
 
         $data = [];
@@ -44,7 +44,7 @@ class InputWilayahIndo extends Seeder
 
         // City
         $now = Carbon::now();
-        $file = public_path().'/resources/resources/csv/cities.csv';
+        $file = public_path().'/resources/cities.csv';
         $header = ['id', 'province_id', 'name', 'lat', 'long'];
 
         //  CsvToArray
@@ -75,7 +75,7 @@ class InputWilayahIndo extends Seeder
 
         // District
         $now = Carbon::now();
-        $file = public_path().'/resources/csv/districts.csv';
+        $file = public_path().'/resources/districts.csv';
         $header = ['id', 'city_id', 'name', 'lat', 'long'];
        
         //  CsvToArray
@@ -106,7 +106,7 @@ class InputWilayahIndo extends Seeder
 
         // Village
         $now = Carbon::now();
-        $resourceFiles = \File::allFiles(public_path().'/resources/resources/csv/villages');
+        $resourceFiles = \File::allFiles(public_path().'/resources/villages');
         foreach ($resourceFiles as $file) {
             $header = ['id', 'district_id', 'name', 'lat', 'long'];
 
