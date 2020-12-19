@@ -14,8 +14,8 @@ class AddColoumnInTableProdusen extends Migration
     public function up()
     {
         Schema::table('tj_produsen', function($table) {
-            $table->integer('village_id')->unsigned();
-            $table->integer('district_id')->unsigned();
+            $table->integer('village_id')->unsigned()->nullable();
+            $table->integer('district_id')->unsigned()->nullable();
         });
     }
 
