@@ -225,6 +225,8 @@
       }else{
         var checkoutsData = JSON.parse("[]");
       }
+
+      console.log(checkoutsData);
     
       $('#total-checkout').html(
         checkoutsData.length

@@ -197,4 +197,20 @@ class HomeMarketController extends Controller
         return $data;
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function transactionData(
+        Request $request
+    )
+    {
+        return view('marketplace.buy',
+            [
+                'data'  => 'data'
+            ]
+        );
+    }
+
 }

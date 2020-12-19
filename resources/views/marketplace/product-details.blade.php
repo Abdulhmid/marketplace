@@ -199,7 +199,17 @@
       var checkouts = JSON.parse("[]");
     }
 
+    if ("itemCheckouts" in localStorage) {
+      var itemCheckouts = JSON.parse(localStorage.getItem("itemCheckouts"));  
+    }else{
+      var itemCheckouts = JSON.parse("[]");
+    }
+
     $('a[href="#checkout"]').click(function(){
+      // console.log(checkouts);
+
+      // if (true) {}
+
       checkouts.push({
         idProduct: $('#product-id').val(),
         nameProduct: $('#nameProduct').val(),
@@ -212,10 +222,16 @@
         image: $('#imageProduct').val()
       });
       localStorage.setItem("checkouts", JSON.stringify(checkouts));
+
+      // setArrayId
+      itemCheckouts.push(idProduct);
+      localStorage.setItem("itemCheckouts", JSON.stringify(checkouts));
+
       $('#total-checkout').html(
         checkouts.length
       );
       updateCheckout(checkouts)
+
     }); 
 
     $('a[href="#buy"]').click(function(){

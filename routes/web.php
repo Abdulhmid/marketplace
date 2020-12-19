@@ -19,6 +19,8 @@ Route::get('/products/{category}', 'HomeMarketController@productsCategory')
 		->name('productsCategory');
 Route::get('/products/detail/{slug}', 'HomeMarketController@productsDetail')
 		->name('productsDetail');
+Route::get('/products/data/transactions', 'HomeMarketController@transactionData')
+		->name('transactionData');
 Route::post('/products/checkout', 'HomeMarketController@checkout')->name('checkout');
 Route::post('/products/data-checkout', 'HomeMarketController@checkoutData')->name('checkoutData');
 
