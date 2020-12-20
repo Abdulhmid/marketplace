@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Cities;
 use App\Districts;
 use App\Villages;
+use App\Transactions;
 
 class GeneralController
 {
@@ -45,4 +46,22 @@ class GeneralController
         }
 
     }
+
+    /**
+     * Display a login manual account kit.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function buy(
+        Transactions $model,
+        Request $request
+    )
+    {
+        return response()->json([
+            'data'  => $request->all(),
+            'response_code' => 200,
+            'message' => 'Success'
+        ], 200);
+    }
+
 }

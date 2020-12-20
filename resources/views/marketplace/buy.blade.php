@@ -13,11 +13,11 @@
           <div class="form-group">
             <div class="col-md-6">
                 <label>Email</label>
-                <input class="form-control" type="text"/>
+                <input class="form-control" name="email" id="email" type="text"/>
             </div>
             <div class="col-md-6">
                 <label>Phone</label>
-                <input class="form-control" type="text"/>
+                <input class="form-control" name="phone" id="phone" type="text"/>
             </div>
             <div class="col-md-3">
                 <label>Provinsi</label>
@@ -101,7 +101,7 @@
         <div class="ps-cart__actions">
           <div class="ps-cart__promotion">
             <div class="form-group">
-              <button class="ps-btn ps-btn--green">Buy</button>
+              <button class="ps-btn ps-btn--green" id="buy-action">Bayar</button>
             </div>
           </div>
         </div>
@@ -171,6 +171,33 @@
     }else{
       $("#table-buy tbody").append('<tr><td colspan="5"></td></tr>');
     }
+
+    $('#buy-action').click(function(){
+      console.log('sddsdsdsds'); 
+      $.ajax({
+        url: '{{url("api/v1/data/buy")}}',
+        type: 'POST',
+        data: {
+          _token: "{{ csrf_token() }}", 
+          dataProduct : checkoutsData,
+          email : $('#email').val(),
+          phone : $('#phone').val(),
+          city : $('#city').val(),
+          district : $('#district').val(),
+          villages : $('#villages').val(),
+          address : $('#address').val(),
+          notes : $('#notes').val()
+        },
+        success: function (data){
+            console.log(data);
+        },
+        error: function (xhr, textStatus, errorThrown) {
+          console.log("XHR",xhr);
+          console.log("status",textStatus);
+          console.log("Error in",errorThrown);
+        }
+      });
+    }); 
 
     // Province
     $("select#province").change(function () {
