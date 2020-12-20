@@ -49,7 +49,7 @@
             <div class="col-md-12">
               <label>Address<span>*</span>
               </label>
-              <textarea class="form-control" rows="5" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+              <textarea class="form-control" name="address" rows="5" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
             </div>
           </div>
       </div>
@@ -57,7 +57,7 @@
       <div class="ps-cart-listing">
         <h3>Produk Dipesan</h3>
         <hr>
-        <table class="table ps-cart__table">
+        <table class="table ps-cart__table" id="table-buy">
           <thead>
             <tr>
               <th>Products</th>
@@ -68,51 +68,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><a class="ps-product__preview" href="product-detail.html"><img class="mr-15" src="images/product/cart-preview/1.jpg" alt=""> air jordan One mid</a></td>
-              <td>$150</td>
-              <td>
-                <div class="form-group--number">
-                  <button class="minus"><span>-</span></button>
-                  <input class="form-control" type="text" value="2">
-                  <button class="plus"><span>+</span></button>
-                </div>
-              </td>
-              <td>$300</td>
-              <td>
-                <div class="ps-remove"></div>
-              </td>
-            </tr>
-            <tr>
-              <td><a class="ps-product__preview" href="product-detail.html"><img class="mr-15" src="images/product/cart-preview/2.jpg" alt=""> The Crusty Croissant</a></td>
-              <td>$150</td>
-              <td>
-                <div class="form-group--number">
-                  <button class="minus"><span>-</span></button>
-                  <input class="form-control" type="text" value="2">
-                  <button class="plus"><span>+</span></button>
-                </div>
-              </td>
-              <td>$300</td>
-              <td>
-                <div class="ps-remove"></div>
-              </td>
-            </tr>
-            <tr>
-              <td><a class="ps-product__preview" href="product-detail.html"><img class="mr-15" src="images/product/cart-preview/3.jpg" alt="">The Rolling Pin</a></td>
-              <td>$150</td>
-              <td>
-                <div class="form-group--number">
-                  <button class="minus"><span>-</span></button>
-                  <input class="form-control" type="text" value="2">
-                  <button class="plus"><span>+</span></button>
-                </div>
-              </td>
-              <td>$300</td>
-              <td>
-                <div class="ps-remove"></div>
-              </td>
-            </tr>
+
           </tbody>
         </table>
         <div>
@@ -126,17 +82,17 @@
           <div class="col-md-4">
             <div class="ps-cart__total">
               <h4>Biaya Ongkir 
-                <span style="float: right;"> Rp 10.000</span>
+                <span style="float: right;" id="ongkir"> Rp 10.000</span>
               </h4>
               <h4>Nominal Unik Transaksi  
-                <span style="float: right;"> Rp 5.722</span>
+                <span style="float: right;" id="uniqeTrans"> Rp 5.722</span>
               </h4>
               <h4>Price 
-                <span style="float: right;"> Rp 15.000</span>
+                <span style="float: right;" id="itemPrice"> Rp 15.000</span>
               </h4>
               <div class="clearfix"></div>
               <h3>Total Price : 
-                <span style="float: right;"> Rp. 30.722</span>
+                <span style="float: right;" id="totalPrice"> Rp. 30.722</span>
               </h3>
             </div>
           </div>
@@ -173,6 +129,50 @@
 @section('js')
 <script type="text/javascript">
   $(document).ready(function(){
+    // First Load
+    if ("checkouts" in localStorage) {
+      var checkoutsData = JSON.parse(localStorage.getItem("checkouts"));
+    }else{
+      var checkoutsData = JSON.parse("[]");
+    }
+    if (checkoutsData.length > 0) {
+      var dTrow ='';
+      var totalPrice = 0;
+      var i = 0;
+      $.each(checkoutsData, function(k, v) {
+        totalPrice+=v.price*v.qty;
+          dTrow = '<tr>'+
+                    '<td>'+
+                      '<a class="ps-product__preview" href="#">'+
+                        '<img class="mr-15" width="40px" height="40px" src="'+v.image+'" alt="">'+ 
+                          v.nameProduct+
+                      '</a>'+
+                    '</td>'+
+                    '<td>'+idrFormat(v.price)+'</td>'+
+                    '<td>'+
+                      '<div class="form-group--number">'+
+                        '<button class="minus"><span>-</span></button>'+
+                        '<input class="form-control" type="text" value="'+v.qty+'">'+
+                        '<button class="plus"><span>+</span></button>'+
+                      '</div>'+
+                    '</td>'+
+                    '<td>'+idrFormat(v.price*v.qty)+'</td>'+
+                    '<td>'+
+                      '<div class="ps-remove"></div>'+
+                    '</td>'+
+                  '</tr>';
+          $("#table-buy tbody").append(dTrow);
+          i++;
+      });  
+      $('#totalPrice').html(idrFormat(totalPrice));
+      $('#itemPrice').html(idrFormat(totalPrice));
+      $('#uniqeTrans').html(idrFormat(0));
+      $('#ongkir').html(idrFormat(0));
+    }else{
+      $("#table-buy tbody").append('<tr><td colspan="5"></td></tr>');
+    }
+
+    // Province
     $("select#province").change(function () {
         $.get("{!! url('/api/v1/data/data-general') !!}", {
                 province : $("select#province").val(),
@@ -234,6 +234,12 @@
                 });
             });
     })
+
+    function idrFormat(args) {
+        "use strict";
+        var total = (args/1000).toFixed(3);
+        return total;
+    }
 
   });
 </script>

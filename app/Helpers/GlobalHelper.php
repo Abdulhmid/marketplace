@@ -80,7 +80,7 @@ class GlobalHelper {
     }
 
     public static function villages($district) {
-        $row = App\Villages::select('*')->where('district_id',3173010)->get();
+        $row = App\Villages::select('*')->where('district_id',$district)->get();
         // $row = App\Villages::select('*')->where('district_id',$district)->get();
         return $row;
     }

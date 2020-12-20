@@ -93,7 +93,7 @@
             <a class="ps-btn mb-5" href="#checkout">+ Keranjang
               <i class="ps-icon-next"></i>
             </a>
-            <a class="ps-btn mb-5" href="#buy">Beli
+            <a class="ps-btn mb-5" href="/products/data/transactions">Beli
               <i class="ps-icon-next"></i>
             </a>
           </div>
