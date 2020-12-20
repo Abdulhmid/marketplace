@@ -64,4 +64,25 @@ class GlobalHelper {
         }
     }
 
+    public static function province() {
+        $row = App\Provinces::select('*')->get();
+        return $row;
+    }
+
+    public static function cities($province) {
+        $row = App\Cities::select('*')->where('province_id',$province)->get();
+        return $row;
+    }
+
+    public static function districs($city) {
+        $row = App\Districts::select('*')->where('city_id',$city)->get();
+        return $row;
+    }
+
+    public static function villages($district) {
+        $row = App\Villages::select('*')->where('district_id',3173010)->get();
+        // $row = App\Villages::select('*')->where('district_id',$district)->get();
+        return $row;
+    }
+
 }

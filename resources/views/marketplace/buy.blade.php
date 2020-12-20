@@ -21,25 +21,28 @@
             </div>
             <div class="col-md-3">
                 <label>Provinsi</label>
-                <select class="form-control">
-                  <option value="-">-</option>                  
+                <select class="form-control" id="province">
+                  <option value="">-- No Seleceted Province --</option>
+                  @foreach(GlobalHelper::province() as $value)
+                    <option value="{{$value->id}}">{{$value->name}}</option>
+                  @endforeach                  
                 </select>
             </div>
             <div class="col-md-3">
                 <label>Kota</label>
-                <select class="form-control">
+                <select class="form-control" id="cities">
                   <option value="-">-</option>                  
                 </select>
             </div>
             <div class="col-md-3">
                 <label>Kecamatan</label>
-                <select class="form-control">
+                <select class="form-control" id="districts">
                   <option value="-">-</option>                  
                 </select>
             </div>
             <div class="col-md-3">
                 <label>Kelurahan</label>
-                <select class="form-control">
+                <select class="form-control" id="villages">
                   <option value="-">-</option>                  
                 </select>
             </div>
@@ -169,5 +172,69 @@
 
 @section('js')
 <script type="text/javascript">
+  $(document).ready(function(){
+    $("select#province").change(function () {
+        $.get("{!! url('/api/v1/data/data-general') !!}", {
+                province : $("select#province").val(),
+                type : 'cities'
+            },
+            function (data) {
+                $("select#cities").empty();
+                $("select#cities").append($("<option value=''></option>")
+                  .attr("value", "")
+                  .text("- Pilih Cities"));
+
+                $.each(data.data, function (key, value) {
+                    $('select#cities')
+                            .append($("<option></option>")
+                                    .attr("value", value.id)
+                                    .text(value.name));
+                });
+            });
+    });
+
+    // Districts
+    $("select#cities").change(function () {
+        $.get("{!! url('/api/v1/data/data-general') !!}", {
+                cities : $("select#cities").val(),
+                type : 'districts'
+            },
+            function (data) {
+                $("select#districts").empty();
+                $("select#districts").append($("<option value=''></option>")
+                  .attr("value", "")
+                  .text("- Pilih Districts"));
+
+                $.each(data.data, function (key, value) {
+                    $('select#districts')
+                            .append($("<option></option>")
+                                    .attr("value", value.id)
+                                    .text(value.name));
+                });
+            });
+    })
+
+    // Villages
+    $("select#districts").change(function () {
+        $.get("{!! url('/api/v1/data/data-general') !!}", {
+                district: $("select#districts").val(),
+                type: 'villages'
+            },
+            function (data) {
+                $("select#villages").empty();
+                $("select#villages").append($("<option value=''></option>")
+                  .attr("value", "")
+                  .text("- Pilih Villages"));
+
+                $.each(data.data, function (key, value) {
+                    $('select#villages')
+                            .append($("<option></option>")
+                                    .attr("value", value.id)
+                                    .text(value.name));
+                });
+            });
+    })
+
+  });
 </script>
 @stop
