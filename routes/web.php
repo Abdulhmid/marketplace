@@ -23,6 +23,9 @@ Route::get('/products/data/transactions', 'HomeMarketController@transactionData'
 		->name('transactionData');
 Route::post('/products/checkout', 'HomeMarketController@checkout')->name('checkout');
 Route::post('/products/data-checkout', 'HomeMarketController@checkoutData')->name('checkoutData');
+Route::get('/products/transactions/success/{code}', 'HomeMarketController@transactionsOk')->name('transactionsOk');
+
+Route::post('/transactions/confirm', 'HomeMarketController@transConfirm')->name('transConfirm');
 
 Auth::routes();
 

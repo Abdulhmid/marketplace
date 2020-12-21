@@ -213,4 +213,22 @@ class HomeMarketController extends Controller
         );
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function transactionsOk(
+        Request $request,
+        $code
+    )
+    {
+        return view('marketplace.transaction_success',
+            [
+                'data'  => $request->all(),
+                'code'  => $code
+            ]
+        );
+    }
+
 }

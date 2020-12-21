@@ -204,6 +204,7 @@
         success: function (data){
             console.log(data);
             localStorage.removeItem('itemBuy');
+            window.location.href = "/products/transactions/success/"+data.data;
         },
         error: function (xhr, textStatus, errorThrown) {
           console.log("XHR",xhr);

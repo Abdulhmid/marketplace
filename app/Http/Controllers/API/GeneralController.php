@@ -73,7 +73,7 @@ class GeneralController
             'address' => $request['address'],
             'note' => $request['notes'],
             'payment_id' => $request['payment'],
-            'status' => 1,
+            'status' => 0,
             'created_by' => 0,
             'created_at' => \Carbon\Carbon::now(),
             'updated_by' => 0,
@@ -95,7 +95,36 @@ class GeneralController
         }
 
         return response()->json([
-            'data'  => $request->all(),
+            'data'  => $codeTrans,
+            'response_code' => 200,
+            'message' => 'Success'
+        ], 200);
+    }
+
+    /**
+     * Display a login manual account kit.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function confirm(
+        Transactions $model,
+        Transactions_detail $model_detail,
+        Request $request
+    )
+    {
+        if ($files = $request->file('image')) {
+            $destinationPath = 'public/imagesProof/'; // upload path
+            $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
+            $files->move($destinationPath, $profileImage);
+            $dataProof['image_proof'] = "public/imagesProof/"."$profileImage";
+        }
+        $dataProof['status'] = 1;
+
+        $row = $model->where('transaction_code', $request['code'])
+            ->update($dataProof);
+
+        return response()->json([
+            'data'  => $row,
             'response_code' => 200,
             'message' => 'Success'
         ], 200);

@@ -84,6 +84,33 @@ class DatabaseSeeder extends Seeder
             'updated_by' => 0,
             'created_by' => 0,
             'status' => 1
+          ],[
+            'key' => "bank_name",
+            'value' => "Bank BNI Syariah",
+            'description' => "This description for data",
+            'created_at' => now(),
+            'updated_at' => now(),
+            'updated_by' => 0,
+            'created_by' => 0,
+            'status' => 1
+          ],[
+            'key' => "bank_pic",
+            'value' => "PT. Apa Berkah",
+            'description' => "This description for data",
+            'created_at' => now(),
+            'updated_at' => now(),
+            'updated_by' => 0,
+            'created_by' => 0,
+            'status' => 1
+          ],[
+            'key' => "bank_rek",
+            'value' => "0988977121989",
+            'description' => "This description for data",
+            'created_at' => now(),
+            'updated_at' => now(),
+            'updated_by' => 0,
+            'created_by' => 0,
+            'status' => 1
           ]
         ];
 

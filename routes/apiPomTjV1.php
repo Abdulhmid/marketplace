@@ -15,4 +15,5 @@ Route::group(['prefix' => 'data'], function () {
 	Route::get('/sliders', 'API\\SlidersController@dataSliders');
 	Route::get('/data-general', 'API\\GeneralController@dataGeneral');
 	Route::post('/buy', 'API\\GeneralController@buy');
+	Route::post('/confirm', 'API\\GeneralController@confirm');
 });

@@ -28,7 +28,7 @@
                                     <th>Customer</th>
                                     <th>Total Bayar</th>
                                     <th>Produk</th>
-                                    <th>Note</th>
+                                    <th>Status</th>
                                     <th>Created</th>
                                     <th>Updated</th>
                                     <th>Actions</th>

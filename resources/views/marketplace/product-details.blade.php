@@ -220,7 +220,7 @@
       localStorage.setItem("checkouts", JSON.stringify(checkouts));
 
       // setArrayId
-      itemCheckouts.push(idProduct);
+      // itemCheckouts.push(idProduct);
       localStorage.setItem("itemCheckouts", JSON.stringify(checkouts));
 
       $('#total-checkout').html(
@@ -244,7 +244,7 @@
         variantId: $('#variantId').val().split("-")[0],
         variantName: $('#variantId').val().split("-")[1],
         note: $('#note').val(),
-        ipAddress: $('#ip-address').val(),
+        ipAddress: $( '#ip-address').val(),
         image: $('#imageProduct').val()
       });
       localStorage.setItem("itemBuy", JSON.stringify(itemBuy));
