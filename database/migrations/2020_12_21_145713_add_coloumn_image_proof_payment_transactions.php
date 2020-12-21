@@ -14,7 +14,7 @@ class AddColoumnImageProofPaymentTransactions extends Migration
     public function up()
     {
         Schema::table('tj_transactions', function($table) {
-            $table->string('image_proof')->unsigned()->nullable();
+            $table->string('image_proof')->nullable();
         });
     }
 
