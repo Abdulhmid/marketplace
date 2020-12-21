@@ -30,7 +30,6 @@
                                     <th>Produk</th>
                                     <th>Status</th>
                                     <th>Created</th>
-                                    <th>Updated</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -75,12 +74,11 @@
             ajax: "{{ route('transactions.index') }}",
             columns: [
                 {data: 'transaction_code', name: 'transaction_code'},
-                {data: 'customers', name: 'customers'},
+                {data: 'buyer_email', name: 'buyer_email'},
                 {data: 'total_paid', name: 'total_paid'},
-                {data: 'status', name: 'status'},
+                {data: 'product', name: 'product'},
                 {data: 'status', name: 'status'},
                 {data: 'created_at', name: 'created_at'},
-                {data: 'updated_at', name: 'updated_at'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ]
         });

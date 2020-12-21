@@ -231,4 +231,22 @@ class HomeMarketController extends Controller
         );
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function transactionsTracking(
+        Request $request,
+        $code
+    )
+    {
+        return view('marketplace.tracking_transaction',
+            [
+                'data'  => $request->all(),
+                'code'  => $code
+            ]
+        );
+    }
+
 }

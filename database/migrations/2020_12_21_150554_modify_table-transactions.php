@@ -13,9 +13,9 @@ class ModifyTableTransactions extends Migration
      */
     public function up()
     {
-        Schema::table('tj_transactions', function($table) {
-            $table->string('note')->nullable()->change();
-        });
+        // Schema::table('tj_transactions', function($table) {
+        //     $table->string('note')->nullable()->change();
+        // });
     }
 
     /**

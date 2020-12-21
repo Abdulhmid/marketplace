@@ -101,4 +101,9 @@ class GlobalHelper {
         return strtoupper($str);
     }
 
+    public static function productName($id) {
+        $row = App\Products::select('id','name')->where('id',$id)->first()->name;
+        return $row;
+    }
+
 }

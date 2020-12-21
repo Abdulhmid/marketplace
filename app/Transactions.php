@@ -17,5 +17,13 @@ class Transactions extends Model
     protected $guarded = []; 
     protected $dates = ['created_at','updated_at'];
 
+    /**
+     * Get the variant for the blog post.
+     */
+    public function detail()
+    {
+        return $this->hasMany(Transactions_detail::class,'transaction_code','transaction_code');
+    }
+
 }
 

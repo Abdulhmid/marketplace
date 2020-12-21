@@ -24,7 +24,7 @@ class CreateTableTransactions extends Migration
             $table->string('customers');
             $table->double('total_paid');
             $table->double('total_discount');
-            $table->text('note');
+            $table->text('note')->nullable();
             $table->integer('payment_id')->unsigned();
         });
     }

@@ -38,23 +38,21 @@
     <div class="col-md-4"></div>
     <div class="clearfix"></div>
   </div>
-    <form action="#" 
-      id="myForm" 
-      method="post" 
-      enctype="multipart/form-data" >
-      <input type="hidden" name="code" value="{{Request::segment(4)}}">
+    <form id="myForm" method="post" enctype="multipart/form-data">
+      @csrf
+      <input type="hidden" name="code" id="code" value="{{Request::segment(4)}}">
       <div class="col-md-4"></div>
       <div class="col-md-4" style="color: white;">
         <label>Upload Bukti Pembayaran</label>
-        <input type="file" name="image" required="required" 
-          name="" style="margin: 0 auto;float: none;margin: 4px 125px auto;">
+        <input type="file" id="file" name="image"
+          style="margin: 0 auto;float: none;margin: 4px 125px auto;">
       </div>
       <div class="col-md-4"></div>
       <div class="clearfix"></div>
       <br>
       <div class="col-md-4"></div>
       <div class="col-md-4">
-        <button type="button" id="uploadProof" class="btn btn-primary btn-lg">Proses</button>
+        <button type="submit" id="uploadProof" class="btn btn-primary btn-lg">Proses</button>
       </div>
       <div class="col-md-4"></div>
     </form>
@@ -99,18 +97,36 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
+
     new ClipboardJS('.btn');
-    $("#uploadProof").click(function(){
-      $.ajax({
-          type: 'POST',
-          url: "{{url('api/v1/data/confirm')}}",
-          data: $('#myForm').serialize(),
-          dataType : 'json', // changing data type to json
-          success: function (data) { // here I'm adding data as a parameter which stores the response
-              console.log(data); // instead of alert I'm changing this to console.log which logs all the response in console.
-          }
-      });
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
     });
+
+    $('#myForm').submit(function(e) {
+       e.preventDefault();
+       let formData = new FormData(this);
+
+       $.ajax({
+          type:'POST',
+          url: '/api/v1/data/confirm',
+           data: formData,
+           contentType: false,
+           processData: false,
+           success: (response) => {
+             // console.log(response);
+             window.location.href = "/transactions/tracking/"+$('#code').val();
+           },
+           error: function(response){
+              console.log(response);
+                $('#image-input-error').text(response.responseJSON.errors.file);
+           }
+       });
+    });
+
   });
 </script>
 @stop
