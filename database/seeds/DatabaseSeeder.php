@@ -362,6 +362,132 @@ class DatabaseSeeder extends Seeder
        
         DB::table('tj_menus')->insert($data);
 
+        // Location
+   // Province
+        $now = Carbon::now();
+        $file = public_path().'/resources/provinces.csv';
+        $header = ['id', 'name', 'lat', 'long'];
+
+        //  CsvToArray
+        $delimiter = ',';
+        if (!file_exists($file) || !is_readable($file)) {
+           return false;
+        }
+
+        $data = [];
+        if (($handle = fopen($file, 'r')) !== false) {
+            while (($row = fgetcsv($handle, 1000, $delimiter)) !== false) {
+                $data[] = array_combine($header, $row);
+            }
+            fclose($handle);
+        }
+
+
+        $data = array_map(function ($arr) use ($now) {
+            $arr['meta'] = json_encode(['lat' => $arr['lat'], 'long' => $arr['long']]);
+            unset($arr['lat'], $arr['long']);
+
+            return $arr + ['created_at' => $now, 'updated_at' => $now];
+        }, $data);
+
+        DB::table('tj_provinces')->insert($data);
+
+        // City
+        $now = Carbon::now();
+        $file = public_path().'/resources/cities.csv';
+        $header = ['id', 'province_id', 'name', 'lat', 'long'];
+
+        //  CsvToArray
+        $delimiter = ',';
+        if (!file_exists($file) || !is_readable($file)) {
+            return false;
+        }
+
+        $data = [];
+        if (($handle = fopen($file, 'r')) !== false) {
+            while (($row = fgetcsv($handle, 1000, $delimiter)) !== false) {
+                $data[] = array_combine($header, $row);
+            }
+            fclose($handle);
+        }
+
+        $data = array_map(function ($arr) use ($now) {
+            $arr['meta'] = json_encode(['lat' => $arr['lat'], 'long' => $arr['long']]);
+            unset($arr['lat'], $arr['long']);
+
+            return $arr + ['created_at' => $now, 'updated_at' => $now];
+        }, $data);
+
+        $collection = collect($data);
+        foreach ($collection->chunk(50) as $chunk) {
+            DB::table('tj_cities')->insert($chunk->toArray());
+        }
+
+        // District
+        $now = Carbon::now();
+        $file = public_path().'/resources/districts.csv';
+        $header = ['id', 'city_id', 'name', 'lat', 'long'];
+       
+        //  CsvToArray
+        $delimiter = ',';
+        if (!file_exists($file) || !is_readable($file)) {
+            return false;
+        }
+
+        $data = [];
+        if (($handle = fopen($file, 'r')) !== false) {
+            while (($row = fgetcsv($handle, 1000, $delimiter)) !== false) {
+                $data[] = array_combine($header, $row);
+            }
+            fclose($handle);
+        }
+
+        $data = array_map(function ($arr) use ($now) {
+            $arr['meta'] = json_encode(['lat' => $arr['lat'], 'long' => $arr['long']]);
+            unset($arr['lat'], $arr['long']);
+
+            return $arr + ['created_at' => $now, 'updated_at' => $now];
+        }, $data);
+
+        $collection = collect($data);
+        foreach ($collection->chunk(50) as $chunk) {
+            DB::table('tj_districts')->insert($chunk->toArray());
+        }
+
+        // Village
+        $now = Carbon::now();
+        $resourceFiles = \File::allFiles(public_path().'/resources/villages');
+        foreach ($resourceFiles as $file) {
+            $header = ['id', 'district_id', 'name', 'lat', 'long'];
+
+          //  CsvToArray
+          $delimiter = ',';
+          if (!file_exists($file->getRealPath()) || !is_readable($file->getRealPath())) {
+              return false;
+          }
+
+          $data = [];
+          if (($handle = fopen($file->getRealPath(), 'r')) !== false) {
+              while (($row = fgetcsv($handle, 1000, $delimiter)) !== false) {
+                  $data[] = array_combine($header, $row);
+              }
+              fclose($handle);
+          }
+
+            $data = array_map(function ($arr) use ($now) {
+                $arr['meta'] = json_encode(['lat' => $arr['lat'], 'long' => $arr['long']]);
+                unset($arr['lat'], $arr['long']);
+
+                return $arr + ['created_at' => $now, 'updated_at' => $now];
+            }, $data);
+
+            $collection = collect($data);
+            foreach ($collection->chunk(50) as $chunk) {
+                DB::table('tj_villages')->insert($chunk->toArray());
+            }
+        }
+
+
         // $this->call(UserSeeder::class);
     }
 }
