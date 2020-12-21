@@ -81,8 +81,24 @@ class GlobalHelper {
 
     public static function villages($district) {
         $row = App\Villages::select('*')->where('district_id',$district)->get();
-        // $row = App\Villages::select('*')->where('district_id',$district)->get();
+
         return $row;
+    }
+
+    public static function payments() {
+        $row = App\Payments::select('*')->get();
+        return $row;
+    }
+
+    public static function generateCode(){
+        do {
+            $str = strtoupper(Str::random(7));
+
+            $checkUnique = App\Transactions::where('transaction_code', $str)->count();
+
+        } while ($checkUnique > 0);
+
+        return strtoupper($str);
     }
 
 }

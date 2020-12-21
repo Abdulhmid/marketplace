@@ -164,4 +164,8 @@ Route::get('configurations-delete/{id}',
 Route::get('configurations/{id}', 
 	['uses'=>'ConfigurationsController@edit', 'as'=>'configurations.edit']);
 
+// Transaction
+Route::get('transactions', 
+	['uses'=>'TransactionsController@index', 'as'=>'transactions.index']);
+
 

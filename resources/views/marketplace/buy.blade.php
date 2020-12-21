@@ -47,9 +47,17 @@
                 </select>
             </div>
             <div class="col-md-12">
+              <label>Cara Pembayaran<span>*</span></label>
+              <select class="form-control" id="payment" name="payment">
+                  @foreach(GlobalHelper::payments() as $value)
+                    <option value="{{$value->id}}">{{$value->name}}</option>
+                  @endforeach                  
+              </select>
+            </div>
+            <div class="col-md-12">
               <label>Address<span>*</span>
               </label>
-              <textarea class="form-control" name="address" rows="5" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+              <textarea class="form-control" id="address" rows="5" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
             </div>
           </div>
       </div>
@@ -76,23 +84,24 @@
             <div class="form-group">
               <label>Pesan<span>*</span>
               </label>
-              <textarea class="form-control" rows="5" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+              <textarea class="form-control" rows="5" id="notes" placeholder="Notes about your order, e.g. special notes for delivery." id="note"></textarea>
             </div>
           </div>
           <div class="col-md-4">
             <div class="ps-cart__total">
               <h4>Biaya Ongkir 
-                <span style="float: right;" id="ongkir"> Rp 10.000</span>
+                <span style="float: right;" id="ongkir"> - </span>
               </h4>
               <h4>Nominal Unik Transaksi  
-                <span style="float: right;" id="uniqeTrans"> Rp 5.722</span>
+                <span style="float: right;" id="uniqeTrans"> - </span>
               </h4>
               <h4>Price 
-                <span style="float: right;" id="itemPrice"> Rp 15.000</span>
+                <span style="float: right;" id="itemPrice"> - </span>
               </h4>
               <div class="clearfix"></div>
               <h3>Total Price : 
-                <span style="float: right;" id="totalPrice"> Rp. 30.722</span>
+                <span style="float: right;" id="totalPrice"> - </span>
+                <input type="hidden" id="totalPriceSend" value="">
               </h3>
             </div>
           </div>
@@ -165,6 +174,7 @@
           i++;
       });  
       $('#totalPrice').html(idrFormat(totalPrice));
+      $('#totalPriceSend').val(totalPrice);
       $('#itemPrice').html(idrFormat(totalPrice));
       $('#uniqeTrans').html(idrFormat(0));
       $('#ongkir').html(idrFormat(0));
@@ -180,16 +190,20 @@
         data: {
           _token: "{{ csrf_token() }}", 
           dataProduct : checkoutsData,
+          customerId : 0,
           email : $('#email').val(),
           phone : $('#phone').val(),
           city : $('#city').val(),
           district : $('#district').val(),
           villages : $('#villages').val(),
           address : $('#address').val(),
-          notes : $('#notes').val()
+          notes : $('#notes').val(),
+          payment : $('#payment').val(),
+          totalPrice : $('#totalPriceSend').val()
         },
         success: function (data){
             console.log(data);
+            localStorage.removeItem('checkouts_buy');
         },
         error: function (xhr, textStatus, errorThrown) {
           console.log("XHR",xhr);

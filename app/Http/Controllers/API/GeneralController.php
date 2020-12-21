@@ -7,6 +7,7 @@ use App\Cities;
 use App\Districts;
 use App\Villages;
 use App\Transactions;
+use App\Transactions_detail;
 
 class GeneralController
 {
@@ -54,9 +55,45 @@ class GeneralController
      */
     public function buy(
         Transactions $model,
+        Transactions_detail $model_detail,
         Request $request
     )
     {
+        $codeTrans = \GlobalHelper::generateCode();
+        $model->create([
+            'transaction_code' =>$codeTrans,
+            'customers' => 0,
+            'total_paid' => $request['totalPrice'],
+            'total_discount' => $request['customerId'],
+            'buyer_email' => $request['email'],
+            'buyer_phone' => $request['phone'],
+            'buyer_city' => $request['city'],
+            'buyer_districts' => $request['district'],
+            'buyer_villages' => $request['villages'],
+            'address' => $request['address'],
+            'note' => $request['notes'],
+            'payment_id' => $request['payment'],
+            'status' => 1,
+            'created_by' => 0,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_by' => 0,
+            'updated_at' => \Carbon\Carbon::now()
+        ]);
+
+        foreach ($request['dataProduct'] as $key => $value) {
+            $model_detail->create([
+                'transaction_code' => $codeTrans,
+                'product_id' => $value['idProduct'],
+                'qty' => $value['qty'],
+                'price' => $value['price'],
+                'note' => $value['note'],
+                'created_by' => 0,
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_by' => 0,
+                'updated_at' => \Carbon\Carbon::now()
+            ]);
+        }
+
         return response()->json([
             'data'  => $request->all(),
             'response_code' => 200,
