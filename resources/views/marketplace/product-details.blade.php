@@ -93,7 +93,7 @@
             <a class="ps-btn mb-5" href="#checkout">+ Keranjang
               <i class="ps-icon-next"></i>
             </a>
-            <a class="ps-btn mb-5" href="/products/data/transactions">Beli
+            <a class="ps-btn mb-5" href="#buy">Beli
               <i class="ps-icon-next"></i>
             </a>
           </div>
@@ -206,10 +206,6 @@
     }
 
     $('a[href="#checkout"]').click(function(){
-      // console.log(checkouts);
-
-      // if (true) {}
-
       checkouts.push({
         idProduct: $('#product-id').val(),
         nameProduct: $('#nameProduct').val(),
@@ -235,7 +231,26 @@
     }); 
 
     $('a[href="#buy"]').click(function(){
-      console.log('sddsdsdsds'); 
+      if ("itemBuy" in localStorage) {
+        var itemBuy = JSON.parse(localStorage.getItem("itemBuy"));  
+      }else{
+        var itemBuy = JSON.parse("[]");
+      }
+      itemBuy.push({
+        idProduct: $('#product-id').val(),
+        nameProduct: $('#nameProduct').val(),
+        price: $('#price').val(),
+        qty: $('#qty').val(),
+        variantId: $('#variantId').val().split("-")[0],
+        variantName: $('#variantId').val().split("-")[1],
+        note: $('#note').val(),
+        ipAddress: $('#ip-address').val(),
+        image: $('#imageProduct').val()
+      });
+      localStorage.setItem("itemBuy", JSON.stringify(itemBuy));
+      window.location.href = "/products/data/transactions";
+
+      
     }); 
 
     function idrFormat(args) {

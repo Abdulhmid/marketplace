@@ -139,8 +139,8 @@
 <script type="text/javascript">
   $(document).ready(function(){
     // First Load
-    if ("checkouts" in localStorage) {
-      var checkoutsData = JSON.parse(localStorage.getItem("checkouts"));
+    if ("itemBuy" in localStorage) {
+      var checkoutsData = JSON.parse(localStorage.getItem("itemBuy"));
     }else{
       var checkoutsData = JSON.parse("[]");
     }
@@ -183,7 +183,7 @@
     }
 
     $('#buy-action').click(function(){
-      console.log('sddsdsdsds'); 
+      console.log(checkoutsData); 
       $.ajax({
         url: '{{url("api/v1/data/buy")}}',
         type: 'POST',
@@ -203,7 +203,7 @@
         },
         success: function (data){
             console.log(data);
-            localStorage.removeItem('checkouts_buy');
+            localStorage.removeItem('itemBuy');
         },
         error: function (xhr, textStatus, errorThrown) {
           console.log("XHR",xhr);
