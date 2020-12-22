@@ -137,38 +137,38 @@ class ProductsController extends Controller
             ]);
 
             if ($files = $request->file('image')) {
-                $destinationPath = 'public/imagesProducts/'; // upload path
+                $destinationPath = 'imagesProducts/'; // upload path
                 $fileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
                 $files->move($destinationPath, $fileImage);
-                $rulesData['image'] = "public/imagesProducts/"."$fileImage";
+                $rulesData['image'] = "imagesProducts/"."$fileImage";
             }
 
             if ($files1 = $request->file('image_1')) {
-                $destinationPath = 'public/imagesProducts/'; // upload path
+                $destinationPath = 'imagesProducts/'; // upload path
                 $fileImage1 = date('YmdHis') . "." . $files1->getClientOriginalExtension();
                 $files1->move($destinationPath, $fileImage1);
-                $rulesData['image_1'] = "public/imagesProducts/"."$fileImage1";
+                $rulesData['image_1'] = "imagesProducts/"."$fileImage1";
             }
 
             if ($files2 = $request->file('image_2')) {
-                $destinationPath = 'public/imagesProducts/'; // upload path
+                $destinationPath = 'imagesProducts/'; // upload path
                 $fileImage2 = date('YmdHis') . "." . $files2->getClientOriginalExtension();
                 $files2->move($destinationPath, $fileImage2);
-                $rulesData['image_2'] = "public/imagesProducts/"."$fileImage2";
+                $rulesData['image_2'] = "imagesProducts/"."$fileImage2";
             }
 
             if ($files3 = $request->file('image_3')) {
-                $destinationPath = 'public/imagesProducts/'; // upload path
+                $destinationPath = 'imagesProducts/'; // upload path
                 $fileImage3 = date('YmdHis') . "." . $files3->getClientOriginalExtension();
                 $files3->move($destinationPath, $fileImage3);
-                $rulesData['image_3'] = "public/imagesProducts/"."$fileImage3";
+                $rulesData['image_3'] = "imagesProducts/"."$fileImage3";
             }
 
             if ($files4 = $request->file('image_4')) {
-                $destinationPath = 'public/imagesProducts/'; // upload path
+                $destinationPath = 'imagesProducts/'; // upload path
                 $fileImage4 = date('YmdHis') . "." . $files4->getClientOriginalExtension();
                 $files4->move($destinationPath, $fileImage4);
-                $rulesData['image_4'] = "public/imagesProducts/"."$fileImage4";
+                $rulesData['image_4'] = "imagesProducts/"."$fileImage4";
             }
 
             $rulesData['total_price'] = $request['produsen_price']+$request['commission_price'];
@@ -215,38 +215,38 @@ class ProductsController extends Controller
 
 
         if ($files = $request->file('image')) {
-            $destinationPath = 'public/imagesProducts/'; // upload path
+            $destinationPath = 'imagesProducts/'; // upload path
             $fileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
             $files->move($destinationPath, $fileImage);
-            $rulesData['image'] = "public/imagesProducts/"."$fileImage";
+            $rulesData['image'] = "imagesProducts/"."$fileImage";
         }
 
         if ($files1 = $request->file('image_1')) {
-            $destinationPath = 'public/imagesProducts/'; // upload path
+            $destinationPath = 'imagesProducts/'; // upload path
             $fileImage1 = date('YmdHis') . "." . $files1->getClientOriginalExtension();
             $files1->move($destinationPath, $fileImage1);
-            $rulesData['image_1'] = "public/imagesProducts/"."$fileImage1";
+            $rulesData['image_1'] = "imagesProducts/"."$fileImage1";
         }
 
         if ($files2 = $request->file('image_2')) {
-            $destinationPath = 'public/imagesProducts/'; // upload path
+            $destinationPath = 'imagesProducts/'; // upload path
             $fileImage2 = date('YmdHis') . "." . $files2->getClientOriginalExtension();
             $files2->move($destinationPath, $fileImage2);
-            $rulesData['image_2'] = "public/imagesProducts/"."$fileImage2";
+            $rulesData['image_2'] = "imagesProducts/"."$fileImage2";
         }
 
         if ($files3 = $request->file('image_3')) {
-            $destinationPath = 'public/imagesProducts/'; // upload path
+            $destinationPath = 'imagesProducts/'; // upload path
             $fileImage3 = date('YmdHis') . "." . $files3->getClientOriginalExtension();
             $files3->move($destinationPath, $fileImage3);
-            $rulesData['image_3'] = "public/imagesProducts/"."$fileImage3";
+            $rulesData['image_3'] = "imagesProducts/"."$fileImage3";
         }
 
         if ($files4 = $request->file('image_4')) {
-            $destinationPath = 'public/imagesProducts/'; // upload path
+            $destinationPath = 'imagesProducts/'; // upload path
             $fileImage4 = date('YmdHis') . "." . $files4->getClientOriginalExtension();
             $files4->move($destinationPath, $fileImage4);
-            $rulesData['image_4'] = "public/imagesProducts/"."$fileImage4";
+            $rulesData['image_4'] = "imagesProducts/"."$fileImage4";
         }
         $rulesData['total_price'] = $request['produsen_price']+$request['commission_price'];
 
