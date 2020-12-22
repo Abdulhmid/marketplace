@@ -332,23 +332,23 @@ return [
         //     ],
         // ],
         ['header' => 'Configuration'],
-        [
-            'text'       => 'Sliders',
-            'icon_color' => 'red',
-            'url'        => 'sliders',
-        ],[
-            'text'       => 'Banner',
-            'icon_color' => 'green',
-            'url'        => 'banners',
-        ],[
-            'text'       => 'Menus',
-            'icon_color' => 'blue',
-            'url'        => 'menus',
-        ],[
-            'text'       => 'Configurations',
-            'icon_color' => 'yellow',
-            'url'        => 'configurations',
-        ],
+            [
+                'text'       => 'Sliders',
+                'icon_color' => 'red',
+                'url'        => 'sliders',
+            ],[
+                'text'       => 'Banner',
+                'icon_color' => 'green',
+                'url'        => 'banners',
+            ],[
+                'text'       => 'Menus',
+                'icon_color' => 'blue',
+                'url'        => 'menus',
+            ],[
+                'text'       => 'Configurations',
+                'icon_color' => 'yellow',
+                'url'        => 'configurations',
+            ],
         // [
         //     'text'       => 'warning',
         //     'icon_color' => 'yellow',
