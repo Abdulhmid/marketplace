@@ -106,4 +106,8 @@ class GlobalHelper {
         return $row;
     }
 
+    public static function session(){
+        // return \Auth::user();
+    }
+
 }

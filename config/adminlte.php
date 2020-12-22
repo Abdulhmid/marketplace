@@ -231,68 +231,58 @@ return [
     */
 
     'menu' => [
-        [
-            'text' => 'search',
-            'search' => true,
-            'topnav' => true,
-        ],
-        [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
-        [
-            'text'        => 'Transaction',
-            'url'         => 'transactions',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
-        ],
-        [
-            'text'        => 'Product',
-            'url'         => 'data-products',
-            'icon'        => 'far fa-fw fa-file',
-            'label_color' => 'success',
-        ],
-        ['header' => 'MAIN DATA'],
-        [
-            'text' => 'Produsen',
-            'url'  => 'produsen',
-            'icon' => 'fas fa-address-book',
-        ],[
-            'text' => 'Product Types',
-            'url'  => 'products-types',
-            'icon' => 'fas fa-bookmark',
-        ],[
-            'text' => 'Product Category',
-            'url'  => 'products-category',
-            'icon' => 'fas fa-bookmark',
-        ],[
-            'text' => 'Payments',
-            'url'  => 'payments',
-            'icon' => 'fas fa-credit-card',
-        ],
         // [
-        //     'text' => 'Product',
-        //     'url'  => 'products',
-        //     'icon' => 'fas fa-book',
+        //     'text'        => 'Transaction',
+        //     'url'         => 'transactions',
+        //     'icon'        => 'far fa-fw fa-file',
+        //     'label'       => 4,
+        //     'label_color' => 'success',
+        // ],
+        // [
+        //     'text'        => 'Product',
+        //     'url'         => 'data-products',
+        //     'icon'        => 'far fa-fw fa-file',
+        //     'label_color' => 'success',
+        // ],
+        // ['header' => 'MAIN DATA'],
+        // [
+        //     'text' => 'Produsen',
+        //     'url'  => 'produsen',
+        //     'icon' => 'fas fa-address-book',
+        // ],[
+        //     'text' => 'Product Types',
+        //     'url'  => 'products-types',
+        //     'icon' => 'fas fa-bookmark',
+        // ],[
+        //     'text' => 'Product Category',
+        //     'url'  => 'products-category',
+        //     'icon' => 'fas fa-bookmark',
+        // ],[
+        //     'text' => 'Payments',
+        //     'url'  => 'payments',
+        //     'icon' => 'fas fa-credit-card',
+        // ],
+        // // [
+        // //     'text' => 'Product',
+        // //     'url'  => 'products',
+        // //     'icon' => 'fas fa-book',
+        // // ],
+        // // [
+        // //     'text' => 'Users',
+        // //     'url'  => 'users',
+        // //     'icon' => 'fas fa-user',
+        // // ],
+        // ['header' => 'DATA MASTER'],
+        // [
+        //     'text' => 'Roles',
+        //     'url'  => 'roles',
+        //     'icon' => 'fas fa-users',
         // ],
         // [
         //     'text' => 'Users',
         //     'url'  => 'users',
         //     'icon' => 'fas fa-user',
         // ],
-        ['header' => 'DATA MASTER'],
-        [
-            'text' => 'Roles',
-            'url'  => 'roles',
-            'icon' => 'fas fa-users',
-        ],
-        [
-            'text' => 'Users',
-            'url'  => 'users',
-            'icon' => 'fas fa-user',
-        ],
         // [
         //     'text'    => 'multilevel',
         //     'icon'    => 'fas fa-fw fa-share',
@@ -331,24 +321,24 @@ return [
         //         ],
         //     ],
         // ],
-        ['header' => 'Configuration'],
-            [
-                'text'       => 'Sliders',
-                'icon_color' => 'red',
-                'url'        => 'sliders',
-            ],[
-                'text'       => 'Banner',
-                'icon_color' => 'green',
-                'url'        => 'banners',
-            ],[
-                'text'       => 'Menus',
-                'icon_color' => 'blue',
-                'url'        => 'menus',
-            ],[
-                'text'       => 'Configurations',
-                'icon_color' => 'yellow',
-                'url'        => 'configurations',
-            ],
+        // ['header' => 'Configuration'],
+        //     [
+        //         'text'       => 'Sliders',
+        //         'icon_color' => 'red',
+        //         'url'        => 'sliders',
+        //     ],[
+        //         'text'       => 'Banner',
+        //         'icon_color' => 'green',
+        //         'url'        => 'banners',
+        //     ],[
+        //         'text'       => 'Menus',
+        //         'icon_color' => 'blue',
+        //         'url'        => 'menus',
+        //     ],[
+        //         'text'       => 'Configurations',
+        //         'icon_color' => 'yellow',
+        //         'url'        => 'configurations',
+        //     ],
         // [
         //     'text'       => 'warning',
         //     'icon_color' => 'yellow',

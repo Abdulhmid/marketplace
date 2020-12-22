@@ -12,6 +12,7 @@ use Validator;
 use Hash;
 use Session;
 use App\User;
+use App\Roles;
 
 class LoginController extends Controller
 {
@@ -74,7 +75,6 @@ class LoginController extends Controller
  
         if (Auth::check()) { // true sekalian session field di users nanti bisa dipanggil via Auth
             //Login Success
-            
             return redirect()->route('home');
  
         } else { // false
@@ -84,5 +84,13 @@ class LoginController extends Controller
             return redirect()->route('login');
         }
  
+    }
+
+    public function logout (Request $request) {
+        //logout user
+        auth()->logout();
+
+        // redirect to homepage
+        return redirect('/login');
     }
 }

@@ -1,4 +1,4 @@
-@extends('layouts.dash')
+@extends('layouts.dash-new')
 
 @section('title', 'Add Products Types')
 
