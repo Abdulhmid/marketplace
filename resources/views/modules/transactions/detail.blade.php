@@ -94,7 +94,7 @@
                                 @if(count($row->detail) > 0)
                                     @foreach($row->detail as $value)
                                         <tr>
-                                            <td>{{$value->id}}</td>
+                                            <td>{{GlobalHelper::productName($value->product_id)}}</td>
                                             <td>{{GlobalHelper::idrFormat($value->price)}}</td>
                                             <td>{{$value->qty}}</td>
                                             <td>{{GlobalHelper::idrFormat($value->qty*$value->price)}}</td>
