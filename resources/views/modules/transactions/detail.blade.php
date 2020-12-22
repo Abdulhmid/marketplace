@@ -66,7 +66,7 @@
                             <div class="form-group">
                               <label>Note:</label>
                               <h5> 
-                                {{empty($row->notes)?'-':$row->notes}}
+                                {{empty($row->note)?'-':$row->note}}
                               </h5>
                             </div>
                           </div>

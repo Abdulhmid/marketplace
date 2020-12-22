@@ -166,7 +166,7 @@
                   transaction_code : $('#transCode').val()
                 },
                 success: function (data){
-                    window.location.href = "/transactions/"+{{Request::segment(2)}};
+                    window.location.href = "/transactions/detail/"+{{Request::segment(2)}};
                 },
                 error: function (xhr, textStatus, errorThrown) {
                   console.log("XHR",xhr);
