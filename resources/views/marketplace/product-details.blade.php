@@ -61,7 +61,7 @@
           <h1>{{$product->name}}</h1>
           <input type="hidden" id="nameProduct" value="{{$product->name}}">
           <p class="ps-product__category">
-            <a href="#"> {{$product->category->name}}</a>
+            <a href="#">{{$product->category->name}}</a>
           </p>
           <h3 class="ps-product__price">{{GlobalHelper::idrFormat($product->total_price)}} 
             <del>{{GlobalHelper::idrFormat(GlobalHelper::ratePromo($product->total_price))}}</del>
@@ -131,7 +131,7 @@
                     <i class="ps-icon-heart"></i>
                   </a>
                   <img src="{{url($value->image)}}" alt="">
-                  <a class="ps-shoe__overlay" href="{url('product/detail/'.$value->slug)}}"></a>
+                  <a class="ps-shoe__overlay" href="{{url('products/detail/'.$value->slug)}}"></a>
               </div>
               <div class="ps-shoe__content">
                 <div class="ps-shoe__variants">
@@ -143,7 +143,7 @@
                   </div>
                 </div>
                 <div class="ps-shoe__detail">
-                  <a class="ps-shoe__name" href="{{url('product/detail/'.$value->slug)}}">{{$value->name}}</a>
+                  <a class="ps-shoe__name" href="{{url('products/detail/'.$value->slug)}}">{{$value->name}}</a>
                   <p class="ps-shoe__categories">
                     <a href="#">{{$value->category->name}}</a>
                   </p>

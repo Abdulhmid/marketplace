@@ -78,7 +78,7 @@
   @if(isset($banners))
     @foreach($banners as $value)
       <div class="ps-column">
-        <a class="ps-offer" href="product-listing.html">
+        <a class="ps-offer" href="{{url('products/detail/'.$value->slug)}}">
           <img src="{{$value->image}}" alt="">
         </a>
       </div>
@@ -112,7 +112,7 @@
                     <i class="ps-icon-heart"></i>
                   </a>
                   <img src="{{$value->image}}" alt="">
-                  <a class="ps-shoe__overlay" href="product-detail.html"></a>
+                  <a class="ps-shoe__overlay" href="{{url('products/detail/'.$value->slug)}}"></a>
               </div>
               <div class="ps-shoe__content">
                 <div class="ps-shoe__variants">
