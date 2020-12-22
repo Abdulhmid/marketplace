@@ -55,9 +55,8 @@ class TransactionsController extends Controller
                     })
                     ->addColumn('action', function($row){
 
-                           $editUrl = url('roles/'.$row->id);
-                           $btn = '<a href="'.$editUrl.'" data-toggle="tooltip" data-original-title="Edit" class="btn btn-sm btn-outline-primary py-0">Edit</a>';
-                           $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-sm btn-outline-danger py-0 deleteAction">Delete</a>';
+                           $editUrl = url('transactions/detail/'.$row->id);
+                           $btn = '<a href="'.$editUrl.'" data-toggle="tooltip" data-original-title="detail" class="btn btn-sm btn-outline-primary py-0">Detail</a>';
                             return $btn;
                     })
                     ->rawColumns(['action','product'])
@@ -65,6 +64,23 @@ class TransactionsController extends Controller
         }
       
         return view('modules.transactions.index');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function detail(
+        Request $request,
+        Transactions $model,
+        $id
+    )
+    {
+        $row = $model->with('detail')->where('id', $id)->first();
+        return view('modules.transactions.detail',[
+            'row' => $row
+        ]);
     }
 
     public function meesage(string $name = null, string $message = null)

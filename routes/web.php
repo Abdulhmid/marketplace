@@ -171,5 +171,7 @@ Route::get('configurations/{id}',
 // Transaction
 Route::get('transactions', 
 	['uses'=>'TransactionsController@index', 'as'=>'transactions.index']);
+Route::get('transactions/detail/{id}', 
+	['uses'=>'TransactionsController@detail', 'as'=>'transactions.detail']);
 
 
