@@ -107,7 +107,8 @@ class GlobalHelper {
     }
 
     public static function session(){
-        // return \Auth::user();
+        $role = App\Roles::where('id',\Auth::user()->role_id)->first();
+        return $role->label;
     }
 
 }
