@@ -55,10 +55,47 @@
               </select>
             </div>
             <div class="col-md-12">
+              <label>Pilih Ekspedisi<span>*</span></label>
+              <select class="form-control" id="ekpedisi" name="ekpedisi">
+                  @foreach(GlobalHelper::payments() as $value)
+                    <option value="{{$value->id}}">{{$value->name}}</option>
+                  @endforeach                  
+              </select>
+            </div>
+            <div class="col-md-12">
               <label>Address<span>*</span>
               </label>
               <textarea class="form-control" id="address" rows="5" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
             </div>
+          </div>
+          <div class="clearfix"></div>
+          <h3>Pilih Ekspedisi</h3>
+          <hr>
+          <div class="form-group">
+            <div class="col-md-6">
+                <label>Pilih Ekspedisi<span>*</span></label>
+                <select class="form-control" id="ekpedisi" name="ekpedisi">
+                    @foreach(GlobalHelper::payments() as $value)
+                      <option value="{{$value->id}}">{{$value->name}}</option>
+                    @endforeach                  
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label>Width<span>*</span></label>
+                <select class="form-control" id="ekpedisi" name="ekpedisi">
+                    @foreach(GlobalHelper::payments() as $value)
+                      <option value="{{$value->id}}">{{$value->name}}</option>
+                    @endforeach                  
+                </select>
+            </div>
+            <!-- <div class="col-md-12">
+              <label>Width<span>*</span></label>
+              <select class="form-control" id="ekpedisi" name="ekpedisi">
+                  @foreach(GlobalHelper::payments() as $value)
+                    <option value="{{$value->id}}">{{$value->name}}</option>
+                  @endforeach                  
+              </select> 
+            </div> -->
           </div>
       </div>
       <div class="clearfix"></div>
