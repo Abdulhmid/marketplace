@@ -173,5 +173,9 @@ Route::get('transactions',
 	['uses'=>'TransactionsController@index', 'as'=>'transactions.index']);
 Route::get('transactions/detail/{id}', 
 	['uses'=>'TransactionsController@detail', 'as'=>'transactions.detail']);
+Route::get('transactions/{id}', 
+	['uses'=>'TransactionsController@edit', 'as'=>'transactions.edit']);
+Route::post('transactions', 
+	['uses'=>'TransactionsController@storeEdit', 'as'=>'transactions.storeEdit']);
 
 

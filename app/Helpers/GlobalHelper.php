@@ -106,6 +106,11 @@ class GlobalHelper {
         return $row;
     }
 
+    public static function paymentName($id) {
+        $row = App\Payments::select('id','name')->where('id',$id)->first()->name;
+        return $row;
+    }
+
     public static function session(){
         $role = App\Roles::where('id',\Auth::user()->role_id)->first();
         return $role->label;

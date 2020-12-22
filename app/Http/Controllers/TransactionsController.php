@@ -83,6 +83,49 @@ class TransactionsController extends Controller
         ]);
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(
+        Transactions $model,
+        $id
+    )
+    {
+        $row = $model->with('detail')->where('id', $id)->first();
+        return view('modules.transactions.edit',[
+            'row' => $row
+        ]);
+    }
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeEdit(
+        Transactions $model, 
+        Request $request
+    )
+    {
+        $rulesData['total_paid'] = $request['totalPrice'];
+        $rulesData['note'] = $request['note'];
+        $rulesData['updated_by'] = 1;
+        $rulesData['updated_at'] = \Carbon\Carbon::now();
+        $model->where('transaction_code',$request['transaction_code'])
+            ->update($rulesData);
+
+        return response()->json([
+            'data'  => $request->all(),
+            'response_code' => 200,
+            'message' => 'Success'
+        ], 200);
+    }
+
     public function meesage(string $name = null, string $message = null)
     {
         return session()->flash($name,$message);

@@ -16,7 +16,7 @@
                     <span></span>
                     <div class="card-header-right">
                         <a href="{{url('transactions')}}" class="btn btn-default btn-round"><i class="icofont icofont-ui-add" style="color: #fff;"></i> Back</a>
-                        <a href="{{url('transactions/'.$row->id)}}" class="btn btn-warning btn-round"><i class="icofont icofont-ui-add" style="color: #fff;"></i> Edit</a>
+                        <!-- <a href="{{url('transactions/'.$row->id)}}" class="btn btn-warning btn-round"><i class="icofont icofont-ui-add" style="color: #fff;"></i> Edit</a> -->
                     </div>
               </div>
               <div class="card-body">
@@ -30,6 +30,7 @@
                           <div class="form-group">
                             <label>Kode Transaksi:</label>
                             <h5>{{$row->transaction_code}}</h5>
+                            <input type="hidden" value="{{$row->transaction_code}}" id="transCode">
                           </div>
                           <div class="form-group">
                             <label>Tipe Pembayaran:</label>
@@ -53,9 +54,9 @@
                           <div class="form-group">
                             <label>Action:</label>
                                 <p>
-                                    <button type="button" class="btn bg-maroon margin">Approve</button>
-                                    <button type="button" class="btn bg-purple margin">Reject</button>
-                                    <button type="button" class="btn bg-orange margin">Cancel</button>
+                                    <button readonly="true" type="button" class="btn bg-maroon margin">Approve</button>
+                                    <button readonly="true" type="button" class="btn bg-purple margin">Reject</button>
+                                    <button readonly="true" type="button" class="btn bg-orange margin">Cancel</button>
                                 </p>
                           </div>
                           <div class="form-group">
@@ -66,7 +67,7 @@
                             <div class="form-group">
                               <label>Note:</label>
                               <h5> 
-                                {{empty($row->notes)?'-':$row->notes}}
+                                <textarea class="form-control" name="note" id="note">{{$row->note}}</textarea>
                               </h5>
                             </div>
                           </div>
@@ -109,11 +110,16 @@
                                     <th colspan="3">Total Bayar</th>
                                     <th>
                                         @if(!empty($row->total_paid))
-                                            Rp. {{GlobalHelper::idrFormat($row->total_paid)}}
+                                            <input type="text" class="form-control" name="total_paid" id="total_paid" value="{{$row->total_paid}}">
                                         @else
                                             0
                                         @endif
 
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="4">
+                                        <button id="edit-action" class="btn btn-warning">Proses</button>
                                     </th>
                                 </tr>
                             </tfoot>
@@ -125,7 +131,6 @@
             <!-- /.card -->
         </div>
     </div>
-
 </div>
 @stop
 @section('css')
@@ -149,6 +154,27 @@
               position : 'top-right'       
             })
         @endif
+
+        $('#edit-action').click(function(){
+            $.ajax({
+                url: '{{url("transactions")}}',
+                type: 'POST',
+                data: {
+                  _token: "{{ csrf_token() }}", 
+                  note : $('#note').val(),
+                  totalPrice : $('#total_paid').val(),
+                  transaction_code : $('#transCode').val()
+                },
+                success: function (data){
+                    window.location.href = "/transactions/"+{{Request::segment(2)}};
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                  console.log("XHR",xhr);
+                  console.log("status",textStatus);
+                  console.log("Error in",errorThrown);
+                }
+            });
+        });
     });
 </script>
 @stop
