@@ -225,9 +225,6 @@
       }else{
         var checkoutsData = JSON.parse("[]");
       }
-
-      
-      console.log(checkoutsData);
     
       $('#total-checkout').html(
         checkoutsData.length
@@ -305,6 +302,19 @@
         $('#totalItemPriceField').val(newPrice);
 
       });
+
+      // Buy from Checkout
+      $('a[href="#checkoutProses"]').click(function(){
+        console.log('dsddd');   
+        if (checkoutsData.length > 0) {
+          var itemBuy = JSON.parse(localStorage.getItem("checkouts"));  
+          localStorage.setItem('buyFromCheckout','true');
+          localStorage.setItem("itemBuy", JSON.stringify(itemBuy));
+          window.location.href = "/products/data/transactions";
+        }else{
+          var itemBuy = JSON.parse("[]");
+        }
+      }); 
 
 
     });

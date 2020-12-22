@@ -183,7 +183,6 @@
     }
 
     $('#buy-action').click(function(){
-      console.log(checkoutsData); 
       $.ajax({
         url: '{{url("api/v1/data/buy")}}',
         type: 'POST',
@@ -202,8 +201,11 @@
           totalPrice : $('#totalPriceSend').val()
         },
         success: function (data){
-            console.log(data);
             localStorage.removeItem('itemBuy');
+            var buyFromCheck = localStorage.getItem("buyFromCheckout");
+            if (buyFromCheck=="true") {
+              localStorage.removeItem('checkouts');
+            }
             window.location.href = "/products/transactions/success/"+data.data;
         },
         error: function (xhr, textStatus, errorThrown) {

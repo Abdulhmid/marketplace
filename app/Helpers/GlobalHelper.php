@@ -111,4 +111,9 @@ class GlobalHelper {
         return $role->label;
     }
 
+    public static function transactionCount($status){
+        $data = App\Transactions::whereIn('status',$status)->select('id','status')->count();
+        return $data;
+    }
+
 }
