@@ -305,7 +305,11 @@
 
       // Buy from Checkout
       $('a[href="#checkoutProses"]').click(function(){
-        console.log('dsddd');   
+        if ("checkouts" in localStorage) {
+          var checkoutsData = JSON.parse(localStorage.getItem("checkouts"));
+        }else{
+          var checkoutsData = JSON.parse("[]");
+        }
         if (checkoutsData.length > 0) {
           var itemBuy = JSON.parse(localStorage.getItem("checkouts"));  
           localStorage.setItem('buyFromCheckout','true');
