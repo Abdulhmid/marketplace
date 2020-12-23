@@ -60,6 +60,7 @@ class GeneralController
     )
     {
         $codeTrans = \GlobalHelper::generateCode();
+        $dataShipping = explode("|", $request['courier_service']);
         $model->create([
             'transaction_code' =>$codeTrans,
             'customers' => 0,
@@ -74,13 +75,14 @@ class GeneralController
             'note' => empty($request['notes'])?'-':$request['notes'],
             'payment_id' => $request['payment'],
             'status' => 0,
+            'weight' => $request['weight'],
             'created_by' => 0,
             'created_at' => \Carbon\Carbon::now(),
             'updated_by' => 0,
             'updated_at' => \Carbon\Carbon::now(),
             'courier' => $request['courier'],
-            'courier_service' => $request['courier_service'],
-            'shipping_fee' =>!empty($request['shipping_fee'])?$request['shipping_fee']:0,
+            'courier_service' => $dataShipping[1],
+            'shipping_fee' =>$dataShipping[0],
             'unique_fee' =>!empty($request['unique_fee'])?$request['unique_fee']:0
         ]);
 
@@ -129,6 +131,29 @@ class GeneralController
 
         return response()->json([
             'data'  => $row,
+            'response_code' => 200,
+            'message' => 'Success'
+        ], 200);
+    }
+
+    /**
+     * Display a login manual account kit.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function cekOngkir(
+        Request $request
+    ){
+        $originData = explode(",", $request['origin']);
+        $originUsed = $originData[0];
+
+        return response()->json([
+            'data'  => \RajaOngkir::cekOngkir(
+                $request['courier'],
+                $request['origin'],
+                $request['destination'],
+                $request['weight']
+            ),
             'response_code' => 200,
             'message' => 'Success'
         ], 200);

@@ -21,7 +21,7 @@ class EkspedisiSeeder extends Seeder
 	          'status' => 1
 	        ],[
 	          'name' => "POS Indonesia",
-	          'label' => "pos1",
+	          'label' => "pos",
 	          'description' => "This description for pos indonesia",
 	          'created_at' => now(),
 	          'updated_at' => now(),

@@ -126,4 +126,27 @@ class GlobalHelper {
         return $row;
     }
 
+    public static function transUnique() {
+        $digits = 3;
+        return str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
+    }
+
+    public static function wordingStatusTransaksi($status) {
+        if ($status=0) {
+            return "Baru";
+        }elseif ($status=1) {
+            return "Pembayaran Lunas";
+        }elseif($status=2){
+            return "Pembayaran Terkonfirmasi";
+        }elseif($status=3){
+            return "Barang di proses";
+        }elseif($status=4){
+            return "Barang dikirim";
+        }elseif($status=5){
+            return "Barang Sampai Tujuan";
+        }elseif($status=6){
+            return "Cancel";
+        }
+    }
+
 }

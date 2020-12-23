@@ -42,6 +42,9 @@ class TransactionsController extends Controller
                                 return "Konfirmasi Pembayaran";
                             }
                     })
+                    ->editColumn('total_paid', function($row){
+                        return \GlobalHelper::idrFormat($row->total_paid);
+                    })
                     ->editColumn('updated_at', function($row){
                             return $row->updated_at->format('d/F/Y')
                                     .' by '.ucfirst($row->updated_by);

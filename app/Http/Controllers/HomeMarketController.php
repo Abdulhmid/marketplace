@@ -206,9 +206,11 @@ class HomeMarketController extends Controller
         Request $request
     )
     {
+        $uniqueTrans = \GlobalHelper::transUnique();
         return view('marketplace.buy',
             [
-                'data'  => 'data'
+                'data'  => 'data',
+                'uniqueTrans'  => $uniqueTrans
             ]
         );
     }

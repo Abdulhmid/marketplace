@@ -83,6 +83,7 @@
             <div class="col-md-4">
                 <label>Pilih Ekspedisi<span>*</span></label>
                 <select class="form-control" id="courier" name="courier">
+                    <option value="">-- Pilih Ekspedisi --</option>
                     @foreach(GlobalHelper::ekspedisi() as $value)
                       <option value="{{$value->label}}">{{$value->name}}</option>
                     @endforeach                  
@@ -90,14 +91,12 @@
             </div>
             <div class="col-md-4">
                 <label>Weight<span>(Gram)</span></label>
-                <input type="number" min="0" name="weight" class="form-control"  readonly>
+                <input type="number" min="0" id="weight" name="weight" class="form-control"  readonly>
             </div>
             <div class="col-md-4">
-                <label>Pilih Service<span>*</span></label>
+                <label>Pilih Service<span id="search-service">*</span></label>
                 <select class="form-control" id="courier_service" name="courier_service">
-                    @foreach(GlobalHelper::ekspedisi() as $value)
-                      <option value="{{$value->label}}">{{$value->name}}</option>
-                    @endforeach                  
+                    <option value="">-- Pilih Service --</option>                  
                 </select>
             </div>
           </div>
@@ -110,11 +109,11 @@
           <thead>
             <tr>
               <th>Products</th>
+              <input type="hidden" id="locationProduct" value="">
               <th>Price</th>
               <th>Quantity</th>
-              <th>Berat</th>
+              <th>Berat (Gram)</th>
               <th>Total</th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -137,7 +136,7 @@
               </h4>
               <h4>Nominal Unik Transaksi  
                 <span style="float: right;" id="uniqeTrans"> - </span>
-                <input type="hidden" name="unique_fee" id="unique_fee" value="">
+                <input type="hidden" name="unique_fee" id="unique_fee" value="{{$uniqueTrans}}">
               </h4>
               <h4>Price 
                 <span style="float: right;" id="itemPrice"> - </span>
@@ -196,11 +195,14 @@
       var checkoutsData = JSON.parse("[]");
     }
     if (checkoutsData.length > 0) {
+      var locationArray =[];
       var dTrow ='';
       var totalPrice = 0;
+      var totalWeight = 0;
       var i = 0;
       $.each(checkoutsData, function(k, v) {
         totalPrice+=v.price*v.qty;
+        totalWeight+=v.weight*v.qty;
           dTrow = '<tr>'+
                     '<td>'+
                       '<a class="ps-product__preview" href="#">'+
@@ -210,25 +212,24 @@
                     '</td>'+
                     '<td>'+idrFormat(v.price)+'</td>'+
                     '<td>'+
-                      '<div class="form-group--number">'+
-                        '<button class="minus"><span>-</span></button>'+
-                        '<input class="form-control" type="text" value="'+v.qty+'">'+
-                        '<button class="plus"><span>+</span></button>'+
-                      '</div>'+
+                      v.qty+
                     '</td>'+
                     '<td>'+v.weight*v.qty+'</td>'+
                     '<td>'+idrFormat(v.price*v.qty)+'</td>'+
-                    '<td>'+
-                      '<div class="ps-remove"></div>'+
-                    '</td>'+
                   '</tr>';
           $("#table-buy tbody").append(dTrow);
+          locationArray.push(v.productLocation);
           i++;
+
       });  
-      $('#totalPrice').html(idrFormat(totalPrice));
-      $('#totalPriceSend').val(totalPrice);
+      totalPriceNew = parseInt(totalPrice) + parseInt("{{$uniqueTrans}}");
+
+      $('#totalPrice').html(idrFormat(totalPriceNew));
+      $('#totalPriceSend').val(totalPriceNew);
+      $('#locationProduct').val(locationArray);
+      $('#weight').val(totalWeight);
       $('#itemPrice').html(idrFormat(totalPrice));
-      $('#uniqeTrans').html(idrFormat(0));
+      $('#uniqeTrans').html("{{$uniqueTrans}}");
       $('#ongkir').html(idrFormat(0));
     }else{
       $("#table-buy tbody").append('<tr><td colspan="5"></td></tr>');
@@ -243,6 +244,7 @@
           dataProduct : checkoutsData,
           customerId : 0,
           email : $('#email').val(),
+          weight : $('#weight').val(),
           courier : $('#courier').val(),
           courier_service : $('#courier_service').val(),
           shipping_fee : $('#shipping_fee').val(),
@@ -273,6 +275,39 @@
       });
     }); 
 
+    $("select#courier").change(function () {
+      $.get("{!! url('/api/v1/data/cek-ongkir') !!}", {
+              courier : $("select#courier").val(),
+              origin : $("#locationProduct").val(),
+              destination : $("select#location").val().split("-")[0],
+              weight : $('#weight').val()
+          },
+          function (data) {
+              $("select#courier_service").empty();
+              $("select#courier_service").append($("<option value=''></option>")
+                .attr("value", "")
+                .text("- Pilih Service -"));
+
+              $.each(data, function (key, value) {
+                  console.log(value);
+                  $.each(value, function (key2, value2) {
+                    var valueStore = value2.cost[0].value+"|"+value2.description+"-"+value2.cost[0].etd+" hari";
+                    $('select#courier_service')
+                            .append($("<option></option>")
+                                    .attr("value", valueStore)
+                                    .text(value2.description+"-"+value2.cost[0].etd+" hari "+'( '+idrFormat(value2.cost[0].value)+' )'));
+                  });
+              });
+          });
+    });
+    $("select#courier_service").change(function () {
+      var ongkir = $("select#courier_service").val().split("|")[0];
+      var totalPrice = parseInt(ongkir)+parseInt($('#totalPriceSend').val());
+      $('#ongkir').html(idrFormat(ongkir));
+      $('#totalPrice').html(idrFormat(totalPrice));
+      $('#totalPriceSend').val(totalPrice);
+    });
+
     // Province
     $("select#province").change(function () {
         $.get("{!! url('/api/v1/data/data-general') !!}", {
@@ -283,7 +318,7 @@
                 $("select#cities").empty();
                 $("select#cities").append($("<option value=''></option>")
                   .attr("value", "")
-                  .text("- Pilih Cities"));
+                  .text("Loading..."));
 
                 $.each(data.data, function (key, value) {
                     $('select#cities')
@@ -291,6 +326,9 @@
                                     .attr("value", value.id)
                                     .text(value.name));
                 });
+                $("select#cities").prepend($("<option value=''></option>")
+                  .attr("value", "")
+                  .text("-- Pilih Service --"));
             });
     });
 

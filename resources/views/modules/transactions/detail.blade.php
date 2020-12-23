@@ -29,7 +29,11 @@
                           <div class="box-body">
                             <div class="form-group">
                               <label>Kode Transaksi:</label>
-                              <h5>{{$row->transaction_code}}</h5>
+                              <h5>{{$row->transaction_code}} - 
+                                <span class="label label-primary" style="isplay: inline;padding: .2em .6em .3em;font-size: 75%;font-weight: 700;line-height: 1;color: #fff;text-align: center;white-space: nowrap;vertical-align: baseline;border-radius: .25em;background-color: #f0ad4e;">
+                                  {{GlobalHelper::wordingStatusTransaksi($row->status)}}
+                                </span>
+                              </h5>
                             </div>
                             <div class="form-group">
                               <label>Tipe Pembayaran:</label>
@@ -161,9 +165,7 @@
                                           @if(!empty($row->total_paid))
                                               Rp. {{
                                                     GlobalHelper::idrFormat(
-                                                      $row->total_paid+
-                                                      $row->unique_fee+
-                                                      $row->shipping_fee
+                                                      $row->total_paid
                                                     )
                                                   }}
                                           @else
