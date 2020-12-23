@@ -51,8 +51,35 @@
                 <div class="col-lg-6 col-md-8 col-sm-6 col-xs-12 ">
                   <p>Jl. Mangkubumi Yogyakarta -  Hotline: 804-377-3580 - 804-399-3580</p>
                 </div>
+                <!-- <div class="col-lg-3 ">
+                  <div class="header__actions" style="float: left;">
+                    <a href="#">Tracking</a>
+                  </div>
+                </div> -->
                 <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 ">
-                  <div class="header__actions"><a href="#">Login & Regiser</a>
+                  <div class="header__actions">
+                    <div class="btn-group ps-dropdown">
+                      <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tracking
+                        <i class="fa fa-angle-down"></i>
+                      </a>
+                      <ul class="dropdown-menu" style="height: 115px;width: 236px;padding: 6px;">
+                        <div class="row">
+                          <div class="form-group">
+                            <div class="col-md-12">
+                              <input type="text" class="form-control" id="tracking_code" placeholder="Tulis Kode Transaksi" name="">
+                            </div>
+                            <div class="clearfix"></div>
+                            <br/>
+                            <div class="col-md-12">
+                              <div class="col text-center">
+                                <button class="btn btn-primary" id="actionTrack">Tracking</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </ul>
+                    </div>
+                    <a href="#">Login & Regiser</a>
                   </div>
                 </div>
           </div>
@@ -319,6 +346,12 @@
           var itemBuy = JSON.parse("[]");
         }
       }); 
+
+      // Buy from Checkout
+      $('#actionTrack').click(function(){
+        var transCode = $('#tracking_code').val();
+        window.location.href = "/products/transactions/success/"+transCode;
+      });
 
 
     });

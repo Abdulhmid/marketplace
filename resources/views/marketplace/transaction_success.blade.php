@@ -30,6 +30,14 @@
                   <th width="35%">No Rekening</th>
                   <th width="70%">{{GlobalHelper::config('bank_rek')}}</th>
               </tr>
+              <tr>
+                  <th width="35%">Total Bayar</th>
+                  @if(isset($row))
+                    <th width="70%">Rp {{GlobalHelper::idrFormat($row->total_paid)}}</th>
+                  @else
+                    <th width="70%">Rp {{GlobalHelper::idrFormat(0)}}</th>
+                  @endif
+              </tr>
           </thead>
           <tbody>
           </tbody>

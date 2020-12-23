@@ -12,6 +12,7 @@ use App\Banners;
 use App\Produsen;
 use App\Menus;
 use App\Checkouts;
+use App\Transactions;
 use Auth;
 
 class HomeMarketController extends Controller
@@ -225,10 +226,12 @@ class HomeMarketController extends Controller
         $code
     )
     {
+        $row = Transactions::where('transaction_code',$code)->first();
         return view('marketplace.transaction_success',
             [
                 'data'  => $request->all(),
-                'code'  => $code
+                'code'  => $code,
+                'row'  => $row
             ]
         );
     }
