@@ -79,7 +79,7 @@
                         </div>
                       </ul>
                     </div>
-                    <a href="#">Login & Regiser</a>
+                    <a href="{{url('/gologin')}}">Login & Regiser</a>
                   </div>
                 </div>
           </div>
