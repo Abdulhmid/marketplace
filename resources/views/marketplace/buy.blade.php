@@ -72,7 +72,7 @@
           <h3>Pilih Ekspedisi</h3>
           <hr>
           <div class="form-group">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label>Pilih Ekspedisi<span>*</span></label>
                 <select class="form-control" id="ekpedisi" name="ekpedisi">
                     @foreach(GlobalHelper::ekspedisi() as $value)
@@ -80,13 +80,17 @@
                     @endforeach                  
                 </select>
             </div>
-            <div class="col-md-6">
-                <label>Width<span>*</span></label>
+            <div class="col-md-4">
+                <label>Tujuan<span>*</span></label>
                 <select class="form-control" id="ekpedisi" name="ekpedisi">
-                    @foreach(GlobalHelper::payments() as $value)
-                      <option value="{{$value->id}}">{{$value->name}}</option>
+                    @foreach(GlobalHelper::ekspedisi() as $value)
+                      <option value="{{$value->label}}">{{$value->name}}</option>
                     @endforeach                  
                 </select>
+            </div>
+            <div class="col-md-4">
+                <label>Weight<span>(Gram)</span></label>
+                <input type="number" min="0" name="weight" class="form-control"  readonly>
             </div>
             <!-- <div class="col-md-12">
               <label>Width<span>*</span></label>

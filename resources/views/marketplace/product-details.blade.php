@@ -83,9 +83,9 @@
             <div class="form-group">
               <input class="form-control" type="number" id="qty" name="qty" value="1">
             </div>
-            <div class="form-group">
+            <div class="form-group" style="display: none;">
               <label>Catatan Produk</label>
-              <textarea class="form-control" id="note" name="note" style="width: 345px;">
+              <textarea class="form-control" id="note" value="-" name="note" style="width: 345px;">-
               </textarea>
             </div>
           </div>
