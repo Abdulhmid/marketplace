@@ -75,8 +75,8 @@
             <div class="col-md-6">
                 <label>Pilih Ekspedisi<span>*</span></label>
                 <select class="form-control" id="ekpedisi" name="ekpedisi">
-                    @foreach(GlobalHelper::payments() as $value)
-                      <option value="{{$value->id}}">{{$value->name}}</option>
+                    @foreach(GlobalHelper::ekspedisi() as $value)
+                      <option value="{{$value->label}}">{{$value->name}}</option>
                     @endforeach                  
                 </select>
             </div>

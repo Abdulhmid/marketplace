@@ -121,4 +121,9 @@ class GlobalHelper {
         return $data;
     }
 
+    public static function ekspedisi() {
+        $row = App\Ekspedisi::select('id','name','label')->get();
+        return $row;
+    }
+
 }
