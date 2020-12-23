@@ -19,6 +19,28 @@
                 <label>Phone</label>
                 <input class="form-control" name="phone" id="phone" type="text"/>
             </div>
+
+            <div class="col-md-6">
+                <label>Pilih Lokasi</label>
+                <select class="form-control" required="" id="location" name="location">
+                  <option value="">-- Pilih Lokasi --</option>
+                  @foreach(RajaOngkir::cities() as $value)
+                    <option value="{{ $value->city_id }}-{{ $value->province_id }}">
+                      {{ $value->city_name }} - {{$value->province}}
+                    </option>
+                  @endforeach
+                </select>
+            </div>
+            <div class="col-md-6">
+              <label>Cara Pembayaran<span>*</span></label>
+              <select class="form-control" id="payment" name="payment">
+                  @foreach(GlobalHelper::payments() as $value)
+                    <option value="{{$value->id}}">{{$value->name}}</option>
+                  @endforeach                  
+              </select>
+            </div>
+
+            <div style="display: none;">
             <div class="col-md-3">
                 <label>Provinsi</label>
                 <select class="form-control" id="province">
@@ -46,22 +68,8 @@
                   <option value="-">-</option>                  
                 </select>
             </div>
-            <div class="col-md-12">
-              <label>Cara Pembayaran<span>*</span></label>
-              <select class="form-control" id="payment" name="payment">
-                  @foreach(GlobalHelper::payments() as $value)
-                    <option value="{{$value->id}}">{{$value->name}}</option>
-                  @endforeach                  
-              </select>
             </div>
-            <div class="col-md-12">
-              <label>Pilih Ekspedisi<span>*</span></label>
-              <select class="form-control" id="ekpedisi" name="ekpedisi">
-                  @foreach(GlobalHelper::payments() as $value)
-                    <option value="{{$value->id}}">{{$value->name}}</option>
-                  @endforeach                  
-              </select>
-            </div>
+
             <div class="col-md-12">
               <label>Address<span>*</span>
               </label>
@@ -74,15 +82,7 @@
           <div class="form-group">
             <div class="col-md-4">
                 <label>Pilih Ekspedisi<span>*</span></label>
-                <select class="form-control" id="ekpedisi" name="ekpedisi">
-                    @foreach(GlobalHelper::ekspedisi() as $value)
-                      <option value="{{$value->label}}">{{$value->name}}</option>
-                    @endforeach                  
-                </select>
-            </div>
-            <div class="col-md-4">
-                <label>Tujuan<span>*</span></label>
-                <select class="form-control" id="ekpedisi" name="ekpedisi">
+                <select class="form-control" id="courier" name="courier">
                     @foreach(GlobalHelper::ekspedisi() as $value)
                       <option value="{{$value->label}}">{{$value->name}}</option>
                     @endforeach                  
@@ -92,14 +92,14 @@
                 <label>Weight<span>(Gram)</span></label>
                 <input type="number" min="0" name="weight" class="form-control"  readonly>
             </div>
-            <!-- <div class="col-md-12">
-              <label>Width<span>*</span></label>
-              <select class="form-control" id="ekpedisi" name="ekpedisi">
-                  @foreach(GlobalHelper::payments() as $value)
-                    <option value="{{$value->id}}">{{$value->name}}</option>
-                  @endforeach                  
-              </select> 
-            </div> -->
+            <div class="col-md-4">
+                <label>Pilih Service<span>*</span></label>
+                <select class="form-control" id="courier_service" name="courier_service">
+                    @foreach(GlobalHelper::ekspedisi() as $value)
+                      <option value="{{$value->label}}">{{$value->name}}</option>
+                    @endforeach                  
+                </select>
+            </div>
           </div>
       </div>
       <div class="clearfix"></div>
@@ -112,6 +112,7 @@
               <th>Products</th>
               <th>Price</th>
               <th>Quantity</th>
+              <th>Berat</th>
               <th>Total</th>
               <th></th>
             </tr>
@@ -132,9 +133,11 @@
             <div class="ps-cart__total">
               <h4>Biaya Ongkir 
                 <span style="float: right;" id="ongkir"> - </span>
+                <input type="hidden" name="shipping_fee" id="shipping_fee" value="">
               </h4>
               <h4>Nominal Unik Transaksi  
                 <span style="float: right;" id="uniqeTrans"> - </span>
+                <input type="hidden" name="unique_fee" id="unique_fee" value="">
               </h4>
               <h4>Price 
                 <span style="float: right;" id="itemPrice"> - </span>
@@ -169,16 +172,23 @@
 
 @stop
 @section('css')
-
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 <style type="text/css">
-
+.select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    height: 47px;
+}
 </style>
 
 @stop
 
 @section('js')
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
+    $('#location').select2();
     // First Load
     if ("itemBuy" in localStorage) {
       var checkoutsData = JSON.parse(localStorage.getItem("itemBuy"));
@@ -206,6 +216,7 @@
                         '<button class="plus"><span>+</span></button>'+
                       '</div>'+
                     '</td>'+
+                    '<td>'+v.weight*v.qty+'</td>'+
                     '<td>'+idrFormat(v.price*v.qty)+'</td>'+
                     '<td>'+
                       '<div class="ps-remove"></div>'+
@@ -232,7 +243,12 @@
           dataProduct : checkoutsData,
           customerId : 0,
           email : $('#email').val(),
+          courier : $('#courier').val(),
+          courier_service : $('#courier_service').val(),
+          shipping_fee : $('#shipping_fee').val(),
+          unique_fee : $('#unique_fee').val(),
           phone : $('#phone').val(),
+          location : $('#location').val(),
           city : $('#city').val(),
           district : $('#district').val(),
           villages : $('#villages').val(),

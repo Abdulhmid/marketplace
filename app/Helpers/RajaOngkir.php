@@ -3,7 +3,7 @@
 class RajaOngkir {
 
     public static function cities() {
-    	$row = App\Menus::where('position',$position)->get();
+    	$row = App\CitiesRajaOngkir::select('*')->get();
         return $row;
     }
 

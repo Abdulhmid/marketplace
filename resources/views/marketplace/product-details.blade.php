@@ -61,7 +61,8 @@
           <h1>{{$product->name}}</h1>
           <input type="hidden" id="nameProduct" value="{{$product->name}}">
           <p class="ps-product__category">
-            <a href="#">{{$product->category->name}}</a>
+            <a href="#">{{$product->category->name}}( Berat {{$product->weight}} Gram)</a>
+            <input type="hidden" name="weight" id="weight" value="{{$product->weight}}">
           </p>
           <h3 class="ps-product__price">{{GlobalHelper::idrFormat($product->total_price)}} 
             <del>{{GlobalHelper::idrFormat(GlobalHelper::ratePromo($product->total_price))}}</del>
@@ -210,6 +211,7 @@
         idProduct: $('#product-id').val(),
         nameProduct: $('#nameProduct').val(),
         price: $('#price').val(),
+        weight: $('#weight').val(),
         qty: $('#qty').val(),
         variantId: $('#variantId').val().split("-")[0],
         variantName: $('#variantId').val().split("-")[1],
@@ -240,6 +242,7 @@
         idProduct: $('#product-id').val(),
         nameProduct: $('#nameProduct').val(),
         price: $('#price').val(),
+        weight: $('#weight').val(),
         qty: $('#qty').val(),
         variantId: $('#variantId').val().split("-")[0],
         variantName: $('#variantId').val().split("-")[1],

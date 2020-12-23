@@ -74,7 +74,34 @@
                         </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12" style="border-bottom: 2px solid rgba(0,0,0,.125);margin-top: 8px;">
+                        <div class="box box-info">
+                          <div class="box-header">
+                            <h3 class="box-title">Pengiriman</h3>
+                          </div>
+                          <table id="mytable" class="table table-bordered table-hover">
+                              <thead>
+                                  <tr>
+                                      <th>Kurir Ekspedisi </th>
+                                      <th>Service Ekspedisi</th>
+                                      <th>Weight</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>{{strtoupper($row->courier)}}</td>
+                                  <td>{{$row->courier_service}}</td>
+                                  <td>{{$row->weight}}</td>
+                                </tr>
+                              </tbody>
+                          </table>
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="margin-top: 8px;">
+                      <div class="box box-info">
+                        <div class="box-header">
+                          <h3 class="box-title">Daftar Produk</h3>
+                        </div>
                         <table id="mytable" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
@@ -107,10 +134,33 @@
                             </tbody>
                             <tfoot>
                                 <tr>
+                                    <th colspan="3">Biaya Ongkir</th>
+                                    <th>
+                                        @if(!empty($row->shipping_fee))
+                                            Rp. {{GlobalHelper::idrFormat($row->shipping_fee)}}
+                                        @else
+                                            Rp. 0
+                                        @endif
+
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="3">Biaya Unik</th>
+                                    <th>
+                                        @if(!empty($row->unique_fee))
+                                            Rp. {{GlobalHelper::idrFormat($row->unique_fee)}}
+                                        @else
+                                            Rp. 0
+                                        @endif
+
+                                    </th>
+                                </tr>
+                                <tr>
                                     <th colspan="3">Total Bayar</th>
                                     <th>
                                         @if(!empty($row->total_paid))
-                                            <input type="text" class="form-control" name="total_paid" id="total_paid" value="{{$row->total_paid}}">
+                                            <input type="text" class="form-control" name="total_paid" id="total_paid" value="{{$row->total_paid+$row->unique_fee+
+                                                      $row->shipping_fee}}">
                                         @else
                                             0
                                         @endif
@@ -124,6 +174,7 @@
                                 </tr>
                             </tfoot>
                         </table>
+                      </div>
                     </div>
                 </div>
               </div>

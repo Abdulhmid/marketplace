@@ -30,9 +30,9 @@
                                     <th>Type</th>
                                     <th>Category</th>
                                     <th>Price</th>
+                                    <th>Berat</th>
                                     <th>Variant</th>
                                     <th>Status</th>
-                                    <th>Created</th>
                                     <th>Updated</th>
                                     <th>Actions</th>
                                 </tr>
@@ -89,9 +89,9 @@
                 {data: 'product_type_id', name: 'product_type_id'},
                 {data: 'product_category_id', name: 'product_category_id'},
                 {data: 'total_price', name: 'total_price'},
+                {data: 'weight', name: 'weight'},
                 {data: 'variant', name: 'variant'},
                 {data: 'status', name: 'status'},
-                {data: 'created_at', name: 'created_at'},
                 {data: 'updated_at', name: 'updated_at'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ]

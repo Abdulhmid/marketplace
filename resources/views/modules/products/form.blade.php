@@ -62,6 +62,15 @@
                           <input type="text" readonly="true" id="slug"  class="form-control" required="" name="slug" aria-describedby="slug" placeholder="Enter slug" value="{{isset($row)?$row->slug:''}}">
                         </div>
                         <div class="form-group">
+                          <label for="name">Location</label>
+                          <select class="form-control" required="" id="location" name="location">
+                            <option value="">-- Pilih Lokasi --</option>
+                            @foreach(RajaOngkir::cities() as $value)
+                              <option value="{{ $value->city_id }}-{{ $value->province_id }}" {{isset($row) ? $value->city_id == $row->city_id ? 'selected' : '' : ''}}>{{ $value->city_name }} - {{$value->province}}</option>
+                            @endforeach
+                          </select>
+                        </div>
+                        <div class="form-group">
                           <label for="name">Type</label>
                           <select class="form-control" required="" name="product_type_id">
                             @foreach($types as $key => $value)
@@ -84,6 +93,11 @@
                         <div class="form-group">
                           <label for="name">Komisi</label>
                           <input type="number" min="1" class="form-control" required="" name="commission_price" aria-describedby="commission_price" value="{{isset($row)?$row->commission_price:''}}" placeholder="Masukkan Harga Komisi">
+                        </div>
+
+                        <div class="form-group">
+                          <label for="name">Berat (Gram)</label>
+                          <input type="number" min="1" class="form-control" required="" name="weight" aria-describedby="weight" value="{{isset($row)?$row->weight:''}}" placeholder="Masukkan Berat Barang (Gram)">
                         </div>
                         
                         <div class="form-group">
@@ -194,6 +208,7 @@
 @stop
 @section('css')
 <link rel="stylesheet" type="text/css" href="{{url('css/ezdz/jquery.ezdz.css')}}">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 <style type="text/css">
   .has-error .help-block {
     color: red;
@@ -203,8 +218,10 @@
 
 @section('js')
 <script type="text/javascript" src="{{url('js/ezdz/ezdz.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 <script>
   $(function() {
+    $('#location').select2();
     $('[type="file"]').ezdz({
         validators: {
             maxSize: 1000000

@@ -53,6 +53,9 @@ class ProductsController extends Controller
                             }
                             return $vD;
                     })
+                    ->editColumn('weight', function($row){
+                            return $row->weight." Gram";
+                    })
                     ->editColumn('product_type_id', function($row){
                             return Product_types::where('id',$row
                                         ->product_type_id)
@@ -171,6 +174,10 @@ class ProductsController extends Controller
                 $rulesData['image_4'] = "imagesProducts/"."$fileImage4";
             }
 
+            $rulesData['city_id'] = explode("-", $request['location'])[0];
+            $rulesData['province_id'] = explode("-", $request['location'])[1];
+            $rulesData['weight'] = $request['weight'];
+
             $rulesData['total_price'] = $request['produsen_price']+$request['commission_price'];
             $rulesData['updated_by'] = Auth::user()->id;
             $rulesData['updated_at'] = \Carbon\Carbon::now();
@@ -249,6 +256,10 @@ class ProductsController extends Controller
             $rulesData['image_4'] = "imagesProducts/"."$fileImage4";
         }
         $rulesData['total_price'] = $request['produsen_price']+$request['commission_price'];
+
+        $rulesData['city_id'] = explode("-", $request['location'])[0];
+        $rulesData['province_id'] = explode("-", $request['location'])[1];
+        $rulesData['weight'] = $request['weight'];
 
 
         $createProduct = Products::create($rulesData);

@@ -67,7 +67,7 @@ class GeneralController
             'total_discount' => 0,
             'buyer_email' => $request['email'],
             'buyer_phone' => $request['phone'],
-            'buyer_city' => $request['city'],
+            'buyer_city' => explode("-", $request['location'])[0],
             'buyer_districts' => $request['district'],
             'buyer_villages' => $request['villages'],
             'address' => $request['address'],
@@ -77,7 +77,11 @@ class GeneralController
             'created_by' => 0,
             'created_at' => \Carbon\Carbon::now(),
             'updated_by' => 0,
-            'updated_at' => \Carbon\Carbon::now()
+            'updated_at' => \Carbon\Carbon::now(),
+            'courier' => $request['courier'],
+            'courier_service' => $request['courier_service'],
+            'shipping_fee' =>!empty($request['shipping_fee'])?$request['shipping_fee']:0,
+            'unique_fee' =>!empty($request['unique_fee'])?$request['unique_fee']:0
         ]);
 
         foreach ($request['dataProduct'] as $key => $value) {
