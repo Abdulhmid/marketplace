@@ -14,6 +14,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(RolesSeeder::class);
+        $this->call(EkspedisiSeeder::class);
+        $this->call(InsertCityRajaOngkir::class);
         // $this->call(InputWilayahIndo::class);
         // $this->call(MenusSeeders::class);
         // Users Seeder
