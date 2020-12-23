@@ -17,6 +17,35 @@ use Auth;
 
 class HomeMarketController extends Controller
 {
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function goLogin()
+    {
+        return view('marketplace.login',
+            [
+                'title'  => 'Login App'
+            ]
+        );
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function goRegister()
+    {
+        return view('marketplace.register',
+            [
+                'title'  => 'Register App'
+            ]
+        );
+    }
+
     /**
      * Display a listing of the resource.
      *

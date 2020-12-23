@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'HomeMarketController@index')->name('home-market');
+Route::get('/gologin', 'HomeMarketController@goLogin')->name('goLogin');
+Route::get('/goregister', 'HomeMarketController@goRegister')->name('goRegister');
 Route::get('/products', 'HomeMarketController@products')->name('home-products');
 Route::get('/products/{category}', 'HomeMarketController@productsCategory')
 		->name('productsCategory');
