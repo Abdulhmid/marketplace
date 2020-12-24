@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="{{url('marketplace')}}/plugins/revolution/css/navigation.css">
     <!-- Custom-->
     <link rel="stylesheet" href="{{url('marketplace')}}/css/style.css">
+    <link rel="stylesheet" type="text/css" href="{{url('css/toastr/jquery.toast.css')}}">
     <!--HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries-->
     <!--WARNING: Respond.js doesn't work if you view the page via file://-->
     <!--[if lt IE 9]><script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script><script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->
@@ -240,13 +241,28 @@
     <script type="text/javascript" src="{{url('marketplace')}}/plugins/revolution/js/extensions/revolution.extension.actions.min.js"></script>
     <!-- Custom scripts-->
     <script type="text/javascript" src="{{url('marketplace')}}/js/main.js"></script>
+    <script type="text/javascript" src="{{url('js/toastr/jquery.toast.js')}}"></script>
     <script type="text/javascript">
     </script>
+
 
     <script type="text/javascript">
     $(document).ready(function(){
       // localStorage.clear();
       // localStorage.removeItem(key);
+      @if(Session::has('message'))
+          $.toast({ 
+            text : "{!! Session::get('message') !!}", 
+            showHideTransition : 'slide',  // It can be plain, fade or slide
+            bgColor : 'green',              // Background color for toast
+            textColor : 'white',            // text color
+            allowToastClose : false,       // Show the close button or not
+            hideAfter : 5000,
+            textAlign : 'left',          
+            position : 'top-right'       
+          })
+      @endif
+      
       if ("checkouts" in localStorage) {
         var checkoutsData = JSON.parse(localStorage.getItem("checkouts"));
       }else{

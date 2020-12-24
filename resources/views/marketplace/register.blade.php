@@ -96,8 +96,17 @@
          contentType: false,
          processData: false,
          success: (response) => {
-           console.log(response);
-           // window.location.href = "/transactions/tracking/";
+            $.toast({ 
+              text : response.message, 
+              showHideTransition : 'slide',  // It can be plain, fade or slide
+              bgColor : 'green',              // Background color for toast
+              textColor : 'white',            // text color
+              allowToastClose : false,       // Show the close button or not
+              hideAfter : 5000,
+              textAlign : 'left',          
+              position : 'top-right'       
+            })
+            // window.location.href = "/transactions/tracking/";
          },
          error: function(response){
             console.log(response);

@@ -8,6 +8,7 @@ use App\Districts;
 use App\Villages;
 use App\Transactions;
 use App\Transactions_detail;
+use App\User;
 
 class GeneralController
 {
@@ -33,12 +34,29 @@ class GeneralController
      * @return \Illuminate\Http\Response
      */
     public function actionRegister(
-        Request $request
+        Request $request,
+        User $model
     ){
+        $row['updated_by'] = 0;
+        $row['updated_at'] = \Carbon\Carbon::now();
+        $row['created_by']    = 0;
+        $row['created_at']    = \Carbon\Carbon::now();
+        $row['password']      = bcrypt($request['password']);
+        $row['name']        = $request['name'];
+        $row['username']        = strtolower(str_replace(" ", "", $request['name']));
+        $row['email']       = $request['email'];
+        $row['phone']       = $request['phone'];
+        $row['city_id']             = explode("-", $request['location'])[0];
+        $row['province_id']         = explode("-", $request['location'])[1];
+        $row['address']         = $request['address'];
+        $row['role_id']         = \GlobalHelper::labelRole('customers');
+
+        $data = $model->create($row);
+
         return response()->json([
-            'data'  => $request->all(),
+            'data'  => $data,
             'response_code' => 200,
-            'message' => 'Success'
+            'message' => 'Pendaftaran Berhasil'
         ], 200);
     }
 

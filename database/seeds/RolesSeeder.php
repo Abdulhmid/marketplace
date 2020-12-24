@@ -33,6 +33,13 @@ class RolesSeeder extends Seeder
 	          'created_at' => now(),
 	          'updated_at' => now(),
 	          'status' => 1
+	        ],[
+	          'name' => "Customers",
+	          'label' => "customers",
+	          'description' => "This description seller customer",
+	          'created_at' => now(),
+	          'updated_at' => now(),
+	          'status' => 1
 	        ]
     	];
 	   

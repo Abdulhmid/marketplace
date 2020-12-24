@@ -149,4 +149,8 @@ class GlobalHelper {
         }
     }
 
+    public static function labelRole($label){
+        return App\Roles::where('label',$label)->first()->id;
+    }
+
 }
