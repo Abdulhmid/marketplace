@@ -11,6 +11,10 @@
           <h3>Alamat Pengiriman</h3>
           <hr>
           <div class="form-group">
+            <div class="col-md-12">
+                <label>Nama</label>
+                <input class="form-control" name="name" id="name" type="text"/>
+            </div>
             <div class="col-md-6">
                 <label>Email</label>
                 <input class="form-control" name="email" id="email" type="text"/>
@@ -243,6 +247,7 @@
           _token: "{{ csrf_token() }}", 
           dataProduct : checkoutsData,
           customerId : 0,
+          name : $('#name').val(),
           email : $('#email').val(),
           weight : $('#weight').val(),
           courier : $('#courier').val(),

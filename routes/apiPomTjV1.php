@@ -17,4 +17,6 @@ Route::group(['prefix' => 'data'], function () {
 	Route::post('/buy', 'API\\GeneralController@buy');
 	Route::post('/confirm', 'API\\GeneralController@confirm');
 	Route::get('/cek-ongkir', 'API\\GeneralController@cekOngkir');
+	Route::post('/actionLogin', 'API\\GeneralController@actionLogin');
+	Route::post('/actionRegister', 'API\\GeneralController@actionRegister');
 });

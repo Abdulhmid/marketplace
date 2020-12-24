@@ -17,6 +17,36 @@ class GeneralController
      *
      * @return \Illuminate\Http\Response
      */
+    public function actionLogin(
+        Request $request
+    ){
+        return response()->json([
+            'data'  => "-",
+            'response_code' => 200,
+            'message' => 'Success'
+        ], 200);
+    }
+
+    /**
+     * Display a login manual account kit.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function actionRegister(
+        Request $request
+    ){
+        return response()->json([
+            'data'  => $request->all(),
+            'response_code' => 200,
+            'message' => 'Success'
+        ], 200);
+    }
+
+    /**
+     * Display a login manual account kit.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function dataGeneral(
         Cities $model,
         Request $request
@@ -66,6 +96,7 @@ class GeneralController
             'customers' => 0,
             'total_paid' => $request['totalPrice'],
             'total_discount' => 0,
+            'buyer_name' => $request['name'],
             'buyer_email' => $request['email'],
             'buyer_phone' => $request['phone'],
             'buyer_city' => explode("-", $request['location'])[0],

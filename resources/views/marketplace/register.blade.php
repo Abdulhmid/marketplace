@@ -9,17 +9,46 @@
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
                   <div class="ps-section__header pt-50">
                     <h2 class="ps-section__title" data-mask="Contact">- Daftar - </h2>
-                    <form class="ps-contact__form" action="do_action" method="post">
+                    <form class="ps-contact__form" action="#" id="formReg" method="post">
+                      @csrf
+                      <div class="form-group">
+                        <label>Nama <sub>*</sub></label>
+                        <input class="form-control" type="text" id="name" required="" name="name" placeholder="Masukkan nama">
+                      </div>
                       <div class="form-group">
                         <label>Email <sub>*</sub></label>
-                        <input class="form-control" type="text" placeholder="Masukkan email">
+                        <input class="form-control" type="text" id="email" required="" name="email" placeholder="Masukkan email">
+                      </div>
+                      <div class="form-group">
+                        <label>Phone <sub>*</sub></label>
+                        <input class="form-control" type="text" id="phone" required="" name="phone" placeholder="Masukkan no hp">
+                      </div>
+                      <div class="form-group">
+                        <label>Pilih Lokasi</label>
+                        <select class="form-control" required="" id="location" name="location">
+                          <option value="">-- Pilih Lokasi --</option>
+                          @foreach(RajaOngkir::cities() as $value)
+                            <option value="{{ $value->city_id }}-{{ $value->province_id }}">
+                              {{ $value->city_name }} - {{$value->province}}
+                            </option>
+                          @endforeach
+                        </select>
+                      </div>
+                      <div class="form-group mb-25">
+                        <label>Alamat</label>
+                        <textarea class="form-control" required="" name="address"></textarea>
                       </div>
                       <div class="form-group mb-25">
                         <label>Password <sub>*</sub></label>
-                        <input class="form-control" type="password" placeholder="Masukkan password">
+                        <input class="form-control" type="password" required="" name="password" id="password" placeholder="Masukkan password">
                       </div>
+                      <div class="form-group mb-25">
+                          <label for="confirm_password" >Confirm Password</label>
+                          <input id="confirm_password" type="password" required="" class="form-control" placeholder="Konfirmasi Password" name="password_confirmation">
+                      </div>
+
                       <div class="form-group">
-                        <button class="ps-btn">Daftar<i class="ps-icon-next"></i></button>
+                        <button type="submit" class="ps-btn" id="register">Daftar<i class="ps-icon-next"></i></button>
                       </div>
                     </form>
                   </div>
@@ -29,71 +58,51 @@
       </div>
 @stop
 @section('css')
+  <link rel="stylesheet" href="{{url('/')}}/css/select2/select2.min.css">
   <style type="text/css">
-    .ps-mission {
-        position: relative;
-        z-index: 10;
-        text-align: center;
-        padding: 26px 0 217px;
-    }
-    .ps-mission h3 {
-      margin-bottom: 30px;
-      font-family: "Archivo Narrow", sans-serif;
-      font-size: 36px;
-      color: #ffffff;
-      text-transform: uppercase;
-    }
-
-    .ps-mission h4 {
-      margin-bottom: 30px;
-      font-family: "Archivo Narrow", sans-serif;
-      font-size: 21px;
-      color: #ffffff;
-      text-transform: uppercase;
-    }
-
-    .ps-mission h5 {
-      margin-bottom: 30px;
-      font-family: "Archivo Narrow", sans-serif;
-      font-size: 17px;
-      color: #ffffff;
-      text-transform: uppercase;
+    .select2-container--default .select2-selection--single {
+        background-color: #fff;
+        border: 1px solid #aaa;
+        border-radius: 4px;
+        height: 47px;
     }
   </style>
 @stop
 
 @section('js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
-
+<script src="{{url('/')}}/js/select2/select2.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
+    $('#location').select2();
 
-    new ClipboardJS('.btn');
-
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
+    $('#password, #confirm_password').on('keyup', function () {
+      if ($('#password').val() == $('#confirm_password').val()) {
+        $('#password').css('border-color', 'green');
+        $('#confirm_password').css('border-color', 'green');
+      } else {
+        $('#confirm_password').css('border-color', 'red');
+        $('#password').css('border-color', 'red');
+      }
     });
 
-    $('#myForm').submit(function(e) {
+    $('#formReg').submit(function(e) {
        e.preventDefault();
        let formData = new FormData(this);
 
        $.ajax({
           type:'POST',
-          url: '/api/v1/data/confirm',
-           data: formData,
-           contentType: false,
-           processData: false,
-           success: (response) => {
-             // console.log(response);
-             window.location.href = "/transactions/tracking/"+$('#code').val();
-           },
-           error: function(response){
-              console.log(response);
-                $('#image-input-error').text(response.responseJSON.errors.file);
-           }
+          url: '/api/v1/data/actionRegister',
+         data: formData,
+         contentType: false,
+         processData: false,
+         success: (response) => {
+           console.log(response);
+           // window.location.href = "/transactions/tracking/";
+         },
+         error: function(response){
+            console.log(response);
+              $('#image-input-error').text(response.responseJSON.errors.file);
+         }
        });
     });
 

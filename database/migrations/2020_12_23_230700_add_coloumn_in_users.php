@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColoumnCityOnProducts extends Migration
+class AddColoumnInUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class AddColoumnCityOnProducts extends Migration
      */
     public function up()
     {
-        Schema::table('tj_products', function($table) {
+        Schema::table('users', function($table) {
             $table->integer('city_id')->nullable();
             $table->integer('province_id')->nullable();
+            $table->string('phone')->nullable();
+            $table->text('address')->nullable();
         });
     }
 
@@ -26,9 +28,11 @@ class AddColoumnCityOnProducts extends Migration
      */
     public function down()
     {
-        Schema::table('tj_products', function($table) {
+        Schema::table('users', function($table) {
             $table->dropColumn('city_id');
             $table->dropColumn('province_id');
+            $table->dropColumn('phone');
+            $table->dropColumn('address');
         });
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColoumnEkpedisiTransaction extends Migration
+class AddColoumnInTransactions extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,7 @@ class AddColoumnEkpedisiTransaction extends Migration
     public function up()
     {
         Schema::table('tj_transactions', function($table) {
-            $table->string('courier')->nullable();
-            $table->string('courier_service')->nullable();
-            $table->double('shipping_fee')->default(0);
-            $table->double('unique_fee')->default(0);
+            $table->string('buyer_name')->nullable();
         });
     }
 
@@ -29,10 +26,7 @@ class AddColoumnEkpedisiTransaction extends Migration
     public function down()
     {
         Schema::table('tj_transactions', function($table) {
-            $table->dropColumn('courier');
-            $table->dropColumn('courier_service');
-            $table->dropColumn('shipping_fee');
-            $table->dropColumn('unique_fee');
+            $table->dropColumn('buyer_name');
         });
     }
 }
