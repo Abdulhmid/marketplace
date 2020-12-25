@@ -26,15 +26,19 @@
                         </div>
                         <div class="form-group">
                           <label for="name">Name User</label>
-                          <input type="name"  class="form-control" required="" name="name" aria-describedby="name" placeholder="Enter name" value="{{isset($row)?$row->name:''}}">
+                          <input type="text"  class="form-control" required="" name="name" aria-describedby="name" placeholder="Enter name" value="{{isset($row)?$row->name:''}}">
                         </div>
                         <div class="form-group">
                           <label for="name">Username</label>
-                          <input type="label" class="form-control" required="" name="username" aria-describedby="name" value="{{isset($row)?$row->username:''}}" placeholder="Enter Username">
+                          <input type="text" class="form-control" required="" name="username" aria-describedby="name" value="{{isset($row)?$row->username:''}}" placeholder="Enter Username">
                         </div>
                         <div class="form-group">
                           <label for="name">Email</label>
                           <input type="email" class="form-control" required="" name="email" aria-describedby="email" value="{{isset($row)?$row->email:''}}" placeholder="Enter Email">
+                        </div>
+                        <div class="form-group">
+                          <label for="name">Phone</label>
+                          <input type="text" class="form-control" required="" name="phone" aria-describedby="phone" value="{{isset($row)?$row->phone:''}}" placeholder="Enter Phone">
                         </div>
                         <div class="form-group">
                           <label for="name">Role</label>
@@ -61,6 +65,21 @@
                               {{ isset($row) ? ($row->status == 0 ? 'checked' : '') : '' }}>
                               <label class="custom-control-label" for="defaultInline2">Non Aktif</label>
                             </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="name">Location</label>
+                          <select class="form-control" required="" id="location" name="location">
+                            <option value="">-- Pilih Lokasi --</option>
+                            @foreach(RajaOngkir::cities() as $value)
+                              <option value="{{ $value->city_id }}-{{ $value->province_id }}" {{isset($row) ? $value->city_id == $row->city_id ? 'selected' : '' : ''}}>{{ $value->city_name }} - {{$value->province}}</option>
+                            @endforeach
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="address">Alamat</label>
+                          <textarea class="form-control" name="address">
+                            {{isset($row)?$row->address:''}}
+                          </textarea>
                         </div>
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password">Password</label>

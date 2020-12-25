@@ -92,9 +92,11 @@ class UsersController extends Controller
             $rulesData = $request->validate([
                 'name' => 'required',
                 'username' => 'required',
+                'phone' => 'required',
                 'email' => 'required',
                 'role_id' => 'required',
                 'status' => 'required',
+                'address' => 'required',
                 'password' => 'confirmed'
             ]);
 
@@ -110,6 +112,7 @@ class UsersController extends Controller
                 $rulesData['image'] = "public/imagesProfile/"."$profileImage";
             }
 
+            $rulesData['city_id'] = explode("-", $request['location'])[0];
             $rulesData['updated_by'] = Auth::user()->id;
             $rulesData['updated_at'] = \Carbon\Carbon::now();
             User::whereId($isEdit)->update($rulesData);
@@ -119,13 +122,16 @@ class UsersController extends Controller
             $rulesData = $request->validate([
                 'name' => 'required',
                 'username' => 'required',
+                'phone' => 'required',
                 'email' => 'required',
                 'role_id' => 'required',
                 'status' => 'required',
+                'address' => 'required',
                 'password' => 'required|confirmed'
             ]);
         }
 
+        $rulesData['city_id'] = explode("-", $request['location'])[0];
         $rulesData['updated_by'] = Auth::user()->id;
         $rulesData['updated_at'] = \Carbon\Carbon::now();
         $rulesData['created_by']    = Auth::user()->id;
