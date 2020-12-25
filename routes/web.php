@@ -30,6 +30,7 @@ Route::get('/transactions/tracking/{code}', 'HomeMarketController@transactionsTr
 
 Route::post('/transactions/confirm', 'HomeMarketController@transConfirm')->name('transConfirm');
 
+Route::post('/gologout', 'Auth\LoginController@goLogout')->name('goLogout');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

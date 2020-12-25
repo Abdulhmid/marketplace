@@ -9,17 +9,18 @@
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
                   <div class="ps-section__header pt-50">
                     <h2 class="ps-section__title" data-mask="Contact">- Get in touch</h2>
-                    <form class="ps-contact__form" action="do_action" method="post">
+                    <form class="ps-contact__form" action="#" id="formAuth" method="post">
+                      @csrf
                       <div class="form-group">
                         <label>Email <sub>*</sub></label>
-                        <input class="form-control" type="text" placeholder="Masukkan email">
+                        <input class="form-control" type="text" name="email" placeholder="Masukkan email">
                       </div>
                       <div class="form-group mb-25">
                         <label>Password <sub>*</sub></label>
-                        <input class="form-control" type="password" placeholder="Masukkan password">
+                        <input class="form-control" type="password" name="password" placeholder="Masukkan password">
                       </div>
                       <div class="form-group">
-                        <button class="ps-btn">Login<i class="ps-icon-next"></i></button>
+                        <button type="submit" class="ps-btn">Login<i class="ps-icon-next"></i></button>
                         <a href="{{url('/goregister')}}" class="ps-btn">Register</a>
                       </div>
                     </form>
@@ -71,30 +72,41 @@
 
     new ClipboardJS('.btn');
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    $('#myForm').submit(function(e) {
+    $('#formAuth').submit(function(e) {
        e.preventDefault();
        let formData = new FormData(this);
 
        $.ajax({
           type:'POST',
-          url: '/api/v1/data/confirm',
-           data: formData,
-           contentType: false,
-           processData: false,
-           success: (response) => {
-             // console.log(response);
-             window.location.href = "/transactions/tracking/"+$('#code').val();
-           },
-           error: function(response){
-              console.log(response);
-                $('#image-input-error').text(response.responseJSON.errors.file);
-           }
+          url: '/api/v1/data/actionLogin',
+          data: formData,
+          contentType: false,
+          processData: false,
+          success: (response) => {
+            $.toast({ 
+              text : response.message, 
+              showHideTransition : 'slide',  // It can be plain, fade or slide
+              bgColor : 'green',              // Background color for toast
+              textColor : 'white',            // text color
+              allowToastClose : false,       // Show the close button or not
+              hideAfter : 5000,
+              textAlign : 'left',          
+              position : 'top-right'       
+            })
+            window.location = document.referrer;
+          },
+          error: function(response){
+            $.toast({ 
+              text : "Terjadi Kesalahan Coba Lagi", 
+              showHideTransition : 'slide',  // It can be plain, fade or slide
+              bgColor : 'red',              // Background color for toast
+              textColor : 'white',            // text color
+              allowToastClose : false,       // Show the close button or not
+              hideAfter : 5000,
+              textAlign : 'left',          
+              position : 'top-right'       
+            })
+         }
        });
     });
 

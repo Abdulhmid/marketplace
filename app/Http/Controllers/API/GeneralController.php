@@ -9,10 +9,17 @@ use App\Villages;
 use App\Transactions;
 use App\Transactions_detail;
 use App\User;
+use Validator;
+use Hash;
+use Session;
+
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class GeneralController
 {
 
+    use AuthenticatesUsers;
     /**
      * Display a login manual account kit.
      *
@@ -21,11 +28,46 @@ class GeneralController
     public function actionLogin(
         Request $request
     ){
-        return response()->json([
-            'data'  => "-",
-            'response_code' => 200,
-            'message' => 'Success'
-        ], 200);
+
+        $rules = [
+            'email'                 => 'required|email',
+            'password'              => 'required|string'
+        ];
+ 
+        $messages = [
+            'email.required'        => 'Email wajib diisi',
+            'email.email'           => 'Email tidak valid',
+            'password.required'     => 'Password wajib diisi',
+            'password.string'       => 'Password harus berupa string'
+        ];
+ 
+        $validator = Validator::make($request->all(), $rules, $messages);
+ 
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput($request->all);
+        }
+ 
+        $data = [
+            'email'     => $request->input('email'),
+            'password'  => $request->input('password'),
+        ];
+ 
+        Auth::attempt($data);
+ 
+        if (Auth::check()) {
+            return response()->json([
+                'data'  => [],
+                'response_code' => 200,
+                'message' => 'Login berhasil'
+            ], 200);
+ 
+        } else { // false
+            return response()->json([
+                'data'  => [],
+                'response_code' => 500,
+                'message' => 'Silahkan coba lagi'
+            ], 500);
+        }
     }
 
     /**
@@ -58,6 +100,15 @@ class GeneralController
             'response_code' => 200,
             'message' => 'Pendaftaran Berhasil'
         ], 200);
+    }
+
+    public function goLogout (Request $request) {
+        //logout user
+        Auth::logout();
+        // auth()->logout();
+
+        // redirect to homepage
+        return redirect('/');
     }
 
     /**

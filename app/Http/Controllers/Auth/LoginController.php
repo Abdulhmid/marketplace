@@ -43,7 +43,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest')->except(['logout','gologout']);
     }
 
     public function login(Request $request)
@@ -92,5 +92,13 @@ class LoginController extends Controller
 
         // redirect to homepage
         return redirect('/login');
+    }
+
+    public function gologout (Request $request) {
+        //logout user
+        auth()->logout();
+
+        // redirect to homepage
+        return redirect('/');
     }
 }

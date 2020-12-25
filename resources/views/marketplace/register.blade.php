@@ -106,7 +106,7 @@
               textAlign : 'left',          
               position : 'top-right'       
             })
-            // window.location.href = "/transactions/tracking/";
+            window.location.href = "/gologin";
          },
          error: function(response){
             console.log(response);

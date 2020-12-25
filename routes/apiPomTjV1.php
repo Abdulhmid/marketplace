@@ -19,4 +19,6 @@ Route::group(['prefix' => 'data'], function () {
 	Route::get('/cek-ongkir', 'API\\GeneralController@cekOngkir');
 	Route::post('/actionLogin', 'API\\GeneralController@actionLogin');
 	Route::post('/actionRegister', 'API\\GeneralController@actionRegister');
+	Route::post('/gologout', 'API\\GeneralController@goLogout');
+
 });

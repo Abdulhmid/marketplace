@@ -80,7 +80,19 @@
                         </div>
                       </ul>
                     </div>
-                    <a href="{{url('/gologin')}}">Login & Regiser</a>
+                    @if(isset(Auth::user()->role_id))
+                      <div class="btn-group ps-dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{Auth::user()->name}}<i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Keluar</a></li>
+                        </ul>
+                      </div>
+                      <form id="logout-form" action="/gologout" 
+                          method="POST" style="display: none;">
+                          <input type="hidden" name="_token" value="{{csrf_token()}}">
+                      </form>
+                    @else
+                      <a href="{{url('/gologin')}}">Login & Regiser</a>
+                    @endif
                   </div>
                 </div>
           </div>
