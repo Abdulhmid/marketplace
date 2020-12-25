@@ -153,4 +153,16 @@ class GlobalHelper {
         return App\Roles::where('label',$label)->first()->id;
     }
 
+    public static function saldo(){
+        $userId = \Auth::user()->id;
+        $tempSaldo =  App\Mutation::where('user_id',$userId)
+                ->orderBy('created_at','desc')
+                ->first();
+        if (isset($tempSaldo)) {
+            return $tempSaldo->saldo;
+        }else{
+            return 0;
+        }
+    }
+
 }

@@ -12,6 +12,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link  " href="/mutation">
+                        <i class="far fa-fw fa-file "></i>
+                        <p>Mutasi Saldo</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link active " href="/data-products">
                         <i class="far fa-fw fa-file "></i>
                         <p>Product</p>
@@ -97,6 +103,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link  " href="/mutation">
+                        <i class="far fa-fw fa-file "></i>
+                        <p>Mutasi Saldo</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link active " href="/data-products">
                         <i class="far fa-fw fa-file "></i>
                         <p>Product</p>
@@ -131,6 +143,12 @@
                         <p>Transaction
                             <span class="badge badge-success right">{{GlobalHelper::transactionCount([1])}}</span>
                         </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  " href="/mutation">
+                        <i class="far fa-fw fa-file "></i>
+                        <p>Mutasi Saldo</p>
                     </a>
                 </li>
                 <li class="nav-item">

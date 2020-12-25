@@ -182,3 +182,8 @@ Route::post('transactions',
 	['uses'=>'TransactionsController@storeEdit', 'as'=>'transactions.storeEdit']);
 
 
+// Transaction
+Route::get('mutation', 
+	['uses'=>'MutationController@index', 'as'=>'mutation.index']);
+
+
