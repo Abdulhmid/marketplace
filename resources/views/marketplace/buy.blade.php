@@ -6,6 +6,14 @@
 
 <div class="ps-content pt-80 pb-80">
   <div class="ps-container">
+    @if(!isset(Auth::user()->role_id))
+    <div class="col-md-12" style="">
+        <center>
+        <a href="/gologin" class="btn btn-default">Silahkan Login</a>
+        </center>
+      <hr>
+    </div>
+    @endif
     <div class="col-md-12">
       <div id="Bill">
           <h3>Alamat Pengiriman</h3>
