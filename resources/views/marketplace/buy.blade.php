@@ -13,15 +13,15 @@
           <div class="form-group">
             <div class="col-md-12">
                 <label>Nama</label>
-                <input class="form-control" name="name" id="name" type="text"/>
+                <input class="form-control" name="name" id="name" type="text" value="{{AuthHelper::sessionData('name')}}" />
             </div>
             <div class="col-md-6">
                 <label>Email</label>
-                <input class="form-control" name="email" id="email" type="text"/>
+                <input class="form-control" name="email" id="email" type="text" value="{{AuthHelper::sessionData('email')}}" />
             </div>
             <div class="col-md-6">
                 <label>Phone</label>
-                <input class="form-control" name="phone" id="phone" type="text"/>
+                <input class="form-control" name="phone" id="phone" type="text" value="{{AuthHelper::sessionData('phone')}}" />
             </div>
 
             <div class="col-md-6">
@@ -29,7 +29,8 @@
                 <select class="form-control" required="" id="location" name="location">
                   <option value="">-- Pilih Lokasi --</option>
                   @foreach(RajaOngkir::cities() as $value)
-                    <option value="{{ $value->city_id }}-{{ $value->province_id }}">
+                    <option value="{{ $value->city_id }}-{{ $value->province_id }}"
+                      {{AuthHelper::sessionData('city_id') == $value->city_id  ? 'selected' : ''}}>
                       {{ $value->city_name }} - {{$value->province}}
                     </option>
                   @endforeach
@@ -77,7 +78,7 @@
             <div class="col-md-12">
               <label>Address<span>*</span>
               </label>
-              <textarea class="form-control" id="address" rows="5" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+              <textarea class="form-control" id="address" rows="5" placeholder="Notes about your order, e.g. special notes for delivery.">{{AuthHelper::sessionData('address')}}</textarea>
             </div>
           </div>
           <div class="clearfix"></div>
