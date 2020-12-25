@@ -78,7 +78,7 @@
 
        $.ajax({
           type:'POST',
-          url: '/api/v1/data/actionLogin',
+          url: '/login',
           data: formData,
           contentType: false,
           processData: false,

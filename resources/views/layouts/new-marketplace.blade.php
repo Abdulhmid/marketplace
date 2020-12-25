@@ -86,7 +86,7 @@
                           <li><a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Keluar</a></li>
                         </ul>
                       </div>
-                      <form id="logout-form" action="/gologout" 
+                      <form id="logout-form" action="/logout" 
                           method="POST" style="display: none;">
                           <input type="hidden" name="_token" value="{{csrf_token()}}">
                       </form>

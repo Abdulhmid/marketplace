@@ -91,7 +91,7 @@ class LoginController extends Controller
         auth()->logout();
 
         // redirect to homepage
-        return redirect('/login');
+        return redirect('/');
     }
 
     public function gologout (Request $request) {
