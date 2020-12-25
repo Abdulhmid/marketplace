@@ -160,6 +160,11 @@ class GeneralController
     {
         $codeTrans = \GlobalHelper::generateCode();
         $dataShipping = explode("|", $request['courier_service']);
+        if (isset(\Auth::user()->id)) {
+            $createdById = \Auth::user()->id;
+        }else{
+            $createdById = 0;
+        }
         $model->create([
             'transaction_code' =>$codeTrans,
             'customers' => 0,
@@ -176,7 +181,7 @@ class GeneralController
             'payment_id' => $request['payment'],
             'status' => 0,
             'weight' => $request['weight'],
-            'created_by' => 0,
+            'created_by' => $createdById,
             'created_at' => \Carbon\Carbon::now(),
             'updated_by' => 0,
             'updated_at' => \Carbon\Carbon::now(),
@@ -193,7 +198,7 @@ class GeneralController
                 'qty' => $value['qty'],
                 'price' => $value['price'],
                 'note' => empty($value['note'])?'-':$value['note'],
-                'created_by' => 0,
+                'created_by' => $createdById,
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_by' => 0,
                 'updated_at' => \Carbon\Carbon::now()
