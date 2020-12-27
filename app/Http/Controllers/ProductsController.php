@@ -8,6 +8,7 @@ use App\Produsen;
 use App\Product_category;
 use App\Product_variant;
 use App\Product_types;
+use App\Product_seller;
 use DataTables;
 use Redirect,Response;
 use Auth;
@@ -85,6 +86,21 @@ class ProductsController extends Controller
                     })
                     ->rawColumns(['action','variant'])
                     ->make(true);
+        }
+
+        if (\GlobalHelper::session(\Auth::user()->role_id)=='seller') {
+            $rowQ = Product_seller::select('id','product_id')
+                        ->where('seller_id',\Auth::user()->id);
+
+            if (isset($rowQ)) {
+                $productSelected = $rowQ->pluck('product_id');
+            }else{
+                $productSelected = [];
+            }
+
+            return view('modules.products.index-seller',[
+                'productSelected' => $productSelected
+            ]);
         }
       
         return view('modules.products.index');
@@ -329,6 +345,21 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+
+    public function storeProductSeller(Request $request)
+    {
+        Product_seller::where('seller_id',Auth::user()->id)->delete();
+        foreach ($request['product'] as $key => $value) {
+            $productSeller['seller_id'] =  Auth::user()->id;
+            $productSeller['product_id'] = $value;
+            $productSeller['updated_by'] = Auth::user()->id;
+            $productSeller['updated_at'] = \Carbon\Carbon::now();
+            $productSeller['created_by']    = Auth::user()->id;
+            $productSeller['created_at']    = \Carbon\Carbon::now();
+            Product_seller::create($productSeller);
+        }
+        return Product_seller::select('*')->get();
     }
 
     /**

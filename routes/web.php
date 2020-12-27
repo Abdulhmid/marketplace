@@ -120,6 +120,8 @@ Route::get('data-products-delete/{id}',
 	['uses'=>'ProductsController@destroy', 'as'=>'data-products.destroy']);
 Route::get('data-products/{id}', 
 	['uses'=>'ProductsController@edit', 'as'=>'data-products.edit']);
+Route::post('store-product-seller', 
+	['uses'=>'ProductsController@storeProductSeller', 'as'=>'store-product.update']);
 
 // Products Sliders
 Route::get('sliders', 

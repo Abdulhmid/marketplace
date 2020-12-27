@@ -131,7 +131,8 @@
           <thead>
             <tr>
               <th>Products</th>
-              <input type="hidden" id="locationProduct" value="">
+              <input type="text" id="locationProduct" value="">
+              <th>Penjual</th>
               <th>Price</th>
               <th>Quantity</th>
               <th>Berat (Gram)</th>
@@ -232,6 +233,7 @@
                           v.nameProduct+
                       '</a>'+
                     '</td>'+
+                    '<td>'+idrFormat(v.price)+'</td>'+
                     '<td>'+idrFormat(v.price)+'</td>'+
                     '<td>'+
                       v.qty+

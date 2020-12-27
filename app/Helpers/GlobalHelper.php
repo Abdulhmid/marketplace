@@ -165,4 +165,8 @@ class GlobalHelper {
         }
     }
 
+    public static function listProduct(){
+        return App\Products::select('id','name','total_price','produsen_id','city_id')->get();
+    }
+
 }
