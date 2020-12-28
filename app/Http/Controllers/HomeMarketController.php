@@ -101,6 +101,7 @@ class HomeMarketController extends Controller
         $banners = $banners->latest()->get();
         $produsen = $produsen->latest()->get();
         $products = $products->with(['category','variant'])
+                        ->where('status',1)
                         ->latest();
         $product_category = $product_category->latest()->get();
         $menus = $menus->orderBy('sort','asc')->get();
@@ -137,6 +138,7 @@ class HomeMarketController extends Controller
         $slider = $slider->latest()->get();
         $produsen = $produsen->latest()->get();
         $products = $products->with(['category','variant'])
+                        ->where('status',1)
                         ->latest();
         $product_category = $product_category->latest()->get();
         $menus = $menus->orderBy('sort','asc')->get();
@@ -168,6 +170,7 @@ class HomeMarketController extends Controller
         $catId = $products_type->where('slug',$slug)->first()->id;
         $products = $products->with(['category','variant'])
                         ->where('product_type_id',$catId)
+                        ->where('status',1)
                         ->paginate(16);
 
         return view('marketplace.products',
