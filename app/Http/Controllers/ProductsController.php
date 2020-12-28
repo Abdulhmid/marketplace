@@ -33,16 +33,18 @@ class ProductsController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Products::with('variant')->latest()->get();
+            $data = Products::with('variant')->orderBy('id','desc')->get();
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->editColumn('total_price', function($row){
                             return \GlobalHelper::idrFormat($row->total_price);
                     })
                     ->editColumn('status', function($row){
-                            $statusDisplay='Active';
+                            $statusDisplay='Reject';
                             if ($row->status == '0') {
-                                $statusDisplay='Non Active';
+                                $statusDisplay='Waiting';
+                            }elseif ($row->status == '1') {
+                                $statusDisplay='Disetujui';
                             }
                         
                             return $statusDisplay;
@@ -77,14 +79,23 @@ class ProductsController extends Controller
                             return $row->updated_at->format('d/F/Y')
                                     .' by '.ucfirst($row->updated_by);
                     })
+                    ->addColumn('request', function($row){
+
+                           $editUrl = url('data-request-products/'.$row->id);
+                           $btnApprove = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-req="1" data-original-title="Delete" class="btn btn-sm btn-outline-primary py-0 reqAtion">Approve</a>';
+                           $btnReject = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-req="0" data-original-title="Delete" class="btn btn-sm btn-outline-danger py-0 reqAtion">Reject</a>';
+                           $btn = $btnApprove.$btnReject;
+                           return $btn;
+                    })
                     ->addColumn('action', function($row){
 
                            $editUrl = url('data-products/'.$row->id);
+ 
                            $btn = '<a href="'.$editUrl.'" data-toggle="tooltip" data-original-title="Edit" class="btn btn-sm btn-outline-primary py-0">Edit</a>';
-                           $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-sm btn-outline-danger py-0 deleteAction">Delete</a>';
+                           $btn = '<div class="clearfix"></div>'.$btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-sm btn-outline-danger py-0 deleteAction">Delete</a>';
                             return $btn;
                     })
-                    ->rawColumns(['action','variant'])
+                    ->rawColumns(['action','variant','request'])
                     ->make(true);
         }
 
@@ -151,7 +162,6 @@ class ProductsController extends Controller
                 'produsen_price' => 'required',
                 'product_category_id' => 'required',
                 'produsen_id' => 'required',
-                'status' => 'required',
                 'product_type_id' => 'required'
             ]);
 
@@ -190,6 +200,7 @@ class ProductsController extends Controller
                 $rulesData['image_4'] = "imagesProducts/"."$fileImage4";
             }
 
+            $rulesData['status'] = 0;
             $rulesData['city_id'] = explode("-", $request['location'])[0];
             $rulesData['province_id'] = explode("-", $request['location'])[1];
             $rulesData['weight'] = $request['weight'];
@@ -379,6 +390,23 @@ class ProductsController extends Controller
         $products->where('id', $id)->delete();
 
         $this->meesage('message','Products deleted successfully!');
+        return redirect()->back();
+    }
+
+    public function changestatus(
+        Request $request, 
+        Products $products, 
+        $req,
+        $id
+    )
+    {
+        $products->where('id', $id)->update(
+            [
+                'status' => $req
+            ]
+        );
+
+        $this->meesage('message','Products change successfully!');
         return redirect()->back();
     }
 

@@ -121,13 +121,13 @@
                             @endforeach
                           </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="display: none;">
                           <label for="tatus">Status</label> <br/>
                             <!-- Default inline 1-->
                             <div class="custom-control custom-radio custom-control-inline">
                               <input type="radio" class="custom-control-input" 
                               id="defaultInline1" name="status" value="1"
-                              {{ isset($row) ? ($row->status == 1 ? 'checked' : '') : 'checked' }}>
+                              {{ isset($row) ? ($row->status == 1 ? 'checked' : '') : '' }}>
                               <label class="custom-control-label" for="defaultInline1">Aktif</label>
                             </div>
 
@@ -135,7 +135,7 @@
                             <div class="custom-control custom-radio custom-control-inline">
                               <input type="radio" class="custom-control-input" 
                               id="defaultInline2" name="status" value="0"
-                              {{ isset($row) ? ($row->status == 0 ? 'checked' : '') : '' }}>
+                              {{ isset($row) ? ($row->status == 0 ? 'checked' : '') : 'checked' }}>
                               <label class="custom-control-label" for="defaultInline2">Non Aktif</label>
                             </div>
                         </div>

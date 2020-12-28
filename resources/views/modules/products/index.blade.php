@@ -26,14 +26,13 @@
                                 <tr>
                                     <th>Image</th>
                                     <th>Name</th>
-                                    <th>Slug</th>
                                     <th>Type</th>
                                     <th>Category</th>
                                     <th>Price</th>
-                                    <th>Berat</th>
                                     <th>Variant</th>
                                     <th>Status</th>
                                     <th>Updated</th>
+                                    <th>Request</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -85,14 +84,13 @@
                     }
                 },
                 {data: 'name', name: 'name'},
-                {data: 'slug', name: 'slug'},
                 {data: 'product_type_id', name: 'product_type_id'},
                 {data: 'product_category_id', name: 'product_category_id'},
                 {data: 'total_price', name: 'total_price'},
-                {data: 'weight', name: 'weight'},
                 {data: 'variant', name: 'variant'},
                 {data: 'status', name: 'status'},
                 {data: 'updated_at', name: 'updated_at'},
+                {data: 'request', name: 'request', orderable: false, searchable: false},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ]
         });
@@ -105,6 +103,26 @@
           $.ajax({
               type: "get",
               url: "{{ url('data-products-delete') }}"+'/'+id,
+              success: function (data) {
+              var oTable = $('#mytable').dataTable(); 
+              oTable.fnDraw(false);
+              },
+              error: function (data) {
+                  console.log('Error:', data);
+              }
+          });
+       }
+    }); 
+
+    $('body').on('click', '.reqAtion', function () {
+ 
+        var id = $(this).data("id");
+        var req = $(this).data("req");
+        if(confirm("Anda yakin mau update status ?"))
+        {
+          $.ajax({
+              type: "get",
+              url: "{{ url('data-products-req') }}"+'/'+req+'/'+id,
               success: function (data) {
               var oTable = $('#mytable').dataTable(); 
               oTable.fnDraw(false);

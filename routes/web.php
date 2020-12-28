@@ -122,6 +122,8 @@ Route::get('data-products/{id}',
 	['uses'=>'ProductsController@edit', 'as'=>'data-products.edit']);
 Route::post('store-product-seller', 
 	['uses'=>'ProductsController@storeProductSeller', 'as'=>'store-product.update']);
+Route::get('data-products-req/{req}/{id}', 
+	['uses'=>'ProductsController@changestatus', 'as'=>'data-products.changestatus']);
 
 // Products Sliders
 Route::get('sliders', 
