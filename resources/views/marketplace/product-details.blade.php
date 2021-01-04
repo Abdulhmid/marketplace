@@ -74,7 +74,7 @@
             <p>{{$product->description}}</p>
           </div>
           <div class="ps-product__block ps-product__size">
-            <h4>CHOOSE VARIAN</h4>
+            <h4>PILIH VARIAN</h4>
             <select class="ps-select selectpicker" id="variantId">
               @foreach($product->variant as $vvarian)
                 <option value="{{$vvarian->id}}-{{$vvarian->name}}">
@@ -85,6 +85,21 @@
             <div class="form-group">
               <input class="form-control" type="number" id="qty" name="qty" value="1">
             </div>
+            <div class="form-group" style="display: none;">
+              <label>Catatan Produk</label>
+              <textarea class="form-control" id="note" value="-" name="note" style="width: 345px;">-
+              </textarea>
+            </div>
+          </div>
+          <div class="ps-product__block ps-product__size">
+            <h4>PILIH PENJUAL</h4>
+            <select class="ps-select selectpicker" id="sellerID">
+              @foreach(GlobalHelper::seller($product->id) as $value)
+                <option value="{{$value->product_id}}-{{$value->seller->name}}">
+                  {{$value->seller->name}}
+                </option>
+              @endforeach
+            </select>
             <div class="form-group" style="display: none;">
               <label>Catatan Produk</label>
               <textarea class="form-control" id="note" value="-" name="note" style="width: 345px;">-
@@ -119,7 +134,7 @@
     </div>
     <div class="ps-section__content">
       <div class="ps-owl--colection owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="30" data-owl-nav="false" data-owl-dots="false" data-owl-item="4" data-owl-item-xs="1" data-owl-item-sm="2" data-owl-item-md="3" data-owl-item-lg="4" data-owl-duration="1000" data-owl-mousedrag="on">
-        @foreach($products_top as $value)
+        @foreach(GlobalHelper::productTop() as $value)
           <div class="ps-shoes--carousel">
             <div class="ps-shoe">
               <div class="ps-shoe__thumbnail">
@@ -138,10 +153,10 @@
               <div class="ps-shoe__content">
                 <div class="ps-shoe__variants">
                   <div class="ps-shoe__variant normal">
-                    <img src="{{url($value->image_1)}}" alt="">
-                    <img src="{{url($value->image_2)}}" alt="">
-                    <img src="{{url($value->image_3)}}" alt="">
-                    <img src="{{url($value->image_4)}}" alt="">
+                    <img src="{{url(GlobalHelper::imageShow($value->image_1))}}" alt="">
+                    <img src="{{url(GlobalHelper::imageShow($value->image_2))}}" alt="">
+                    <img src="{{url(GlobalHelper::imageShow($value->image_3))}}" alt="">
+                    <img src="{{url(GlobalHelper::imageShow($value->image_4))}}" alt="">
                   </div>
                 </div>
                 <div class="ps-shoe__detail">
@@ -219,7 +234,8 @@
         variantName: $('#variantId').val().split("-")[1],
         note: $('#note').val(),
         ipAddress: $('#ip-address').val(),
-        image: $('#imageProduct').val()
+        image: $('#imageProduct').val(),
+        seller: $('#sellerID').val()
       });
       localStorage.setItem("checkouts", JSON.stringify(checkouts));
 
@@ -251,7 +267,8 @@
         variantName: $('#variantId').val().split("-")[1],
         note: $('#note').val(),
         ipAddress: $( '#ip-address').val(),
-        image: $('#imageProduct').val()
+        image: $('#imageProduct').val(),
+        seller: $('#sellerID').val()
       });
       localStorage.setItem("itemBuy", JSON.stringify(itemBuy));
       window.location.href = "/products/data/transactions";

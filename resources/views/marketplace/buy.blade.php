@@ -217,6 +217,9 @@
     }else{
       var checkoutsData = JSON.parse("[]");
     }
+
+    console.log(checkoutsData);
+
     if (checkoutsData.length > 0) {
       var locationArray =[];
       var dTrow ='';
@@ -224,6 +227,7 @@
       var totalWeight = 0;
       var i = 0;
       $.each(checkoutsData, function(k, v) {
+        console.log('dsd'+v.qty);
         totalPrice+=v.price*v.qty;
         totalWeight+=v.weight*v.qty;
           dTrow = '<tr>'+
@@ -233,7 +237,7 @@
                           v.nameProduct+
                       '</a>'+
                     '</td>'+
-                    '<td>'+idrFormat(v.price)+'</td>'+
+                    '<td>'+v.seller.split("-")[1]+'</td>'+
                     '<td>'+idrFormat(v.price)+'</td>'+
                     '<td>'+
                       v.qty+

@@ -17,5 +17,13 @@ class Product_seller extends Model
     protected $guarded = []; 
     protected $dates = ['created_at','updated_at'];
 
+    /**
+     * Get the variant for the blog post.
+     */
+    public function seller()
+    {
+        return $this->hasOne(User::class,'id','seller_id');
+    }
+
 }
 

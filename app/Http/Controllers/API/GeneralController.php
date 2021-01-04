@@ -188,7 +188,8 @@ class GeneralController
             'courier' => $request['courier'],
             'courier_service' => $dataShipping[1],
             'shipping_fee' =>$dataShipping[0],
-            'unique_fee' =>!empty($request['unique_fee'])?$request['unique_fee']:0
+            'unique_fee' =>!empty($request['unique_fee'])?$request['unique_fee']:0,
+            'seller_id' =>!empty($request['seller'])?$request['seller']:0
         ]);
 
         foreach ($request['dataProduct'] as $key => $value) {

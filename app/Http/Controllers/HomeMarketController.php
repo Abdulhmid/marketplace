@@ -137,9 +137,7 @@ class HomeMarketController extends Controller
     {
         $slider = $slider->latest()->get();
         $produsen = $produsen->latest()->get();
-        $products = $products->with(['category','variant'])
-                        ->where('status',1)
-                        ->latest();
+        $products = $products->with(['category','variant'])->latest();
         $product_category = $product_category->latest()->get();
         $menus = $menus->orderBy('sort','asc')->get();
 

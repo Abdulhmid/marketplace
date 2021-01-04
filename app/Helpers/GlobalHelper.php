@@ -169,4 +169,25 @@ class GlobalHelper {
         return App\Products::select('id','name','total_price','produsen_id','city_id')->get();
     }
 
+    public static function productTop(){
+        return App\Products::with(['category','variant'])->paginate(5);
+    }
+
+    public static function imageShow($image){
+        if (isset($image)) {
+            return $image;
+        }else{
+            return "";
+        }
+    }
+
+    public static function seller($productId){
+        $data = App\Product_seller::with(['seller'])->where('product_id',$productId)->get();
+        return $data;
+    }
+
+    public static function nameSeller($sellerID){
+        return App\User::find($sellerID)->name;
+    }
+
 }
