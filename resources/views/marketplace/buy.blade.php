@@ -131,7 +131,7 @@
           <thead>
             <tr>
               <th>Products</th>
-              <input type="text" id="locationProduct" value="">
+              <input type="hidden" id="locationProduct" value="">
               <th>Penjual</th>
               <th>Price</th>
               <th>Quantity</th>
