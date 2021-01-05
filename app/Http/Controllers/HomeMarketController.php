@@ -182,12 +182,19 @@ class HomeMarketController extends Controller
         $catId = $products_type->where('slug',$slug)->first()->id;
         $products = $products->with(['category','variant'])
                         ->where('product_type_id',$catId)
-                        ->where('status',1)
-                        ->paginate(16);
+                        ->where('status',1);
 
-        return view('marketplace.products',
+        if (!empty($request['category'])) {
+            $products = $products->whereIn('product_category_id',array_map('intval', explode(',', $request['category'])));
+        }
+
+        if (!empty($request['produsen'])) {
+            $products = $products->whereIn('produsen_id',array_map('intval', explode(',', $request['produsen'])));
+        }
+
+        return view('marketplace.products-category',
             [
-                'products'  => $products
+                'products'  => $products->paginate(16)
             ]
         );
     }
