@@ -122,9 +122,9 @@
                 </ul>
           </div>
           <div class="navigation__column right">
-            <form class="ps-search--header" action="do_action" method="post">
-              <input class="form-control" type="text" placeholder="Search Product…">
-              <button><i class="ps-icon-search"></i></button>
+            <form class="ps-search--header" action="#" method="post">
+              <input class="form-control" type="text" id="searchKeyword" placeholder="Cari Produk">
+              <button type="button" id="btnSearch"><i class="ps-icon-search"></i></button>
             </form>
             @include('marketplace.partials.checkouts')
             <div class="menu-toggle"><span></span></div>
@@ -360,6 +360,11 @@
         $('#totalItemPrice').html(idrFormat(newPrice));
         $('#totalItemPriceField').val(newPrice);
 
+      });
+      
+      $( document ).on( "click", "#btnSearch", function( e ) {
+        var paramKey = $('#searchKeyword').val();
+        window.location.href = "/products?search="+paramKey;
       });
 
       // Buy from Checkout

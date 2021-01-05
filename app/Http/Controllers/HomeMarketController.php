@@ -101,8 +101,14 @@ class HomeMarketController extends Controller
         $banners = $banners->latest()->get();
         $produsen = $produsen->latest()->get();
         $products = $products->with(['category','variant'])
-                        ->where('status',1)
-                        ->latest();
+                        ->where('status',1);
+
+        if (isset($request['search'])) {
+            $products = $products->with(['category','variant'])
+                            ->where('status',1)
+                            ->whereRaw('LOWER(name) LIKE ? ',[trim('%'.strtolower($request['search'])).'%']);
+        }
+
         $product_category = $product_category->latest()->get();
         $menus = $menus->orderBy('sort','asc')->get();
 

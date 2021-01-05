@@ -7,7 +7,7 @@
   <div class="ps-products-wrap pt-80 pb-80">
     <div class="ps-products" data-mh="product-listing">
       @if(count($products) > 0)
-      <div class="ps-product-action">
+      <div class="ps-product-action" style="display: none;">
         <div class="ps-product__filter">
           <select class="ps-select selectpicker">
             <option value="1">Shortby</option>
@@ -48,10 +48,10 @@
                 <div class="ps-shoe__content">
                   <div class="ps-shoe__variants">
                     <div class="ps-shoe__variant normal">
-                      <img src="{{url($value->image_1)}}" alt="">
-                      <img src="{{url($value->image_2)}}" alt="">
-                      <img src="{{url($value->image_3)}}" alt="">
-                      <img src="{{url($value->image_4)}}" alt="">
+                      <img src="{{url(GlobalHelper::imageShow($value->image_1))}}" alt="">
+                      <img src="{{url(GlobalHelper::imageShow($value->image_2))}}" alt="">
+                      <img src="{{url(GlobalHelper::imageShow($value->image_3))}}" alt="">
+                      <img src="{{url(GlobalHelper::imageShow($value->image_4))}}" alt="">
                     </div>
                   </div>
                   <div class="ps-shoe__detail">
