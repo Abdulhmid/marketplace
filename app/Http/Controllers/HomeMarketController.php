@@ -103,10 +103,18 @@ class HomeMarketController extends Controller
         $products = $products->with(['category','variant'])
                         ->where('status',1);
 
-        if (isset($request['search'])) {
+        if (!empty($request['search'])) {
             $products = $products->with(['category','variant'])
                             ->where('status',1)
                             ->whereRaw('LOWER(name) LIKE ? ',[trim('%'.strtolower($request['search'])).'%']);
+        }
+
+        if (!empty($request['category'])) {
+            $products = $products->whereIn('product_category_id',array_map('intval', explode(',', $request['category'])));
+        }
+
+        if (!empty($request['produsen'])) {
+            $products = $products->whereIn('produsen_id',array_map('intval', explode(',', $request['produsen'])));
         }
 
         $product_category = $product_category->latest()->get();

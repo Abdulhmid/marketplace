@@ -81,7 +81,7 @@
           <ul class="ps-list--checked">
             @foreach(GlobalHelper::productCategories() as $value)
               <!-- <li class="current"> -->
-              <li>
+              <li data-value="{{$value->id}}" id="catSelect" class="cat-{{$value->id}}">
                 <a href="{{url('#')}}">{{$value->name}}</a>
               </li>
             @endforeach
@@ -97,8 +97,8 @@
           <ul class="ps-list--checked">
             <!-- <li class="current"> -->
             @foreach(GlobalHelper::produsen() as $value)
-            <li>
-              <a href="{{url('')}}">{{$value->name}}</a>
+            <li data-value="{{$value->id}}" id="prodSelect" class="produsen-{{$value->id}}" >
+              <a href="{{url('#')}}">{{$value->name}}</a>
             </li>
             @endforeach
           </ul>
@@ -212,6 +212,49 @@
              console.log("Error in",errorThrown);
            }
         });
+
+        if ("filterCatProduct" in localStorage) {
+          var filterCatProduct = JSON.parse(localStorage.getItem("filterCatProduct"));  
+        }else{
+          var filterCatProduct = JSON.parse("[]");
+        }
+
+        $.each(filterCatProduct , function(index, val) { 
+          $('.cat-'+val).addClass('current');
+        });
+
+        if ("filterProdusenProduct" in localStorage) {
+          var filterProdusenProduct = JSON.parse(localStorage.getItem("filterProdusenProduct"));  
+        }else{
+          var filterProdusenProduct = JSON.parse("[]");
+        }
+
+        $.each(filterProdusenProduct , function(index, val) { 
+          $('.produsen-'+val).addClass('current');
+        });
+
+        $( document ).on( "click", "#catSelect", function( e ) {
+          if ($(this).hasClass('current')) {
+            filterCatProduct.splice( $.inArray($(this).attr("data-value"), filterCatProduct), 1 );
+            localStorage.setItem("filterCatProduct", JSON.stringify(filterCatProduct));
+          }else{
+            filterCatProduct.push($(this).attr("data-value"));
+            localStorage.setItem("filterCatProduct", JSON.stringify(filterCatProduct));
+          }
+          window.location.href = "/products?category="+filterCatProduct+"&produsen="+filterProdusenProduct;
+        });
+
+        $( document ).on( "click", "#prodSelect", function( e ) {
+          if ($(this).hasClass('current')) {
+            filterProdusenProduct.splice( $.inArray($(this).attr("data-value"), filterProdusenProduct), 1 );
+            localStorage.setItem("filterProdusenProduct", JSON.stringify(filterProdusenProduct));
+          }else{
+            filterProdusenProduct.push($(this).attr("data-value"));
+            localStorage.setItem("filterProdusenProduct", JSON.stringify(filterProdusenProduct));
+          }
+          window.location.href = "/products?category="+filterCatProduct+"&produsen="+filterProdusenProduct;
+        });
+
       });
 </script>
 @stop
