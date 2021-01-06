@@ -12,6 +12,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link  " href="/complaint">
+                        <i class="fas fa-bookmark "></i>
+                        <p>Complaint</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link  " href="/mutation">
                         <i class="far fa-fw fa-file "></i>
                         <p>Mutasi Saldo</p>
@@ -100,6 +106,12 @@
                         <p>Transaction
                             <span class="badge badge-success right">{{GlobalHelper::transactionCount([1])}}</span>
                         </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  " href="/complaint">
+                        <i class="fas fa-bookmark "></i>
+                        <p>Complaint</p>
                     </a>
                 </li>
                 <li class="nav-item">
