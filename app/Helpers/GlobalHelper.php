@@ -132,21 +132,30 @@ class GlobalHelper {
     }
 
     public static function wordingStatusTransaksi($status) {
-        if ($status=0) {
-            return "Baru";
-        }elseif ($status=1) {
-            return "Pembayaran Lunas";
-        }elseif($status=2){
-            return "Pembayaran Terkonfirmasi";
-        }elseif($status=3){
-            return "Barang di proses";
-        }elseif($status=4){
-            return "Barang dikirim";
-        }elseif($status=5){
-            return "Barang Sampai Tujuan";
-        }elseif($status=6){
-            return "Cancel";
+        if ($status == '0') {
+            $statusDisplay='Di Tolak';
+        }elseif ($status == '1') {
+            $statusDisplay='Menunggu Pembayaran';
+        }elseif ($status == '2') {
+            $statusDisplay='Terbayar';
+        }elseif ($status == '3') {
+            $statusDisplay='Disetujui';
+        }elseif ($status == '4') {
+            $statusDisplay='Proses Pembuatan';
+        }elseif ($status == '5') {
+            $statusDisplay='Proses Pengiriman';
+        }elseif ($status == '6') {
+            $statusDisplay='Barang Diterima';
+        }elseif ($status == '7') {
+            $statusDisplay='Dibatalkan';
+        }elseif ($status == '8') {
+            $statusDisplay='Komplain';
+        }elseif ($status == '9') {
+            $statusDisplay='Komplain Diterima';
+        }elseif ($status == '10') {
+            $statusDisplay='Komplain Ditolak';
         }
+        return $statusDisplay;
     }
 
     public static function labelRole($label){

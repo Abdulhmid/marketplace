@@ -176,6 +176,8 @@ Route::get('configurations/{id}',
 	['uses'=>'ConfigurationsController@edit', 'as'=>'configurations.edit']);
 
 // Transaction
+Route::get('transactions/changetrans-status', 
+	['uses'=>'TransactionsController@changeTransStatus', 'as'=>'transactions.changetransstatus']);
 Route::get('transactions', 
 	['uses'=>'TransactionsController@index', 'as'=>'transactions.index']);
 Route::get('transactions/detail/{id}', 

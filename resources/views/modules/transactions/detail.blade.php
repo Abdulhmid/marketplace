@@ -29,6 +29,7 @@
                           <div class="box-body">
                             <div class="form-group">
                               <label>Kode Transaksi:</label>
+                              <input type="hidden" name="" id="transCode" value="{{$row->transaction_code}}">
                               <h5>{{$row->transaction_code}} - 
                                 <span class="label label-primary" style="isplay: inline;padding: .2em .6em .3em;font-size: 75%;font-weight: 700;line-height: 1;color: #fff;text-align: center;white-space: nowrap;vertical-align: baseline;border-radius: .25em;background-color: #f0ad4e;">
                                   {{GlobalHelper::wordingStatusTransaksi($row->status)}}
@@ -57,9 +58,22 @@
                             <div class="form-group">
                               <label>Action:</label>
                                   <p>
-                                      <button type="button" class="btn bg-maroon margin">Approve</button>
-                                      <button type="button" class="btn bg-purple margin">Reject</button>
-                                      <button type="button" class="btn bg-orange margin">Cancel</button>
+                                    @if($row->status!=0 and $row->status!=7 and $row->status!=10)
+                                      @if(GlobalHelper::session()=='admin')
+                                        <a href="#actionStatus" data-id="3" id="actionStatus" class="btn btn-sm btn-outline-primary">Setujui</a>
+                                        <a href="#actionStatus" data-id="0" id="actionStatus" class="btn btn-sm btn-outline-primary">Tolak</a>
+                                        <a href="#actionStatus" data-id="7" id="actionStatus" class="btn btn-sm btn-outline-primary">Cancel</a>
+                                        <a href="#actionStatus" data-id="9" id="actionStatus" class="btn btn-sm btn-outline-primary">Komplain Diterima</a>
+                                      @elseif(GlobalHelper::session()=='seller')
+                                        <a href="#actionStatus" data-id="0" id="actionStatus" class="btn btn-sm btn-outline-primary">Tolak</a>
+                                        <a href="#actionStatus" data-id="4" id="actionStatus" class="btn btn-sm btn-outline-primary">Dibuat</a>
+                                        <a href="#actionStatus" data-id="5" id="actionStatus" class="btn btn-sm btn-outline-primary">Di Kirim</a>
+                                      @elseif(GlobalHelper::session()=='produsen')
+                                        <a href="#actionStatus" data-id="4" id="actionStatus" class="btn btn-sm btn-outline-primary">Pembuatan</a>
+                                      @endif
+                                    @else
+                                      No Action
+                                    @endif
                                   </p>
                             </div>
                             <div class="form-group">
@@ -208,6 +222,18 @@
               position : 'top-right'       
             })
         @endif
+
+        $('a[href="#actionStatus"]').click(function(){
+          console.log('dsdsdsdsds')
+          $.get("{!! url('transactions/changetrans-status') !!}", {
+              status : $(this).attr('data-id'),
+              code : $("#transCode").val()
+          },
+          function (data) {
+              var id = "{{Request::segment(3)}}";
+              window.location.href = "/transactions/detail/"+id;
+          });
+        });
     });
 </script>
 @stop

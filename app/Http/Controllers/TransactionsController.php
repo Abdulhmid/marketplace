@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Transactions;
+use App\Transactions_status;
 use DataTables;
 use Redirect,Response;
 use Auth;
@@ -151,6 +152,31 @@ class TransactionsController extends Controller
             'message' => 'Success'
         ], 200);
     }
+
+    // Change status
+    public function changeTransStatus(
+        Transactions $model,
+        Transactions_status $model_status,
+        Request $request
+    )
+    {
+        $row = $model->where('transaction_code', $request['code'])
+                    ->update([
+                        'status' => $request['status']
+                    ]);
+
+        $model_status->create([
+            'status' => $request['status'],
+            'transaction_code' => $request['code'],
+            'created_by' => \Auth::user()->id,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_by' => 0,
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        return $row;
+    }
+
 
     public function meesage(string $name = null, string $message = null)
     {
