@@ -298,9 +298,10 @@ class HomeMarketController extends Controller
         $code
     )
     {
+        $status = [];
         return view('marketplace.tracking_transaction',
             [
-                'data'  => $request->all(),
+                'data'  => $status,
                 'code'  => $code
             ]
         );

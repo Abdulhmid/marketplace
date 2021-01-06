@@ -130,7 +130,6 @@
            },
            error: function(response){
               console.log(response);
-                $('#image-input-error').text(response.responseJSON.errors.file);
            }
        });
     });

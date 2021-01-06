@@ -8,6 +8,7 @@ use App\Districts;
 use App\Villages;
 use App\Transactions;
 use App\Transactions_detail;
+use App\Transactions_status;
 use App\User;
 use Validator;
 use Hash;
@@ -22,7 +23,12 @@ class GeneralController
     use AuthenticatesUsers;
     /**
      * Display a login manual account kit.
-     *
+     *  == Status Transacions ==
+     * 0 = reject, 1 = waiting (Menunggu Pembayaran), 2 = paid (Menunggu Konfirmasi Pembayaran)
+     * 3 = approve by admin
+     * 4 = on proses pembuatan, 5 = on progres kirim 
+     * 6 = diterima, 7 = cancel, 8 = komplain / refund
+     * 9 = approve komplain, 10 = reject komplain
      * @return \Illuminate\Http\Response
      */
     public function actionLogin(
@@ -155,6 +161,7 @@ class GeneralController
     public function buy(
         Transactions $model,
         Transactions_detail $model_detail,
+        Transactions_status $model_status,
         Request $request
     )
     {
@@ -179,7 +186,7 @@ class GeneralController
             'address' => $request['address'],
             'note' => empty($request['notes'])?'-':$request['notes'],
             'payment_id' => $request['payment'],
-            'status' => 0,
+            'status' => 1,
             'weight' => $request['weight'],
             'created_by' => $createdById,
             'created_at' => \Carbon\Carbon::now(),
@@ -206,6 +213,21 @@ class GeneralController
             ]);
         }
 
+        if (isset(Auth::user()->id)) {
+            $createdById = Auth::user()->id;
+        }else{
+            $createdById = 0;
+        }
+
+        $model_status->create([
+            'status' => 1,
+            'transaction_code' => $codeTrans,
+            'created_by' => $createdById,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_by' => 0,
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
         return response()->json([
             'data'  => $codeTrans,
             'response_code' => 200,
@@ -221,6 +243,7 @@ class GeneralController
     public function confirm(
         Transactions $model,
         Transactions_detail $model_detail,
+        Transactions_status $model_status,
         Request $request
     )
     {
@@ -230,10 +253,25 @@ class GeneralController
             $files->move($destinationPath, $profileImage);
             $dataProof['image_proof'] = "public/imagesProof/"."$profileImage";
         }
-        $dataProof['status'] = 1;
+        $dataProof['status'] = 2;
 
         $row = $model->where('transaction_code', $request['code'])
             ->update($dataProof);
+
+        if (isset(Auth::user()->id)) {
+            $createdById = Auth::user()->id;
+        }else{
+            $createdById = 0;
+        }
+
+        $model_status->create([
+            'status' => 2,
+            'transaction_code' => $request['code'],
+            'created_by' => $createdById,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_by' => 0,
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
 
         return response()->json([
             'data'  => $row,

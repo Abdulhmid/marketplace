@@ -22,7 +22,11 @@ class TransactionsController extends Controller
     
     /**
      * Display a listing of the resource.
-     *
+     * 0 = reject, 1 = waiting (Menunggu Pembayaran), 2 = paid (Menunggu Konfirmasi Pembayaran)
+     * 3 = approve by admin
+     * 4 = on proses pembuatan, 5 = on progres kirim 
+     * 6 = diterima, 7 = cancel, 8 = komplain / refund
+     * 9 = approve komplain, 10 = reject komplain
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -36,11 +40,30 @@ class TransactionsController extends Controller
                                     .' by '.ucfirst($row->created_by);
                     })
                     ->editColumn('status', function($row){
-                            if ($row->status=1) {
-                                return "On Progress";
-                            } elseif ($row->status=0) {
-                                return "Konfirmasi Pembayaran";
+                            if ($row->status == '0') {
+                                $statusDisplay='Di Tolak';
+                            }elseif ($row->status == '1') {
+                                $statusDisplay='Menunggu Pembayaran';
+                            }elseif ($row->status == '2') {
+                                $statusDisplay='Terbayar';
+                            }elseif ($row->status == '3') {
+                                $statusDisplay='Disetujui';
+                            }elseif ($row->status == '4') {
+                                $statusDisplay='Proses Pembuatan';
+                            }elseif ($row->status == '5') {
+                                $statusDisplay='Proses Pengiriman';
+                            }elseif ($row->status == '6') {
+                                $statusDisplay='Barang Diterima';
+                            }elseif ($row->status == '7') {
+                                $statusDisplay='Dibatalkan';
+                            }elseif ($row->status == '8') {
+                                $statusDisplay='Komplain';
+                            }elseif ($row->status == '9') {
+                                $statusDisplay='Komplain Diterima';
+                            }elseif ($row->status == '10') {
+                                $statusDisplay='Komplain Ditolak';
                             }
+                            return $statusDisplay;
                     })
                     ->editColumn('total_paid', function($row){
                         return \GlobalHelper::idrFormat($row->total_paid);
