@@ -303,4 +303,43 @@ class GeneralController
         ], 200);
     }
 
+    /**
+     * Display a login manual account kit.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function cekStatusTrans(
+        Transactions $model,
+        Request $request
+    ){
+        $row = $model->where('transaction_code', $request['code'])->first();
+
+        return response()->json([
+            'data'  => $row->status,
+            'response_code' => 200,
+            'message' => 'Success'
+        ], 200);
+    }
+
+    /**
+     * Display a login manual account kit.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function complaint(
+        Transactions $model,
+        Request $request
+    ){
+        $status = $model->where('transaction_code',$request['code'])
+                        ->update([
+                            'status' => 8,
+                            'complaint_description' => $request['complaint_description']
+                        ]);
+        return response()->json([
+            'data'  => $status,
+            'response_code' => 200,
+            'message' => 'Success'
+        ], 200);
+    }
+
 }

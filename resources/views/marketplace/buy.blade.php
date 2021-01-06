@@ -305,7 +305,7 @@
     }); 
 
     $("select#courier").change(function () {
-      $.get("{!! url('/api/v1/data/cek-ongkir') !!}", {
+        $.get("{!! url('/api/v1/data/cek-ongkir') !!}", {
               courier : $("select#courier").val(),
               origin : $("#locationProduct").val(),
               destination : $("select#location").val().split("-")[0],

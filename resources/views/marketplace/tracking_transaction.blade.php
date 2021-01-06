@@ -15,20 +15,21 @@
           <thead>
               <tr>
                   <th width="15%">Status</th>
-                  <th width="70%">Keterangan</th>
                   <th width="15%">Time</th>
               </tr>
           </thead>
           <tbody>
+              @foreach($data as $value )
                 <tr align="left">
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
+                  <td>{{GlobalHelper::wordingStatusTransaksi($value->status)}}</td>
+                  <td>{{$value->created_at}}</td>
                 </tr>
+              @endforeach
           </tbody>
       </table>
     </div>
     <div class="clearfix"></div>
+    <a href="/transactions/complaint/FETQVVO" class="btn btn-info">Ajukan Komplain</a>
   </div>
 </div>
 @stop

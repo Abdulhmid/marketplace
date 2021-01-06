@@ -387,7 +387,17 @@
       // Buy from Checkout
       $('#actionTrack').click(function(){
         var transCode = $('#tracking_code').val();
-        window.location.href = "/products/transactions/success/"+transCode;
+          $.get("{!! url('/api/v1/data/cek-status') !!}", {
+              code : $('#tracking_code').val()
+          },
+          function (data) {
+            if (data.data==1) {
+              window.location.href = "/products/transactions/success/"+transCode;
+            }else{
+              window.location.href = "/transactions/tracking/"+transCode;  
+            }
+          });
+        
       });
 
 

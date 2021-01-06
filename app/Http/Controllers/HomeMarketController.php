@@ -13,6 +13,7 @@ use App\Produsen;
 use App\Menus;
 use App\Checkouts;
 use App\Transactions;
+use App\Transactions_status;
 use Auth;
 
 class HomeMarketController extends Controller
@@ -295,13 +296,38 @@ class HomeMarketController extends Controller
      */
     public function transactionsTracking(
         Request $request,
+        Transactions_status $trans_status,
         $code
     )
     {
-        $status = [];
+        $status = $trans_status->where('transaction_code',$code)->get();
         return view('marketplace.tracking_transaction',
             [
                 'data'  => $status,
+                'code'  => $code
+            ]
+        );
+    }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function complaintTrans(
+        Request $request,
+        Transactions $model,
+        $code
+    )
+    {
+        // $status = $model->where('transaction_code',$code)
+        //                 ->update([
+        //                     'status' => 1,
+        //                     'status' => 1
+        //                 ]);
+        return view('marketplace.complaint_transaction',
+            [
                 'code'  => $code
             ]
         );

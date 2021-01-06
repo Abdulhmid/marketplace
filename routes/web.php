@@ -27,6 +27,7 @@ Route::post('/products/checkout', 'HomeMarketController@checkout')->name('checko
 Route::post('/products/data-checkout', 'HomeMarketController@checkoutData')->name('checkoutData');
 Route::get('/products/transactions/success/{code}', 'HomeMarketController@transactionsOk')->name('transactionsOk');
 Route::get('/transactions/tracking/{code}', 'HomeMarketController@transactionsTracking')->name('transactionsTracking');
+Route::get('/transactions/complaint/{code}', 'HomeMarketController@complaintTrans')->name('complaintTrans');
 
 Route::post('/transactions/confirm', 'HomeMarketController@transConfirm')->name('transConfirm');
 
