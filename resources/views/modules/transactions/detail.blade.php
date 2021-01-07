@@ -60,14 +60,28 @@
                                   <p>
                                     @if($row->status!=0 and $row->status!=7 and $row->status!=10)
                                       @if(GlobalHelper::session()=='admin')
-                                        <a href="#actionStatus" data-id="3" id="actionStatus" class="btn btn-sm btn-outline-primary">Setujui</a>
-                                        <a href="#actionStatus" data-id="0" id="actionStatus" class="btn btn-sm btn-outline-primary">Tolak</a>
-                                        <a href="#actionStatus" data-id="7" id="actionStatus" class="btn btn-sm btn-outline-primary">Cancel</a>
-                                        <a href="#actionStatus" data-id="9" id="actionStatus" class="btn btn-sm btn-outline-primary">Komplain Diterima</a>
+                                        @if($row->status==6)
+                                          <a href="#actionStatus" data-id="9" id="actionStatus" class="btn btn-sm btn-outline-primary">Terima Komplain Diterima</a>
+                                          <a href="#actionStatus" data-id="10" id="actionStatus" class="btn btn-sm btn-outline-primary">Tolak Komplain Diterima</a>
+                                        @else
+                                          @if($row->status==2)
+                                            <a href="#actionStatus" data-id="3" id="actionStatus" class="btn btn-sm btn-outline-primary">Setujui Pembayaran</a>
+                                          @endif
+                                          <a href="#actionStatus" data-id="6" id="actionStatus" class="btn btn-sm btn-outline-primary">Di Terima</a>
+                                          <a href="#actionStatus" data-id="0" id="actionStatus" class="btn btn-sm btn-outline-primary">Tolak</a>
+                                          <a href="#actionStatus" data-id="7" id="actionStatus" class="btn btn-sm btn-outline-primary">Cancel</a>
+                                        @endif
                                       @elseif(GlobalHelper::session()=='seller')
-                                        <a href="#actionStatus" data-id="0" id="actionStatus" class="btn btn-sm btn-outline-primary">Tolak</a>
-                                        <a href="#actionStatus" data-id="4" id="actionStatus" class="btn btn-sm btn-outline-primary">Dibuat</a>
-                                        <a href="#actionStatus" data-id="5" id="actionStatus" class="btn btn-sm btn-outline-primary">Di Kirim</a>
+                                        @if($row->status <= 1)
+                                          <a href="#actionStatus" data-id="0" id="actionStatus" class="btn btn-sm btn-outline-primary">Tolak</a>
+                                        @endif
+                                        @if($row->status==4 or $row->status==5)
+                                          <a href="#actionStatus" data-id="4" id="actionStatus" class="btn btn-sm btn-outline-primary">Dibuat</a>
+                                          <a href="#actionStatus" data-id="5" id="actionStatus" class="btn btn-sm btn-outline-primary">Di Kirim</a>
+                                          <a href="#actionStatus" data-id="6" id="actionStatus" class="btn btn-sm btn-outline-primary">Di Terima</a>
+                                        @else
+                                          No Action
+                                        @endif
                                       @elseif(GlobalHelper::session()=='produsen')
                                         <a href="#actionStatus" data-id="4" id="actionStatus" class="btn btn-sm btn-outline-primary">Pembuatan</a>
                                       @endif

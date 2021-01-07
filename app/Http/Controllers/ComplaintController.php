@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Mutation;
 use App\Transactions;
+use App\Transactions_status;
 use DataTables;
 use Redirect,Response;
 use Auth;
@@ -28,16 +29,20 @@ class ComplaintController extends Controller
      */
     public function index(Request $request)
     {
+
         if ($request->ajax()) {
             $data = Transactions::select('*')
-                        ->where('status',8)
+                        ->whereHas('status', function($q) {
+                            $q->whereIn('status', [8]);
+                        })
                         ->with(['detail'])
                         ->orderBy('id','asc')
                         ->get();
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->editColumn('transaction_code', function($row){
-                        $data = $row->transaction_code."<hr/>".$row->buyer_email."<hr/>".$row->total_paid;
+                        $data = $row->transaction_code." / ".$row->buyer_email."<hr/>".
+                                "Total Bayar : Rp. ".\GlobalHelper::idrFormat($row->total_paid);
                         return $data;
                     })
                     ->editColumn('created_at', function($row){
@@ -45,30 +50,7 @@ class ComplaintController extends Controller
                                     .' by '.ucfirst($row->created_by);
                     })
                     ->editColumn('status', function($row){
-                            if ($row->status == '0') {
-                                $statusDisplay='Di Tolak';
-                            }elseif ($row->status == '1') {
-                                $statusDisplay='Menunggu Pembayaran';
-                            }elseif ($row->status == '2') {
-                                $statusDisplay='Terbayar';
-                            }elseif ($row->status == '3') {
-                                $statusDisplay='Disetujui';
-                            }elseif ($row->status == '4') {
-                                $statusDisplay='Proses Pembuatan';
-                            }elseif ($row->status == '5') {
-                                $statusDisplay='Proses Pengiriman';
-                            }elseif ($row->status == '6') {
-                                $statusDisplay='Barang Diterima';
-                            }elseif ($row->status == '7') {
-                                $statusDisplay='Dibatalkan';
-                            }elseif ($row->status == '8') {
-                                $statusDisplay='Menunggu Pengecekan';
-                            }elseif ($row->status == '9') {
-                                $statusDisplay='Komplain Diterima';
-                            }elseif ($row->status == '10') {
-                                $statusDisplay='Komplain Ditolak';
-                            }
-                            return $statusDisplay;
+                        return \GlobalHelper::wordingStatusTransaksi($row->status);
                     })
                     ->editColumn('total_paid', function($row){
                         return \GlobalHelper::idrFormat($row->total_paid);
@@ -86,18 +68,53 @@ class ComplaintController extends Controller
                     })
                     ->addColumn('action', function($row){
 
-                           $editUrl = url('data-products/'.$row->id);
+                           $editUrl = url('transactions/detail/'.$row->id);
  
                            $btn = '<a href="'.$editUrl.'" data-toggle="tooltip" data-original-title="Detail" class="btn btn-sm btn-outline-primary py-0">Detail</a>';
-                           $btn = '<div class="clearfix"></div>'.$btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Approve" class="btn btn-sm btn-outline-success py-0 approveAction">Approve</a>';
-                           $btn = '<div class="clearfix"></div>'.$btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Reject" class="btn btn-sm btn-outline-danger py-0 rejectAction">Reject</a>';
-                            return $btn;
+
+                           if ($row->status == 8) {
+                               $btn = '<div class="clearfix"></div>'.$btn.' <a href="javascript:void(0)" data-toggle="tooltip" data-status="9"  data-id="'.$row->transaction_code.'" data-original-title="Approve" class="btn btn-sm btn-outline-success py-0 approveAction">Approve</a>';
+                               $btn = '<div class="clearfix"></div>'.$btn.' <a href="javascript:void(0)" data-toggle="tooltip" data-status="10"  data-id="'.$row->transaction_code.'" data-original-title="Reject" class="btn btn-sm btn-outline-danger py-0 rejectAction">Reject</a>';
+                           }
+
+                           return $btn;
                     })
                     ->rawColumns(['action','product','transaction_code'])
                     ->make(true);
         }
       
         return view('modules.complaint.index');
+    }
+
+    /**
+     * Change status the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function complaintChange(
+        Request $request, 
+        Transactions $model,
+        Transactions_status $model_status, 
+        $code,
+        $status
+    )
+    {
+        $model->where('transaction_code',$code)->update([
+            'status' => $status
+        ]);
+
+        $createdById = Auth::user()->id;
+        $model_status->create([
+            'status' => $status,
+            'transaction_code' => $code,
+            'created_by' => $createdById,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_by' => 0,
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+        
+        return "Ok";
     }
 
 

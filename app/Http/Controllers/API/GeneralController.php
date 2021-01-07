@@ -328,6 +328,7 @@ class GeneralController
      */
     public function complaint(
         Transactions $model,
+        Transactions_status $model_status,
         Request $request
     ){
         $status = $model->where('transaction_code',$request['code'])
@@ -335,6 +336,22 @@ class GeneralController
                             'status' => 8,
                             'complaint_description' => $request['complaint_description']
                         ]);
+
+        if (isset(Auth::user()->id)) {
+            $createdById = Auth::user()->id;
+        }else{
+            $createdById = 0;
+        }
+
+        $model_status->create([
+            'status' => 8,
+            'transaction_code' => $request['code'],
+            'created_by' => $createdById,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_by' => 0,
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
         return response()->json([
             'data'  => $status,
             'response_code' => 200,

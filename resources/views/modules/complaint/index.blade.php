@@ -24,10 +24,10 @@
                         <table id="mytable" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>Transaction Code</th>
-                                    <th>Produk</th>
-                                    <th>Status</th>
-                                    <th>Ket Komplain</th>
+                                    <th width="20%">Transaction Code</th>
+                                    <th width="20%">Produk</th>
+                                    <th width="10%">Status</th>
+                                    <th width="30%">Ket Komplain</th>
                                     <th>Created</th>
                                     <th>Actions</th>
                                 </tr>
@@ -82,6 +82,48 @@
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ]
         });
+
+        $('body').on('click', '.approveAction', function () {
+     
+            var code = $(this).data("id");
+            var status = $(this).data("status");
+            if(confirm("Apakah anda yakin mau menolak Komplain ini "))
+            {
+              $.ajax({
+                  type: "get",
+                  url: "{{ url('complaint-change-status') }}"+'/'+code+"/"+status,
+                  success: function (data) {
+                    console.log(data);
+                  var oTable = $('#mytable').dataTable(); 
+                  oTable.fnDraw(false);
+                  },
+                  error: function (data) {
+                      console.log('Error:', data);
+                  }
+              });
+           }
+        }); 
+
+        $('body').on('click', '.rejectAction', function () {
+     
+            var code = $(this).data("id");
+            var status = $(this).data("status");
+            if(confirm("Apakah anda yakin mau menolak Komplain ini "))
+            {
+              $.ajax({
+                  type: "get",
+                  url: "{{ url('complaint-change-status') }}"+'/'+code+"/"+status,
+                  success: function (data) {
+                    console.log(data);
+                      var oTable = $('#mytable').dataTable(); 
+                      oTable.fnDraw(false);
+                  },
+                  error: function (data) {
+                      console.log('Error:', data);
+                  }
+              });
+           }
+        });  
     });
 </script>
 @stop

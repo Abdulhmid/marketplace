@@ -15,7 +15,15 @@
         @csrf
         <input type="hidden" name="code" value="{{Request::segment(3)}}">
         <div class="form-group">
-          <textarea class="form-control" name="complaint_description">Tulis Komplain anda disini</textarea>
+          <textarea class="form-control" name="complaint_description" rows="10">
+          Dear Admin
+
+          Saya pemilik transaksi dengan Kode {{Request::segment(3)}} ingin melaporkan bahwa :
+          
+          ...
+
+          Terimakasih
+        </textarea>
         </div>
         <div class="form-group">
           <button class="btn btn-info" type="submit">Kirim</button>

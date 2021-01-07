@@ -27,7 +27,7 @@
               @foreach($data as $value )
                 <tr align="left">
                   <td>{{GlobalHelper::wordingStatusTransaksi($value->status)}}</td>
-                  <td>{{$value->created_at}}</td>
+                  <td>{{GlobalHelper::dateFormat($value->created_at)}}</td>
                 </tr>
               @endforeach
           </tbody>
@@ -35,7 +35,7 @@
     </div>
     <div class="clearfix"></div>
     @if($status==6)
-      <a href="/transactions/complaint/FETQVVO" class="btn btn-info">Ajukan Komplain</a>
+      <a href="#confirmComplaint" class="btn btn-info">Ajukan Komplain</a>
     @endif
 
 
@@ -103,6 +103,12 @@
           window.location.href = "/transactions/tracking/"+code;
         });
       }
+    });
+
+    // Complaint
+    $('a[href="#confirmComplaint"]').click(function(){
+      var code = "{{Request::segment(3)}}";
+      window.location.href = "/transactions/complaint/"+code;
     });
   });
 </script>

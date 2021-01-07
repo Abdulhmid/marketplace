@@ -25,5 +25,10 @@ class Transactions extends Model
         return $this->hasMany(Transactions_detail::class,'transaction_code','transaction_code');
     }
 
+    public function status()
+    {
+        return $this->hasMany(Transactions_status::class,'transaction_code','transaction_code');
+    }
+
 }
 

@@ -193,8 +193,10 @@ Route::post('transactions',
 Route::get('mutation', 
 	['uses'=>'MutationController@index', 'as'=>'mutation.index']);
 
-// Transaction
+// Transaction Complaint
 Route::get('complaint', 
 	['uses'=>'ComplaintController@index', 'as'=>'complaint.index']);
+Route::get('complaint-change-status/{code}/{status}', 
+	['uses'=>'ComplaintController@complaintChange', 'as'=>'complaint.complaintChange']);
 
 

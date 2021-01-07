@@ -128,12 +128,6 @@
                 </li>
                 <li class="nav-header ">MAIN DATA</li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="/produsen">
-                        <i class="fas fa-address-book "></i>
-                        <p>Produsen</p>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link  " href="/products-types">
                         <i class="fas fa-bookmark "></i>
                         <p>Product Types</p>

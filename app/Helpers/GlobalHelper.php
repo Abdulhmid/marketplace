@@ -2,6 +2,10 @@
 
 class GlobalHelper {
 
+    public static function dateFormat($date) {
+        return date('d/F/Y H:i:s', strtotime($date));
+    }
+
     public static function listMenu($position) {
     	$row = App\Menus::where('position',$position)->get();
         return $row;
@@ -139,7 +143,7 @@ class GlobalHelper {
         }elseif ($status == '2') {
             $statusDisplay='Terbayar';
         }elseif ($status == '3') {
-            $statusDisplay='Disetujui';
+            $statusDisplay='Pembayaran Dikonfirmasi';
         }elseif ($status == '4') {
             $statusDisplay='Proses Pembuatan';
         }elseif ($status == '5') {
@@ -149,7 +153,7 @@ class GlobalHelper {
         }elseif ($status == '7') {
             $statusDisplay='Dibatalkan';
         }elseif ($status == '8') {
-            $statusDisplay='Komplain';
+            $statusDisplay='Permohonan Komplaint';
         }elseif ($status == '9') {
             $statusDisplay='Komplain Diterima';
         }elseif ($status == '10') {
