@@ -342,4 +342,41 @@ class GeneralController
         ], 200);
     }
 
+    /**
+     * Display a login manual account kit.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function confirmAccept(
+        Transactions $model,
+        Transactions_status $model_status,
+        Request $request
+    ){
+        $status = $model->where('transaction_code',$request['code'])
+                        ->update([
+                            'status' => 6
+                        ]);
+        
+        if (isset(Auth::user()->id)) {
+            $createdById = Auth::user()->id;
+        }else{
+            $createdById = 0;
+        }
+
+        $model_status->create([
+            'status' => 6,
+            'transaction_code' => $request['code'],
+            'created_by' => $createdById,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_by' => 0,
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        return response()->json([
+            'data'  => $status,
+            'response_code' => 200,
+            'message' => 'Success'
+        ], 200);
+    }
+
 }

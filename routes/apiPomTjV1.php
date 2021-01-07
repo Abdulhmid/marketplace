@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
  
 Route::group(['prefix' => 'data'], function () {
+	Route::get('/confirm-accept', 'API\\GeneralController@confirmAccept');
 	Route::post('/complaint', 'API\\GeneralController@complaint');
 	Route::get('/products', 'API\\ProductsController@dataProducts');
 	Route::get('/sliders', 'API\\SlidersController@dataSliders');

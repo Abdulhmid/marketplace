@@ -296,14 +296,17 @@ class HomeMarketController extends Controller
      */
     public function transactionsTracking(
         Request $request,
+        Transactions $transactions,
         Transactions_status $trans_status,
         $code
     )
     {
-        $status = $trans_status->where('transaction_code',$code)->get();
+        $data = $trans_status->where('transaction_code',$code)->get();
+        $status = $transactions->where('transaction_code',$code)->first()->status;
         return view('marketplace.tracking_transaction',
             [
-                'data'  => $status,
+                'data'  => $data,
+                'status'  => $status,
                 'code'  => $code
             ]
         );

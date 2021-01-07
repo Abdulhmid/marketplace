@@ -8,8 +8,13 @@
   <div class="ps-container">
     <h3>Riwayat Transaksi</h3>
     <h4> Kode Transaksi Anda <label style="font-style: italic">{{Request::segment(3)}}</label></h4>
-   
-    <br/>
+    @if($status==5)
+      <div class="col-md-12">
+        <a href="#confirmAccept" class="btn btn-info">Konfirmasi Barang Diterima</a>
+      </div>
+      <div class="clearfix"></div>
+      <br/>
+    @endif
     <div class="col-md-12">
       <table id="mytable" class="table table-bordered table-hover" style="color: white;font-size: 19px;font-weight: bold;">
           <thead>
@@ -29,7 +34,11 @@
       </table>
     </div>
     <div class="clearfix"></div>
-    <a href="/transactions/complaint/FETQVVO" class="btn btn-info">Ajukan Komplain</a>
+    @if($status==6)
+      <a href="/transactions/complaint/FETQVVO" class="btn btn-info">Ajukan Komplain</a>
+    @endif
+
+
   </div>
 </div>
 @stop
@@ -73,6 +82,28 @@
 <script type="text/javascript">
   $(document).ready(function(){
     new ClipboardJS('.btn');
+    $('a[href="#confirmAccept"]').click(function(){
+      if(confirm("Apakah anda yakin barang sudah diterima ?"))
+      {
+        var code = "{{Request::segment(3)}}";
+        $.get("{!! url('/api/v1/data/confirm-accept') !!}", {
+            code : "{{Request::segment(3)}}"
+        },
+        function (data) {
+          $.toast({ 
+            text : "Konfirmasi Barang diterima berhasil", 
+            showHideTransition : 'slide',  // It can be plain, fade or slide
+            bgColor : 'green',              // Background color for toast
+            textColor : 'white',            // text color
+            allowToastClose : false,       // Show the close button or not
+            hideAfter : 5000,
+            textAlign : 'left',          
+            position : 'top-right'       
+          })
+          window.location.href = "/transactions/tracking/"+code;
+        });
+      }
+    });
   });
 </script>
 @stop
