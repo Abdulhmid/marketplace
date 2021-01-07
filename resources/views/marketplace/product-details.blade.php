@@ -69,6 +69,9 @@
             <del>{{GlobalHelper::idrFormat(GlobalHelper::ratePromo($product->total_price))}}</del>
           </h3>
           <input type="hidden" id="price" value="{{$product->total_price}}">
+          <input type="hidden" id="produsenPrice" value="{{$product->produsen_price}}">
+          <input type="hidden" id="sellerComission" value="{{$product->commission_price}}">
+          <input type="hidden" id="produsenIDProd" value="{{$product->produsen_id}}">
           <div class="ps-product__block ps-product__quickview">
             <h4>QUICK REVIEW</h4>
             <p>{{$product->description}}</p>
@@ -95,7 +98,7 @@
             <h4>PILIH PENJUAL</h4>
             <select class="ps-select selectpicker" id="sellerID">
               @foreach(GlobalHelper::seller($product->id) as $value)
-                <option value="{{$value->product_id}}-{{$value->seller->name}}">
+                <option value="{{$value->seller_id}}-{{$value->seller->name}}">
                   {{$value->seller->name}}
                 </option>
               @endforeach
@@ -235,7 +238,11 @@
         note: $('#note').val(),
         ipAddress: $('#ip-address').val(),
         image: $('#imageProduct').val(),
-        seller: $('#sellerID').val()
+        seller: $('#sellerID').val(),
+        produsenPrice: $('#produsenPrice').val(),
+        sellerComission: $('#sellerComission').val(),
+        sellerID: $('#sellerID').val(),
+        produsenId: $('#produsenIDProd').val()
       });
       localStorage.setItem("checkouts", JSON.stringify(checkouts));
 
@@ -268,7 +275,11 @@
         note: $('#note').val(),
         ipAddress: $( '#ip-address').val(),
         image: $('#imageProduct').val(),
-        seller: $('#sellerID').val()
+        seller: $('#sellerID').val(),
+        produsenPrice: $('#produsenPrice').val(),
+        sellerComission: $('#sellerComission').val(),
+        sellerID: $('#sellerID').val(),
+        produsenId: $('#produsenIDProd').val()
       });
       localStorage.setItem("itemBuy", JSON.stringify(itemBuy));
       window.location.href = "/products/data/transactions";

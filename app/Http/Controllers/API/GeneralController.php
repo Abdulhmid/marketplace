@@ -9,7 +9,9 @@ use App\Villages;
 use App\Transactions;
 use App\Transactions_detail;
 use App\Transactions_status;
+use App\Ledger;
 use App\User;
+use App\Roles;
 use Validator;
 use Hash;
 use Session;
@@ -205,6 +207,10 @@ class GeneralController
                 'product_id' => $value['idProduct'],
                 'qty' => $value['qty'],
                 'price' => $value['price'],
+                'produsen_price' => $value['produsenPrice'],
+                'seller_comission' => $value['sellerComission'],
+                'seller_id' => explode("-", $value['sellerID'])[0],
+                'produsen_id' => $value['produsenId'],
                 'note' => empty($value['note'])?'-':$value['note'],
                 'created_by' => $createdById,
                 'created_at' => \Carbon\Carbon::now(),
@@ -367,17 +373,70 @@ class GeneralController
     public function confirmAccept(
         Transactions $model,
         Transactions_status $model_status,
+        Ledger $ledger,
+        Roles $roles,
+        User $user,
         Request $request
     ){
-        $status = $model->where('transaction_code',$request['code'])
-                        ->update([
+        $dataTrans = $model->with('detail')->where('transaction_code',$request['code']);
+        $status = $dataTrans->update([
                             'status' => 6
                         ]);
-        
+
         if (isset(Auth::user()->id)) {
             $createdById = Auth::user()->id;
         }else{
             $createdById = 0;
+        }
+
+        $role = $roles->where('label','admin')->first()->id;
+        $userId = $user->where('role_id',$role)->first();
+
+        // Transaksi perpindahan duit
+        $newSaldo = (int)$userId->saldo+(int)$dataTrans->first()->total_paid;
+        $credit = $dataTrans->first()->total_paid;
+
+        $totalMoneyProdusen = 0;
+        $totalMoneySeller = 0;
+        foreach ($dataTrans->first()['detail'] as $key => $value) {
+            $totalMoneyProdusen = $value['qty']*$value['produsen_price'];
+            $totalMoneySeller = $value['qty']*$value['seller_comission'];
+            
+            // Transaksi Seller
+            $newSaldoSeller = $user->where('id',$value['seller_id'])->first()->saldo+$totalMoneySeller;
+            $ledger->create([
+                'status' => 1,
+                'user_id' => $value['seller_id'],
+                'saldo' => $newSaldoSeller,
+                'debit' => 0, // pengurangan
+                'credit' => $totalMoneySeller, // penambahan
+                'description' => $request['code']." # Transfer uang dari pembeli ke admin (after pembeli konfirmasi barang diterima)",
+                'created_by' => $createdById,
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_by' => 0,
+                'updated_at' => \Carbon\Carbon::now(),
+            ]);
+            $user->where('id',$value['seller_id'])->update([
+                'saldo' => $newSaldoSeller
+            ]);
+
+            // Transaksi Produsen
+            $newSaldoProdusen = $user->where('id',$value['produsen_id'])->first()->saldo+$totalMoneyProdusen;
+            $ledger->create([
+                'status' => 1,
+                'user_id' => $value['produsen_id'],
+                'saldo' => $newSaldoProdusen,
+                'debit' => 0, // pengurangan
+                'credit' => $totalMoneyProdusen, // penambahan
+                'description' => $request['code']." # Transfer uang dari pembeli ke admin (after pembeli konfirmasi barang diterima)",
+                'created_by' => $createdById,
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_by' => 0,
+                'updated_at' => \Carbon\Carbon::now(),
+            ]);
+            $user->where('id',$value['produsen_id'])->update([
+                'saldo' => $newSaldoProdusen
+            ]);
         }
 
         $model_status->create([

@@ -132,7 +132,6 @@
                         <i class="fas fa-bookmark "></i>
                         <p>Product Types</p>
                     </a>
-
                 </li>
                 <li class="nav-item">
                     <a class="nav-link  " href="/products-category">

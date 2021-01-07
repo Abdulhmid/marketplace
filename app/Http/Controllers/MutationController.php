@@ -28,7 +28,9 @@ class MutationController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Mutation::select('*')->orderBy('id','asc')->get();
+            $data = Mutation::select('*')
+                    ->where('user_id',\Auth::user()->id)
+                    ->orderBy('id','asc')->get();
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->editColumn('created_at', function($row){

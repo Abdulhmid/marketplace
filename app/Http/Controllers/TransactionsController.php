@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Transactions;
 use App\Transactions_status;
+use App\Product_variant;
 use DataTables;
 use Redirect,Response;
 use Auth;
@@ -157,13 +158,21 @@ class TransactionsController extends Controller
     public function changeTransStatus(
         Transactions $model,
         Transactions_status $model_status,
+        Product_variant $product_variant,
         Request $request
     )
     {
-        $row = $model->where('transaction_code', $request['code'])
-                    ->update([
+        $rowTrans = $model->where('transaction_code', $request['code']);
+        $row = $rowTrans->update([
                         'status' => $request['status']
                     ]);
+
+        // if ($request['status']==3) {
+        //     $product_variant->where('product_id',$rowTrans->first()->product_id)
+        //         ->update([
+
+        //         ]);
+        // }
 
         $model_status->create([
             'status' => $request['status'],
@@ -173,6 +182,8 @@ class TransactionsController extends Controller
             'updated_by' => 0,
             'updated_at' => \Carbon\Carbon::now(),
         ]);
+
+
 
         return $row;
     }

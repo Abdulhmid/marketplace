@@ -143,7 +143,7 @@ class GlobalHelper {
         }elseif ($status == '2') {
             $statusDisplay='Terbayar';
         }elseif ($status == '3') {
-            $statusDisplay='Pembayaran Dikonfirmasi';
+            $statusDisplay='Pembayaran Dikonfirmasi / Disetujui';
         }elseif ($status == '4') {
             $statusDisplay='Proses Pembuatan';
         }elseif ($status == '5') {
