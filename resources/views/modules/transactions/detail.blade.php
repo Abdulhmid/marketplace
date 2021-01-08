@@ -76,14 +76,16 @@
                                           <a href="#actionStatus" data-id="0" id="actionStatus" class="btn btn-sm btn-outline-primary">Tolak</a>
                                         @endif
                                         @if($row->status==3 or $row->status==4 or $row->status==5)
-                                          <a href="#actionStatus" data-id="4" id="actionStatus" class="btn btn-sm btn-outline-primary">Dibuat</a>
-                                          <a href="#actionStatus" data-id="5" id="actionStatus" class="btn btn-sm btn-outline-primary">Di Kirim</a>
                                           <a href="#actionStatus" data-id="6" id="actionStatus" class="btn btn-sm btn-outline-primary">Di Terima</a>
                                         @else
                                           No Action
                                         @endif
                                       @elseif(GlobalHelper::session()=='produsen')
-                                        <!-- <a href="#actionStatus" data-id="4" id="actionStatus" class="btn btn-sm btn-outline-primary">Pembuatan</a> -->
+                                          @if($row->status==4)
+                                              <a href="#actionStatus" data-id="5" id="actionStatus" class="btn btn-sm btn-outline-primary">Di Kirim</a>
+                                            @else
+                                              <a href="#actionStatus" data-id="4" id="actionStatus" class="btn btn-sm btn-outline-primary">Sedang Dikerjakan</a>
+                                          @endif
                                         No Action
                                       @endif
                                     @else
