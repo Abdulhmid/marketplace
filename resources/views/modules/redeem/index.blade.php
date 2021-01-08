@@ -29,6 +29,7 @@
                                     <th>Request By</th>
                                     <th>Nominal</th>
                                     <th>Status</th>
+                                    <th>Tujuan</th>
                                     <th>Description</th>
                                     <th>Created</th>
                                     <th>Updated</th>
@@ -78,6 +79,7 @@
                 {data: 'user_id', name: 'user_id'},
                 {data: 'nominal', name: 'nominal'},
                 {data: 'status', name: 'status'},
+                {data: 'rekening', name: 'rekening'},
                 {data: 'description', name: 'description'},
                 {data: 'created_at', name: 'created_at'},
                 {data: 'updated_at', name: 'updated_at'},

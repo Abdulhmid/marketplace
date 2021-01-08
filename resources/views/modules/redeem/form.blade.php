@@ -30,6 +30,18 @@
                           <input type="label" class="form-control" required="" name="nominal" aria-describedby="name" value="{{GlobalHelper::saldo()}}" placeholder="Enter label" readonly="">
                         </div>
                         <div class="form-group">
+                          <label for="name">Nama Bank</label>
+                          <input type="text" name="bank_name" class="form-control" placeholder="Nama bank" value="" required="">
+                        </div>
+                        <div class="form-group">
+                          <label for="name">No Rekening</label>
+                          <input type="text" name="rekening" class="form-control" placeholder="No Rekening" value="" required="">
+                        </div>
+                        <div class="form-group">
+                          <label for="name">Atas Nama</label>
+                          <input type="text" name="account_behalf" class="form-control" placeholder="Atas nama" value="" required="">
+                        </div>
+                        <div class="form-group">
                           <label for="description">Description</label>
                           <textarea class="form-control" required="" name="description">
                             {{isset($row)?$row->description:'-'}}

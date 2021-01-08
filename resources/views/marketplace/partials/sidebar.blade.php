@@ -13,7 +13,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link  {{GlobalHelper::activeMenu('complaint')}}" href="/complaint">
-                        <i class="fas fa-bookmark "></i>
+                        <i class="far fa-fw fa-file "></i>
                         <p>Complaint</p>
                     </a>
                 </li>
@@ -38,26 +38,26 @@
                 <li class="nav-header ">MAIN DATA</li>
                 <li class="nav-item">
                     <a class="nav-link  {{GlobalHelper::activeMenu('produsen')}}" href="/produsen">
-                        <i class="fas fa-address-book "></i>
+                        <i class="fas fa-file "></i>
                         <p>Produsen</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{GlobalHelper::activeMenu('products-types')}} " href="/products-types">
-                        <i class="fas fa-bookmark "></i>
+                        <i class="fas fa-file "></i>
                         <p>Product Types</p>
                     </a>
 
                 </li>
                 <li class="nav-item">
                     <a class="nav-link  {{GlobalHelper::activeMenu('products-category')}}" href="/products-category">
-                        <i class="fas fa-bookmark "></i>
+                        <i class="fas fa-file "></i>
                         <p>Product Category</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link  {{GlobalHelper::activeMenu('payments')}}" href="/payments">
-                        <i class="fas fa-credit-card "></i>
+                        <i class="fas fa-file "></i>
                         <p>Payments</p>
                     </a>
                 </li>
@@ -66,13 +66,13 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link  {{GlobalHelper::activeMenu('roles')}}" href="/roles">
-                        <i class="fas fa-users "></i>
+                        <i class="fas fa-file "></i>
                         <p>Roles</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{GlobalHelper::activeMenu('users')}} " href="/users">
-                        <i class="fas fa-user "></i>
+                        <i class="fas fa-file "></i>
                         <p>Users</p>
                     </a>
                 </li>
@@ -116,7 +116,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link  {{GlobalHelper::activeMenu('complaint')}}" href="/complaint">
-                        <i class="fas fa-bookmark "></i>
+                        <i class="fas fa-file "></i>
                         <p>Complaint</p>
                     </a>
                 </li>
@@ -124,6 +124,12 @@
                     <a class="nav-link  {{GlobalHelper::activeMenu('mutation')}}" href="/mutation">
                         <i class="far fa-fw fa-file "></i>
                         <p>Mutasi Saldo</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  {{GlobalHelper::activeMenu('redeem')}}" href="/redeem">
+                        <i class="far fa-fw fa-file "></i>
+                        <p>Pencairan Saldo</p>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -135,13 +141,13 @@
                 <li class="nav-header ">MAIN DATA</li>
                 <li class="nav-item">
                     <a class="nav-link  {{GlobalHelper::activeMenu('products-types')}}" href="/products-types">
-                        <i class="fas fa-bookmark "></i>
+                        <i class="fas fa-file "></i>
                         <p>Product Types</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link  {{GlobalHelper::activeMenu('products-category')}}" href="/products-category">
-                        <i class="fas fa-bookmark "></i>
+                        <i class="fas fa-file "></i>
                         <p>Product Category</p>
                     </a>
                 </li>
@@ -160,6 +166,12 @@
                     <a class="nav-link  {{GlobalHelper::activeMenu('mutation')}}" href="/mutation">
                         <i class="far fa-fw fa-file "></i>
                         <p>Mutasi Saldo</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  {{GlobalHelper::activeMenu('redeem')}}" href="/redeem">
+                        <i class="far fa-fw fa-file "></i>
+                        <p>Pencairan Saldo</p>
                     </a>
                 </li>
                 <li class="nav-item">

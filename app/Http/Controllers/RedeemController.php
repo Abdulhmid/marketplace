@@ -41,12 +41,17 @@ class RedeemController extends Controller
                             if ($row->status ==0) {
                                 $statusDisplay='Ditolak';
                             } elseif ($row->status ==1) {
-                                $statusDisplay='Menunggu';
+                                $statusDisplay='Menunggu Konfirmasi';
                             }elseif ($row->status ==2) {
                                 $statusDisplay='Disetujui';
                             }
                         
                             return $statusDisplay;
+                    })
+                    ->editColumn('rekening', function($row){
+                            return "Bank : ".$row->bank_name."<br/><hr>".
+                                "Rekening : ".$row->rekening."<br/><hr>".
+                                "A.n : ".$row->account_behalf;
                     })
                     ->editColumn('created_at', function($row){
                             return $row->created_at->format('d/F/Y')
@@ -69,7 +74,7 @@ class RedeemController extends Controller
                             return "-";
                         }
                     })
-                    ->rawColumns(['action'])
+                    ->rawColumns(['action','rekening'])
                     ->make(true);
         }
       
@@ -113,6 +118,9 @@ class RedeemController extends Controller
         Redeem::create([
             'user_id' => $request->user_id,
             'nominal' => $request->nominal,
+            'bank_name' => $request->bank_name,
+            'rekening' => $request->rekening,
+            'account_behalf' => $request->account_behalf,
             'description' => $request->description,
             'created_by' => Auth::user()->id,
             'created_at' => \Carbon\Carbon::now(),
