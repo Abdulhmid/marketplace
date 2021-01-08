@@ -411,6 +411,7 @@ class GeneralController
                 'debit' => 0, // pengurangan
                 'credit' => $totalMoneySeller, // penambahan
                 'description' => $request['code']." # Transfer uang dari pembeli ke admin (after pembeli konfirmasi barang diterima)",
+                'transaction_code' => $request['code'],
                 'created_by' => $createdById,
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_by' => 0,
@@ -429,6 +430,7 @@ class GeneralController
                 'debit' => 0, // pengurangan
                 'credit' => $totalMoneyProdusen, // penambahan
                 'description' => $request['code']." # Transfer uang dari pembeli ke admin (after pembeli konfirmasi barang diterima)",
+                'transaction_code' => $request['code'],
                 'created_by' => $createdById,
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_by' => 0,

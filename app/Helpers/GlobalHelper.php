@@ -6,6 +6,12 @@ class GlobalHelper {
         return date('d/F/Y H:i:s', strtotime($date));
     }
 
+    public static function activeMenu($url) {
+        if (\Request::segment(1)==$url) {
+            return "active";
+        }
+    }    
+
     public static function listMenu($position) {
     	$row = App\Menus::where('position',$position)->get();
         return $row;

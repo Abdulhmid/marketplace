@@ -3,7 +3,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column " data-widget="treeview" role="menu">
             @if(GlobalHelper::session()=='admin')
                 <li class="nav-item">
-                    <a class="nav-link  " href="/transactions">
+                    <a class="nav-link {{GlobalHelper::activeMenu('transactions')}} " href="/transactions">
                         <i class="far fa-fw fa-file "></i>
                         <p>Transaction
                             <span class="badge badge-success right">{{GlobalHelper::transactionCount([0,1])}}</span>
@@ -12,45 +12,45 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="/complaint">
+                    <a class="nav-link  {{GlobalHelper::activeMenu('complaint')}}" href="/complaint">
                         <i class="fas fa-bookmark "></i>
                         <p>Complaint</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="/mutation">
+                    <a class="nav-link  {{GlobalHelper::activeMenu('mutation')}}" href="/mutation">
                         <i class="far fa-fw fa-file "></i>
                         <p>Mutasi Saldo</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active " href="/data-products">
+                    <a class="nav-link {{GlobalHelper::activeMenu('data-products')}} " href="/data-products">
                         <i class="far fa-fw fa-file "></i>
                         <p>Product</p>
                     </a>
                 </li>
                 <li class="nav-header ">MAIN DATA</li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="/produsen">
+                    <a class="nav-link  {{GlobalHelper::activeMenu('produsen')}}" href="/produsen">
                         <i class="fas fa-address-book "></i>
                         <p>Produsen</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="/products-types">
+                    <a class="nav-link {{GlobalHelper::activeMenu('products-types')}} " href="/products-types">
                         <i class="fas fa-bookmark "></i>
                         <p>Product Types</p>
                     </a>
 
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="/products-category">
+                    <a class="nav-link  {{GlobalHelper::activeMenu('products-category')}}" href="/products-category">
                         <i class="fas fa-bookmark "></i>
                         <p>Product Category</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="/payments">
+                    <a class="nav-link  {{GlobalHelper::activeMenu('payments')}}" href="/payments">
                         <i class="fas fa-credit-card "></i>
                         <p>Payments</p>
                     </a>
@@ -59,13 +59,13 @@
                     DATA MASTER
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="/roles">
+                    <a class="nav-link  {{GlobalHelper::activeMenu('roles')}}" href="/roles">
                         <i class="fas fa-users "></i>
                         <p>Roles</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="/users">
+                    <a class="nav-link {{GlobalHelper::activeMenu('users')}} " href="/users">
                         <i class="fas fa-user "></i>
                         <p>Users</p>
                     </a>
@@ -74,25 +74,25 @@
                     KONFIGURASI
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="/sliders">
+                    <a class="nav-link  {{GlobalHelper::activeMenu('sliders')}}" href="/sliders">
                         <i class="far fa-fw fa-circle text-red"></i>
                         <p>Sliders</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="/banners">
+                    <a class="nav-link  {{GlobalHelper::activeMenu('banners')}}" href="/banners">
                         <i class="far fa-fw fa-circle text-green"></i>
                         <p>Banner</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="/menus">
+                    <a class="nav-link  {{GlobalHelper::activeMenu('menus')}}" href="/menus">
                         <i class="far fa-fw fa-circle text-blue"></i>
                         <p>Menus</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="/configurations">
+                    <a class="nav-link  {{GlobalHelper::activeMenu('configurations')}}" href="/configurations">
                         <i class="far fa-fw fa-circle text-yellow"></i>
                         <p>Configurations</p>
                     </a>
@@ -101,7 +101,7 @@
 
             @if(GlobalHelper::session()=='produsen')
                 <li class="nav-item">
-                    <a class="nav-link  " href="/transactions">
+                    <a class="nav-link  {{GlobalHelper::activeMenu('transactions')}}" href="/transactions">
                         <i class="far fa-fw fa-file "></i>
                         <p>Transaction
                             <span class="badge badge-success right">{{GlobalHelper::transactionCount([1])}}</span>
@@ -109,32 +109,32 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="/complaint">
+                    <a class="nav-link  {{GlobalHelper::activeMenu('complaint')}}" href="/complaint">
                         <i class="fas fa-bookmark "></i>
                         <p>Complaint</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="/mutation">
+                    <a class="nav-link  {{GlobalHelper::activeMenu('mutation')}}" href="/mutation">
                         <i class="far fa-fw fa-file "></i>
                         <p>Mutasi Saldo</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active " href="/data-products">
+                    <a class="nav-link {{GlobalHelper::activeMenu('data-products')}}" href="/data-products">
                         <i class="far fa-fw fa-file "></i>
                         <p>Product</p>
                     </a>
                 </li>
                 <li class="nav-header ">MAIN DATA</li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="/products-types">
+                    <a class="nav-link  {{GlobalHelper::activeMenu('products-types')}}" href="/products-types">
                         <i class="fas fa-bookmark "></i>
                         <p>Product Types</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="/products-category">
+                    <a class="nav-link  {{GlobalHelper::activeMenu('products-category')}}" href="/products-category">
                         <i class="fas fa-bookmark "></i>
                         <p>Product Category</p>
                     </a>
@@ -143,7 +143,7 @@
 
             @if(GlobalHelper::session()=='seller')
                 <li class="nav-item">
-                    <a class="nav-link  " href="/transactions">
+                    <a class="nav-link  {{GlobalHelper::activeMenu('transactions')}}" href="/transactions">
                         <i class="far fa-fw fa-file "></i>
                         <p>Transaction
                             <span class="badge badge-success right">{{GlobalHelper::transactionCount([1])}}</span>
@@ -151,13 +151,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="/mutation">
+                    <a class="nav-link  {{GlobalHelper::activeMenu('mutation')}}" href="/mutation">
                         <i class="far fa-fw fa-file "></i>
                         <p>Mutasi Saldo</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active " href="/data-products">
+                    <a class="nav-link {{GlobalHelper::activeMenu('data-products')}} " href="/data-products">
                         <i class="far fa-fw fa-file "></i>
                         <p>Product</p>
                     </a>
