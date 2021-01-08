@@ -24,6 +24,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link  {{GlobalHelper::activeMenu('redeem')}}" href="/redeem">
+                        <i class="far fa-fw fa-file "></i>
+                        <p>Pencairan Saldo</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link {{GlobalHelper::activeMenu('data-products')}} " href="/data-products">
                         <i class="far fa-fw fa-file "></i>
                         <p>Product</p>

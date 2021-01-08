@@ -1,9 +1,9 @@
 @extends('layouts.dash-new')
 
-@section('title', 'Add Redeem')
+@section('title', 'Pencairan Dana')
 
 @section('content_header')
-<h1>Master Data Redeem</h1>
+<h1>Pencarian Dana</h1>
 @stop
 
 @section('content')
@@ -14,9 +14,11 @@
               <div class="card-header">
                     <!-- <h5>Roles List</h5> -->
                     <span></span>
+                    @if(GlobalHelper::session()!='admin')
                     <div class="card-header-right">
-                        <a href="{{url('redeem/create')}}" class="btn btn-info btn-round"><i class="icofont icofont-ui-add" style="color: #fff;"></i> Ajukan Redeem</a>
+                        <a href="{{url('redeem/create')}}" class="btn btn-info btn-round"><i class="icofont icofont-ui-add" style="color: #fff;"></i> Ajukan Pencairan</a>
                     </div>
+                    @endif
               </div>
               <div class="card-body">
                 <div class="row">
@@ -24,8 +26,8 @@
                         <table id="mytable" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Label</th>
+                                    <th>Request By</th>
+                                    <th>Nominal</th>
                                     <th>Status</th>
                                     <th>Description</th>
                                     <th>Created</th>
@@ -73,8 +75,8 @@
             serverSide: true,
             ajax: "{{ route('redeem.index') }}",
             columns: [
-                {data: 'name', name: 'name'},
-                {data: 'label', name: 'label'},
+                {data: 'user_id', name: 'user_id'},
+                {data: 'nominal', name: 'nominal'},
                 {data: 'status', name: 'status'},
                 {data: 'description', name: 'description'},
                 {data: 'created_at', name: 'created_at'},
@@ -83,14 +85,35 @@
             ]
         });
     });
-    $('body').on('click', '.deleteAction', function () {
+    $('body').on('click', '.approveAction', function () {
  
         var id = $(this).data("id");
-        if(confirm("Are You sure want to delete !"))
+        var status = $(this).data("status");
+        if(confirm("Pengajuan akan disetujui ?"))
         {
           $.ajax({
               type: "get",
-              url: "{{ url('roles-delete') }}"+'/'+id,
+              url: "{{ url('redeem-change') }}"+'/'+id+'/'+status,
+              success: function (data) {
+              var oTable = $('#mytable').dataTable(); 
+              oTable.fnDraw(false);
+              },
+              error: function (data) {
+                  console.log('Error:', data);
+              }
+          });
+       }
+    }); 
+
+    $('body').on('click', '.rejectAction', function () {
+ 
+        var id = $(this).data("id");
+        var status = $(this).data("status");
+        if(confirm("Pengajuan akan ditolak ?"))
+        {
+          $.ajax({
+              type: "get",
+              url: "{{ url('redeem-change') }}"+'/'+id+'/'+status,
               success: function (data) {
               var oTable = $('#mytable').dataTable(); 
               oTable.fnDraw(false);

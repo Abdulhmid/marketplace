@@ -199,4 +199,12 @@ Route::get('complaint',
 Route::get('complaint-change-status/{code}/{status}', 
 	['uses'=>'ComplaintController@complaintChange', 'as'=>'complaint.complaintChange']);
 
-
+// Redeem
+Route::get('redeem', 
+	['uses'=>'RedeemController@index', 'as'=>'redeem.index']);
+Route::get('redeem/create', 
+	['uses'=>'RedeemController@create', 'as'=>'redeem.create']);
+Route::post('redeem', 
+	['uses'=>'RedeemController@store', 'as'=>'redeem.store']);
+Route::get('redeem-change/{id}/{status}', 
+	['uses'=>'RedeemController@redeemchange', 'as'=>'redeem.redeemchange']);
