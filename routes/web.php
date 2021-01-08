@@ -17,7 +17,7 @@ Route::get('/', 'HomeMarketController@index')->name('home-market');
 Route::get('/gologin', 'HomeMarketController@goLogin')->name('goLogin');
 Route::get('/goregister', 'HomeMarketController@goRegister')->name('goRegister');
 Route::get('/products', 'HomeMarketController@products')->name('home-products');
-Route::get('/products/{category}', 'HomeMarketController@productsCategory')
+Route::get('/products/{type}', 'HomeMarketController@productsCategory')
 		->name('productsCategory');
 Route::get('/products/detail/{slug}', 'HomeMarketController@productsDetail')
 		->name('productsDetail');

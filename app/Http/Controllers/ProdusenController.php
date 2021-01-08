@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Produsen;
+use App\User;
+use App\Roles;
 use DataTables;
 use Redirect,Response;
 use Auth;
@@ -77,7 +79,11 @@ class ProdusenController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(
+        User $user,
+        Roles $roles,
+        Request $request
+    )
     {
         $isEdit = $request['id'];
 
@@ -97,7 +103,19 @@ class ProdusenController extends Controller
             return redirect('produsen');
         }
 
+        $userData = $user->create([
+            'name' => $request->name,
+            'username' => $request->email,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'role_id' => $roles->where('label','produsen')->first()->id,
+            'status' => 1,
+            'address' => $request->address,
+            'password' => bcrypt($request->email)
+        ]);
+
         Produsen::create([
+            'user_id' => $userData->id,
             'name' => $request->name,
             'phone' => $request->phone,
             'email' => $request->email,

@@ -36,7 +36,21 @@
     <!--HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries-->
     <!--WARNING: Respond.js doesn't work if you view the page via file://-->
     <!--[if lt IE 9]><script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script><script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->
-
+    <style type="text/css">
+      .aactive {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          height: 30px;
+          width: 100%;
+          background-color: #145233;
+          border-radius: 30px;
+          transform: translate(-50%, -50%) scale(0.5, 0.5);
+          visibility: hidden;
+          opacity: 0;
+      }
+    </style>
     @yield('css')
   </head>
   <!--[if IE 7]><body class="ie7 lt-ie8 lt-ie9 lt-ie10"><![endif]-->

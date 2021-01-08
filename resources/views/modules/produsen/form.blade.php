@@ -29,7 +29,7 @@
                           <input type="text" class="form-control" required="" name="phone" aria-describedby="name" value="{{isset($row)?$row->phone:''}}" placeholder="Enter phone">
                         </div>
                         <div class="form-group">
-                          <label for="name">Email</label>
+                          <label for="name">Email</label> <h7 style="color:red" > *) Gunakan email ini sebagai email & pass untuk login ke halaman dashboard produsen </h7>
                           <input type="email" class="form-control" required="" name="email" aria-describedby="email" value="{{isset($row)?$row->email:''}}" placeholder="Enter email">
                         </div>
                         <div class="form-group">

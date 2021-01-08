@@ -33,5 +33,14 @@ class Products extends Model
         return $this->hasOne(Product_category::class,'id','product_category_id');
     }
 
+    /**
+     * Get the variant for the blog post.
+     */
+    public function seller()
+    {
+        return $this->hasMany(Product_seller::class,'product_id');
+    }
+
+
 }
 

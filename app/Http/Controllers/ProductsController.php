@@ -161,7 +161,6 @@ class ProductsController extends Controller
                 'commission_price' => 'required',
                 'produsen_price' => 'required',
                 'product_category_id' => 'required',
-                'produsen_id' => 'required',
                 'product_type_id' => 'required'
             ]);
 
@@ -200,6 +199,8 @@ class ProductsController extends Controller
                 $rulesData['image_4'] = "imagesProducts/"."$fileImage4";
             }
 
+            $rulesData['produsen_id'] = explode("-", $request['produsen_id'])[0];
+            $rulesData['produsen_user_id'] = explode("-", $request['produsen_id'])[1];
             $rulesData['status'] = 0;
             $rulesData['city_id'] = explode("-", $request['location'])[0];
             $rulesData['province_id'] = explode("-", $request['location'])[1];
@@ -236,7 +237,6 @@ class ProductsController extends Controller
                 'produsen_price' => 'required',
                 'commission_price' => 'required',
                 'product_category_id' => 'required',
-                'produsen_id' => 'required',
                 'status' => 'required',
                 'product_type_id' => 'required'
             ]);
@@ -284,6 +284,8 @@ class ProductsController extends Controller
         }
         $rulesData['total_price'] = $request['produsen_price']+$request['commission_price'];
 
+        $rulesData['produsen_id'] = explode("-", $request['produsen_id'])[0];
+        $rulesData['produsen_user_id'] = explode("-", $request['produsen_id'])[1];
         $rulesData['city_id'] = explode("-", $request['location'])[0];
         $rulesData['province_id'] = explode("-", $request['location'])[1];
         $rulesData['weight'] = $request['weight'];

@@ -117,7 +117,7 @@
                           <label for="name">Produsen</label>
                           <select class="form-control" required="" name="produsen_id">
                             @foreach($produsen as $key => $value)
-                              <option value="{{ $value->id }}" {{isset($row) ? $value->id == $row->produsen_id ? 'selected' : '' : ''}}>{{ $value->name }}</option>
+                              <option value="{{ $value->id }}-{{$value->user_id}}" {{isset($row) ? $value->id == $row->produsen_id ? 'selected' : '' : ''}}>{{ $value->name }}</option>
                             @endforeach
                           </select>
                         </div>
