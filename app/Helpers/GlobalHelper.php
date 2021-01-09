@@ -194,9 +194,9 @@ class GlobalHelper {
 
     public static function imageShow($image){
         if (isset($image)) {
-            return $image;
+            return \URL::to('/').'/'.$image;
         }else{
-            return "";
+            return "https://via.placeholder.com/150";
         }
     }
 
@@ -207,6 +207,11 @@ class GlobalHelper {
 
     public static function nameSeller($sellerID){
         return App\User::find($sellerID)->name;
+    }
+
+    public static function getLabelByRoleId($idRole){
+        $role = App\Roles::where('id',$idRole)->first();
+        return $role->label;
     }
 
 }

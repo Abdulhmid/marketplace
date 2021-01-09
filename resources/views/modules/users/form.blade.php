@@ -112,6 +112,7 @@
 @section('css')
 <link rel="stylesheet" href="/css/admin_custom.css">
 <link rel="stylesheet" type="text/css" href="{{url('css/ezdz/jquery.ezdz.css')}}">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 <style type="text/css">
   .has-error .help-block {
     color: red;
@@ -121,8 +122,10 @@
 
 @section('js')
 <script type="text/javascript" src="{{url('js/ezdz/ezdz.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 <script>
   $(function() {
+    $('#location').select2();
     $('[type="file"]').ezdz({
         validators: {
             // maxWidth: 600,

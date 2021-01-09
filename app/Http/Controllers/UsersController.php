@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Roles;
+use App\Produsen;
 use DataTables;
 use Redirect,Response;
 use Auth;
@@ -39,6 +40,9 @@ class UsersController extends Controller
                             }
                         
                             return $statusDisplay;
+                    })
+                    ->editColumn('image', function($row){
+                            return \GlobalHelper::imageShow($row->image);
                     })
                     ->editColumn('created_at', function($row){
                             return $row->created_at->format('d/F/Y')
@@ -84,7 +88,10 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(
+        Produsen $produsen,
+        Request $request
+    )
     {
         $isEdit = $request['id'];
 
@@ -147,7 +154,21 @@ class UsersController extends Controller
         }
 
 
-        User::create($rulesData);
+        $dataUser = User::create($rulesData);
+        if (\GlobalHelper::getLabelByRoleId($request['role_id'])=='produsen') {
+            $produsen->create([
+                'user_id' => $dataUser->id,
+                'name' => $request['name'],
+                'phone' => $request['phone'],
+                'email' => $request['email'],
+                'address' => $request['address'],
+                'status' => 1,
+                'created_by' => Auth::user()->id,
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_by' => Auth::user()->id,
+                'updated_at' => \Carbon\Carbon::now()
+            ]);
+        }
 
         $this->meesage('message','Users created successfully!');
         return redirect('users');

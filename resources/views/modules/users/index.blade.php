@@ -79,7 +79,7 @@
             columns: [
                 { data: 'image', name: 'image',
                     render: function( data, type, full, meta ) {
-                        return "<img src=\"{{url('/')}}/" + data + "\" height=\"50\" class=\"thumbnail\"/>";
+                        return "<img src=\"" + data + "\" height=\"50\" class=\"thumbnail\"/>";
                     }
                 },
                 {data: 'name', name: 'name'},
