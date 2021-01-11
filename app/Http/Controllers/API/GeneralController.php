@@ -12,6 +12,7 @@ use App\Transactions_status;
 use App\Ledger;
 use App\User;
 use App\Roles;
+use App\Product_variant;
 use Validator;
 use Hash;
 use Session;
@@ -212,6 +213,7 @@ class GeneralController
                 'seller_id' => explode("-", $value['sellerID'])[0],
                 'produsen_id' => $value['produsenId'],
                 'note' => empty($value['note'])?'-':$value['note'],
+                'variant_id' => $value['variantId'],
                 'created_by' => $createdById,
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_by' => 0,
@@ -376,6 +378,7 @@ class GeneralController
         Ledger $ledger,
         Roles $roles,
         User $user,
+        Product_variant $product_variant,
         Request $request
     ){
         $dataTrans = $model->with('detail')->where('transaction_code',$request['code']);
@@ -438,6 +441,11 @@ class GeneralController
             ]);
             $user->where('id',$value['produsen_id'])->update([
                 'saldo' => $newSaldoProdusen
+            ]);
+
+            $dProdvariant=$product_variant->where('id',$value['variant_id']);
+            $dProdvariant->update([
+                'stock' => (int)$dProdvariant->first()->stock - (int)$value['qty']
             ]);
         }
 

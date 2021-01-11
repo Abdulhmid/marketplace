@@ -31,6 +31,7 @@
                                     <th>Price</th>
                                     <th>Variant</th>
                                     <th>Status</th>
+                                    <th>Stok</th>
                                     <th>Updated</th>
                                     <th>Request</th>
                                     <th>Actions</th>
@@ -89,6 +90,7 @@
                 {data: 'total_price', name: 'total_price'},
                 {data: 'variant', name: 'variant'},
                 {data: 'status', name: 'status'},
+                {data: 'stock', name: 'status'},
                 {data: 'updated_at', name: 'updated_at'},
                 {data: 'request', name: 'request', orderable: false, searchable: false},
                 {data: 'action', name: 'action', orderable: false, searchable: false},

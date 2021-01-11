@@ -33,7 +33,7 @@ class ProductsController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Products::with('variant')->orderBy('id','desc')->get();
+            $data = Products::with(['variant','stock'])->orderBy('id','desc')->get();
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->editColumn('total_price', function($row){
@@ -86,6 +86,13 @@ class ProductsController extends Controller
                            $btnReject = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-req="0" data-original-title="Delete" class="btn btn-sm btn-outline-danger py-0 reqAtion">Reject</a>';
                            $btn = $btnApprove.$btnReject;
                            return $btn;
+                    })
+                    ->addColumn('stock', function($row){
+                        $tempStock = 0;
+                        foreach ($row->stock as $key => $value) {
+                            $tempStock+=$value->stock;
+                        }
+                        return $tempStock;
                     })
                     ->addColumn('action', function($row){
 
