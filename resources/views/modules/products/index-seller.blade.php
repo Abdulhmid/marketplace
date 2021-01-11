@@ -66,7 +66,7 @@
 <script>
 
     $(function() {
-        $("#products-list").val({{$productSelected}}).trigger("change");
+        $("#products-list").val({!!$productSelected!!}).trigger("change");
 
         $('#products-list').select2({
           dropdownCssClass: "s2-mh-5",
