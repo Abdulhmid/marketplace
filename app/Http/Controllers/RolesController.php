@@ -51,8 +51,10 @@ class RolesController extends Controller
 
                            $editUrl = url('roles/'.$row->id);
                            $btn = '<a href="'.$editUrl.'" data-toggle="tooltip" data-original-title="Edit" class="btn btn-sm btn-outline-primary py-0">Edit</a>';
-                           $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-sm btn-outline-danger py-0 deleteAction">Delete</a>';
-                            return $btn;
+                           if ($row->label<>"admin" and $row->label<>"seller" and $row->label<>"customers" and $row->label<>"customers" and $row->label<>"produsen") {
+                                $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-sm btn-outline-danger py-0 deleteAction">Delete</a>';
+                           }
+                           return $btn;
                     })
                     ->rawColumns(['action'])
                     ->make(true);
