@@ -1,9 +1,9 @@
 @extends('layouts.dash-new')
 
-@section('title', 'Add Redeem')
+@section('title', 'Add Role')
 
 @section('content_header')
-<h1>Master Data Redeem</h1>
+<h1>Master Data Role</h1>
 @stop
 
 @section('content')
@@ -15,7 +15,7 @@
                     <!-- <h5>Roles List</h5> -->
                     <span></span>
                     <div class="card-header-right">
-                        <a href="{{url('redeem/create')}}" class="btn btn-info btn-round"><i class="icofont icofont-ui-add" style="color: #fff;"></i> Ajukan Redeem</a>
+                        <a href="{{url('roles/create')}}" class="btn btn-info btn-round"><i class="icofont icofont-ui-add" style="color: #fff;"></i> Tambah Role</a>
                     </div>
               </div>
               <div class="card-body">
@@ -71,7 +71,7 @@
         var table = $('#mytable').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('redeem.index') }}",
+            ajax: "{{ route('roles.index') }}",
             columns: [
                 {data: 'name', name: 'name'},
                 {data: 'label', name: 'label'},
