@@ -180,6 +180,12 @@
                         <p>Product</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link  {{GlobalHelper::activeMenu('complaint')}}" href="/complaint">
+                        <i class="far fa-fw fa-file "></i>
+                        <p>Complaint</p>
+                    </a>
+                </li>
             @endif
         </ul>
     </nav>
