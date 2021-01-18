@@ -34,7 +34,24 @@ class TransactionsController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Transactions::select('*')->with(['detail'])->orderBy('id','asc')->get();
+            $idWhereHas = Auth::user()->id;
+            if (\GlobalHelper::session()=='seller') {
+                 $data = Transactions::select('*')
+                            ->whereHas('detail', function($q) use($idWhereHas){
+                                $q->where('tj_transactions_detail.seller_id', $idWhereHas);
+                            })
+                            ->orderBy('id','asc')->get();
+            }elseif (\GlobalHelper::session()=='produsen') {
+                $data = Transactions::select('*')
+                            ->whereHas('detail', function($q) use($idWhereHas){
+                                $q->where('tj_transactions_detail.produsen_id', $idWhereHas);
+                            })
+                            ->orderBy('id','asc')->get();
+            }else{
+                $data = Transactions::select('*')->with('detail')
+                            ->orderBy('id','asc')->get();
+            }
+
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->editColumn('created_at', function($row){
