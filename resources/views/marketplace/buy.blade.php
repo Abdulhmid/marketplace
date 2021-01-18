@@ -230,6 +230,13 @@
         console.log('dsd'+v.qty);
         totalPrice+=v.price*v.qty;
         totalWeight+=v.weight*v.qty;
+        
+        if(typeof(v.seller) != "undefined" && v.seller !== null) {
+          var sellerShow = v.seller.split("-")[1]; 
+        }else{
+          var sellerShow = '';
+        }
+        
           dTrow = '<tr>'+
                     '<td>'+
                       '<a class="ps-product__preview" href="#">'+
@@ -237,7 +244,7 @@
                           v.nameProduct+
                       '</a>'+
                     '</td>'+
-                    '<td>'+v.seller.split("-")[1]+'</td>'+
+                    '<td>'+sellerShow+'</td>'+
                     '<td>'+idrFormat(v.price)+'</td>'+
                     '<td>'+
                       v.qty+
