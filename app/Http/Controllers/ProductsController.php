@@ -33,7 +33,14 @@ class ProductsController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Products::with(['variant','stock'])->orderBy('id','desc')->get();
+            $idWhereHas = Auth::user()->id;
+            if (\GlobalHelper::session()=='produser') {
+                 $data = Products::with(['variant','stock'])
+                            ->where('produsen_id', $idWhereHas)
+                            ->orderBy('id','desc')->get();
+            }else{
+                $data = Products::with(['variant','stock'])->orderBy('id','desc')->get();
+            }
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->editColumn('total_price', function($row){
