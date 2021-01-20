@@ -109,7 +109,7 @@
                 <li class="nav-item">
                     <a class="nav-link  {{GlobalHelper::activeMenu('transactions')}}" href="/transactions">
                         <i class="far fa-fw fa-file "></i>
-                        <p>Transaction
+                        <p>Penjualan
                             <span class="badge badge-success right">{{GlobalHelper::transactionCount([1])}}</span>
                         </p>
                     </a>
