@@ -131,6 +131,55 @@ class ProductsController extends Controller
         return view('modules.products.index');
     }
 
+    public function productsSales(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Product_seller::with(['product','seller'])
+                            ->orderBy('status','asc')->get();
+            return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->editColumn('status', function($row){
+                            $statusDisplay='Reject';
+                            if ($row->status == '0') {
+                                $statusDisplay='<b>Waiting</b>';
+                            }elseif ($row->status == '1') {
+                                $statusDisplay='<b>Disetujui</b>';
+                            }
+                        
+                            return $statusDisplay;
+                    })
+                    ->editColumn('updated_at', function($row){
+                            return $row->updated_at->format('d/F/Y')
+                                    .' by '.ucfirst($row->updated_by);
+                    })
+                    ->addColumn('request', function($row){
+                        if ($row->status==1) {
+                           $btnApprove = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-req="1" data-original-title="Approve" class="btn btn-sm btn-outline-primary py-0 reqAction">Approve</a>';
+                           $btnReject = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-req="0" data-original-title="Reject" class="btn btn-sm btn-outline-danger py-0 reqAction">Reject</a>';
+                           $btn = $btnApprove.$btnReject;
+                           return $btn;
+                        }else{
+                           $btnApprove = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-req="1" data-original-title="Approve" class="btn btn-sm btn-outline-primary py-0 reqAction">Approve</a>';
+                           $btnReject = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-req="0" data-original-title="Reject" class="btn btn-sm btn-outline-danger py-0 reqAction">Reject</a>';
+                           $btn = $btnApprove.$btnReject;
+                           return $btn;
+                        }
+                    })
+                    ->addColumn('produsen', function($row){
+                        return $row->seller->name;
+                    })
+                    ->addColumn('product', function($row){
+                        return $row->product->name;
+                    })
+                    ->rawColumns(['request','status'])
+                    ->make(true);
+        }
+
+
+      
+        return view('modules.products.index-ajuan');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -376,9 +425,18 @@ class ProductsController extends Controller
 
     public function storeProductSeller(Request $request)
     {
-        Product_seller::where('seller_id',Auth::user()->id)->delete();
+        $haveStore = Product_seller::select('product_id')->where('seller_id',Auth::user()->id)->pluck('product_id')->toArray();
+
+
+        $arrayProductSeller=[];
         foreach ($request['product'] as $key => $value) {
+            array_push($arrayProductSeller, (int)$value);
+            if(in_array($value, $haveStore))
+            {
+              continue;
+            }
             $productSeller['seller_id'] =  Auth::user()->id;
+            $productSeller['status'] = 0;
             $productSeller['product_id'] = $value;
             $productSeller['updated_by'] = Auth::user()->id;
             $productSeller['updated_at'] = \Carbon\Carbon::now();
@@ -386,6 +444,10 @@ class ProductsController extends Controller
             $productSeller['created_at']    = \Carbon\Carbon::now();
             Product_seller::create($productSeller);
         }
+        Product_seller::whereNotIn('product_id',$arrayProductSeller)
+            ->where('seller_id',Auth::user()->id)
+            ->delete();
+
         return Product_seller::select('*')->get();
     }
 
@@ -417,6 +479,23 @@ class ProductsController extends Controller
     )
     {
         $products->where('id', $id)->update(
+            [
+                'status' => $req
+            ]
+        );
+
+        $this->meesage('message','Products change successfully!');
+        return redirect()->back();
+    }
+
+    public function changeAjuanSales(
+        Request $request, 
+        Product_seller $product_seller, 
+        $req,
+        $id
+    )
+    {
+        $product_seller->where('id', $id)->update(
             [
                 'status' => $req
             ]

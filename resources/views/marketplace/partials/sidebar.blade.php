@@ -138,6 +138,12 @@
                         <p>Product</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{GlobalHelper::activeMenu('products-sales')}}" href="/products-sales">
+                        <i class="far fa-fw fa-file "></i>
+                        <p>Ajuan Sales</p>
+                    </a>
+                </li>
                 <li class="nav-header ">MAIN DATA</li>
                 <li class="nav-item">
                     <a class="nav-link  {{GlobalHelper::activeMenu('products-types')}}" href="/products-types">

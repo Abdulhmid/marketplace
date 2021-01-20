@@ -125,6 +125,11 @@ Route::post('store-product-seller',
 	['uses'=>'ProductsController@storeProductSeller', 'as'=>'store-product.update']);
 Route::get('data-products-req/{req}/{id}', 
 	['uses'=>'ProductsController@changestatus', 'as'=>'data-products.changestatus']);
+// Ajuan Sales
+Route::get('products-sales', 
+	['uses'=>'ProductsController@productsSales', 'as'=>'data-products.sales']);
+Route::get('data-products-req-sales/{req}/{id}', 
+	['uses'=>'ProductsController@changeAjuanSales', 'as'=>'data-products.changeajuansales']);
 
 // Products Sliders
 Route::get('sliders', 

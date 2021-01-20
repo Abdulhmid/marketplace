@@ -25,5 +25,10 @@ class Product_seller extends Model
         return $this->hasOne(User::class,'id','seller_id');
     }
 
+    public function product()
+    {
+        return $this->hasOne(Products::class,'id','product_id');
+    }
+
 }
 
