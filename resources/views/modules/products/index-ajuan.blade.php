@@ -1,6 +1,6 @@
 @extends('layouts.dash-new')
 
-@section('title', 'Data Products')
+@section('title', 'Data Products Ajuan Sales')
 
 @section('content_header')
 <h1>Master Data Products</h1>
