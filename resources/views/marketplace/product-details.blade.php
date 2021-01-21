@@ -23,13 +23,13 @@
           <div class="ps-product__preview">
             <div class="ps-product__variants">
               <div class="item">
-                <img src="{{url($product->image)}}" alt="">
+                <img src="{{url(GlobalHelper::imageShow($product->image))}}" alt="">
                 <input type="hidden" id="imageProduct" value="{{url($product->image)}}">
               </div>
-              <div class="item"><img src="{{url($product->image_1)}}" alt=""></div>
-              <div class="item"><img src="{{url($product->image_2)}}" alt=""></div>
-              <div class="item"><img src="{{url($product->image_3)}}" alt=""></div>
-              <div class="item"><img src="{{url($product->image_4)}}" alt=""></div>
+              <div class="item"><img src="{{url(GlobalHelper::imageShow($product->image_1))}}" alt=""></div>
+              <div class="item"><img src="{{url(GlobalHelper::imageShow($product->image_2))}}" alt=""></div>
+              <div class="item"><img src="{{url(GlobalHelper::imageShow($product->image_3))}}" alt=""></div>
+              <div class="item"><img src="{{url(GlobalHelper::imageShow($product->image_4))}}" alt=""></div>
             </div>
               <!-- <a class="popup-youtube ps-product__video" href="http://www.youtube.com/watch?v=0O2aH4XLbto">
                 <img src="{{url($product->image)}}" alt="">
@@ -38,23 +38,23 @@
           </div>
           <div class="ps-product__image">
             <div class="item">
-              <img class="zoom" src="{{url($product->image_1)}}" alt="" data-zoom-image="{{url($product->image_1)}}">
+              <img class="zoom" src="{{url(GlobalHelper::imageShow($product->image_1))}}" alt="" data-zoom-image="{{url($product->image_1)}}">
             </div>
             <div class="item">
-              <img class="zoom" src="{{url($product->image_2)}}" alt="" data-zoom-image="{{url($product->image_2)}}">
+              <img class="zoom" src="{{url(GlobalHelper::imageShow($product->image_2))}}" alt="" data-zoom-image="{{url(GlobalHelper::imageShow($product->image_2))}}">
             </div>
             <div class="item">
-              <img class="zoom" src="{{url($product->image_3)}}" alt="" data-zoom-image="{{url($product->image_3)}}">
+              <img class="zoom" src="{{url(GlobalHelper::imageShow($product->image_3))}}" alt="" data-zoom-image="{{url(GlobalHelper::imageShow($product->image_3))}}">
             </div>
           </div>
         </div>
         <div class="ps-product__thumbnail--mobile">
           <div class="ps-product__main-img">
-            <img src="{{url($product->image_1)}}" alt=""></div>
+            <img src="{{url(GlobalHelper::imageShow($product->image_1))}}" alt=""></div>
           <div class="ps-product__preview owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="20" data-owl-nav="true" data-owl-dots="false" data-owl-item="3" data-owl-item-xs="3" data-owl-item-sm="3" data-owl-item-md="3" data-owl-item-lg="3" data-owl-duration="1000" data-owl-mousedrag="on">
-            <img src="{{url($product->image_1)}}" alt="">
-            <img src="{{url($product->image_2)}}" alt="">
-            <img src="{{url($product->image_3)}}" alt="">
+            <img src="{{url(GlobalHelper::imageShow($product->image_1))}}" alt="">
+            <img src="{{url(GlobalHelper::imageShow($product->image_2))}}" alt="">
+            <img src="{{url(GlobalHelper::imageShow($product->image_3))}}" alt="">
           </div>
         </div>
         <div class="ps-product__info">
