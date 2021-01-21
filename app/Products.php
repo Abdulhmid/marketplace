@@ -44,6 +44,14 @@ class Products extends Model
     /**
      * Get the variant for the blog post.
      */
+    public function produsen()
+    {
+        return $this->hasOne(Produsen::class,'id','produsen_id');
+    }
+
+    /**
+     * Get the variant for the blog post.
+     */
     public function stock()
     {
         return $this->hasMany(Product_variant::class,'product_id');

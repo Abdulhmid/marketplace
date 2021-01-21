@@ -72,6 +72,7 @@
           <input type="hidden" id="produsenPrice" value="{{$product->produsen_price}}">
           <input type="hidden" id="sellerComission" value="{{$product->commission_price}}">
           <input type="hidden" id="produsenIDProd" value="{{$product->produsen_user_id}}">
+          <input type="hidden" id="produsenNameProd" value="{{$product->produsen->name}}">
           <div class="ps-product__block ps-product__quickview">
             <h4>QUICK REVIEW</h4>
             <p>{{$product->description}}</p>
@@ -242,7 +243,8 @@
         produsenPrice: $('#produsenPrice').val(),
         sellerComission: $('#sellerComission').val(),
         sellerID: $('#sellerID').val(),
-        produsenId: $('#produsenIDProd').val()
+        produsenId: $('#produsenIDProd').val(),
+        produsenName: $('#produsenNameProd').val()
       });
       localStorage.setItem("checkouts", JSON.stringify(checkouts));
 
@@ -279,7 +281,8 @@
         produsenPrice: $('#produsenPrice').val(),
         sellerComission: $('#sellerComission').val(),
         sellerID: $('#sellerID').val(),
-        produsenId: $('#produsenIDProd').val()
+        produsenId: $('#produsenIDProd').val(),
+        produsenName: $('#produsenNameProd').val()
       });
       localStorage.setItem("itemBuy", JSON.stringify(itemBuy));
       window.location.href = "/products/data/transactions";
