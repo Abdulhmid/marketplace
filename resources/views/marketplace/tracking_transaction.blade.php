@@ -27,7 +27,13 @@
               @foreach($data as $value )
                 <tr align="left">
                   <td>{{GlobalHelper::wordingStatusTransaksi($value->status)}}</td>
-                  <td>{{GlobalHelper::dateFormat($value->created_at)}}</td>
+                  <td>{{GlobalHelper::dateFormat($value->created_at)}}
+                      @if($value->status==8)
+                        <br>
+                        Tanggapan : <br>
+                        - {{$response}}
+                      @endif
+                  </td>
                 </tr>
               @endforeach
           </tbody>

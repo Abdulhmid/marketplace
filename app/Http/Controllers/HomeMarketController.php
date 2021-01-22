@@ -305,10 +305,12 @@ class HomeMarketController extends Controller
     {
         $data = $trans_status->where('transaction_code',$code)->get();
         $status = $transactions->where('transaction_code',$code)->first()->status;
+        $response = $transactions->where('transaction_code',$code)->first()->response_complaint;
         return view('marketplace.tracking_transaction',
             [
                 'data'  => $data,
                 'status'  => $status,
+                'response'  => $response,
                 'code'  => $code
             ]
         );
