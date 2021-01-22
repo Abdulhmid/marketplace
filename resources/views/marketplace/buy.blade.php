@@ -218,7 +218,29 @@
       var checkoutsData = JSON.parse("[]");
     }
 
-    console.log(checkoutsData);
+    function sortJson(element, prop, propType, asc) {
+      console.log('dsds909')
+      switch (propType) {
+        case "int":
+          element = element.sort(function (a, b) {
+            if (asc) {
+              return (parseInt(a[prop]) > parseInt(b[prop])) ? 1 : ((parseInt(a[prop]) < parseInt(b[prop])) ? -1 : 0);
+            } else {
+              return (parseInt(b[prop]) > parseInt(a[prop])) ? 1 : ((parseInt(b[prop]) < parseInt(a[prop])) ? -1 : 0);
+            }
+          });
+          break;
+        default:
+          element = element.sort(function (a, b) {
+            if (asc) {
+              return (a[prop].toLowerCase() > b[prop].toLowerCase()) ? 1 : ((a[prop].toLowerCase() < b[prop].toLowerCase()) ? -1 : 0);
+            } else {
+              return (b[prop].toLowerCase() > a[prop].toLowerCase()) ? 1 : ((b[prop].toLowerCase() < a[prop].toLowerCase()) ? -1 : 0);
+            }
+          });
+      }
+    }
+    sortJson(checkoutsData , "produsenName", "string", true);
 
     if (checkoutsData.length > 0) {
       var locationArray =[];
@@ -226,8 +248,8 @@
       var totalPrice = 0;
       var totalWeight = 0;
       var i = 0;
+      var tempProdusenID = [];
       $.each(checkoutsData, function(k, v) {
-        console.log('dsd'+v.qty);
         totalPrice+=v.price*v.qty;
         totalWeight+=v.weight*v.qty;
         
@@ -236,25 +258,36 @@
         }else{
           var sellerShow = '';
         }
-        
+
+
+        if(jQuery.inArray(v.produsenId, tempProdusenID) != -1) {
+        }else{
+          tempProdusenID.push(v.produsenId);
           dTrow = '<tr>'+
-                    '<td>'+
-                      '<a class="ps-product__preview" href="#">'+
-                        '<img class="mr-15" width="40px" height="40px" src="'+v.image+'" alt="">'+ 
-                          v.nameProduct+
-                      '</a>'+
+                    '<td colspan="6">'+"Produsen "+v.produsenName+
                     '</td>'+
-                    '<td>'+sellerShow+'</td>'+
-                    '<td>'+idrFormat(v.price)+'</td>'+
-                    '<td>'+
-                      v.qty+
-                    '</td>'+
-                    '<td>'+v.weight*v.qty+'</td>'+
-                    '<td>'+idrFormat(v.price*v.qty)+'</td>'+
                   '</tr>';
           $("#table-buy tbody").append(dTrow);
-          locationArray.push(v.productLocation);
-          i++;
+        }
+        
+        dTrow = '<tr>'+
+                  '<td>'+
+                    '<a class="ps-product__preview" href="#">'+
+                      '<img class="mr-15" width="40px" height="40px" src="'+v.image+'" alt="">'+ 
+                        v.nameProduct+
+                    '</a>'+
+                  '</td>'+
+                  '<td>'+sellerShow+v.produsenName+'</td>'+
+                  '<td>'+idrFormat(v.price)+'</td>'+
+                  '<td>'+
+                    v.qty+
+                  '</td>'+
+                  '<td>'+v.weight*v.qty+'</td>'+
+                  '<td>'+idrFormat(v.price*v.qty)+'</td>'+
+                '</tr>';
+        $("#table-buy tbody").append(dTrow);
+        locationArray.push(v.productLocation);
+        i++;
 
       });  
       totalPriceNew = parseInt(totalPrice) + parseInt("{{$uniqueTrans}}");
