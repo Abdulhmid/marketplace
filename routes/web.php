@@ -95,6 +95,10 @@ Route::post('produsen',
 	['uses'=>'ProdusenController@store', 'as'=>'produsen.store']);
 Route::get('produsen-delete/{id}', 
 	['uses'=>'ProdusenController@destroy', 'as'=>'produsen.destro']);
+Route::get('produsen-block/{id}', 
+	['uses'=>'ProdusenController@block', 'as'=>'produsen.block']);
+Route::get('produsen-activated/{id}', 
+	['uses'=>'ProdusenController@activated', 'as'=>'produsen.activated']);
 Route::get('produsen/{id}', 
 	['uses'=>'ProdusenController@edit', 'as'=>'produsen.edit']);
 

@@ -45,16 +45,22 @@ class ProdusenController extends Controller
                             return $row->created_at->format('d/F/Y')
                                     .' by '.ucfirst($row->created_by);
                     })
-                    ->editColumn('updated_at', function($row){
-                            return $row->updated_at->format('d/F/Y')
-                                    .' by '.ucfirst($row->updated_by);
-                    })
+                    // ->editColumn('updated_at', function($row){
+                    //         return $row->updated_at->format('d/F/Y')
+                    //                 .' by '.ucfirst($row->updated_by);
+                    // })
                     ->addColumn('action', function($row){
 
                            $editUrl = url('produsen/'.$row->id);
+                           $btnBlock = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Block" class="btn btn-sm btn-outline-warning py-0 blockAction">Block</a> ';
+                           $btnOpen = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Aktifkan" class="btn btn-sm btn-outline-success py-0 activateAction">Aktfikan</a> ';
                            $btn = '<a href="'.$editUrl.'" data-toggle="tooltip" data-original-title="Edit" class="btn btn-sm btn-outline-primary py-0">Edit</a>';
                            $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-sm btn-outline-danger py-0 deleteAction">Delete</a>';
-                            return $btn;
+                            if ($row->status==1) {
+                                return $btnBlock.$btn;
+                            }else{
+                                return $btnOpen.$btn;
+                            }
                     })
                     ->rawColumns(['action'])
                     ->make(true);
@@ -178,6 +184,30 @@ class ProdusenController extends Controller
     {
         $produsen->where('id', $id)->delete();
         $this->meesage('message','Produsen deleted successfully!');
+        return redirect()->back();
+    }
+
+    public function block(Request $request, Produsen $produsen, $id)
+    {
+        $dataProdusen = $produsen->where('id', $id);
+        $dataProdusen->update([
+                'status' =>0
+            ]);
+        User::where('id',$dataProdusen->first()->user_id)
+            ->update(['status'=>0]);
+        $this->meesage('message','Produsen update successfully!');
+        return redirect()->back();
+    }
+
+    public function activated(Request $request, Produsen $produsen, $id)
+    {
+        $dataProdusen = $produsen->where('id', $id);
+        $dataProdusen->update([
+                'status' =>1
+            ]);
+        User::where('id',$dataProdusen->first()->user_id)
+            ->update(['status'=>1]);
+        $this->meesage('message','Produsen update successfully!');
         return redirect()->back();
     }
 

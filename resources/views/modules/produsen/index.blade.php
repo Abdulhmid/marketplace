@@ -30,7 +30,7 @@
                                     <th>Status</th>
                                     <th>Address</th>
                                     <th>Created</th>
-                                    <th>Updated</th>
+                                    <!-- <th>Updated</th> -->
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -80,7 +80,7 @@
                 {data: 'status', name: 'status'},
                 {data: 'address', name: 'address'},
                 {data: 'created_at', name: 'created_at'},
-                {data: 'updated_at', name: 'updated_at'},
+                // {data: 'updated_at', name: 'updated_at'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ]
         });
@@ -103,5 +103,44 @@
           });
        }
     }); 
+
+    $('body').on('click', '.blockAction', function () {
+ 
+        var id = $(this).data("id");
+        if(confirm("Anda yakin produsen ini akan di block ?"))
+        {
+          $.ajax({
+              type: "get",
+              url: "{{ url('produsen-block') }}"+'/'+id,
+              success: function (data) {
+              var oTable = $('#mytable').dataTable(); 
+              oTable.fnDraw(false);
+              },
+              error: function (data) {
+                  console.log('Error:', data);
+              }
+          });
+       }
+    }); 
+
+    $('body').on('click', '.activateAction', function () {
+ 
+        var id = $(this).data("id");
+        if(confirm("Anda yakin produsen ini akan di aktifkan lagi ?"))
+        {
+          $.ajax({
+              type: "get",
+              url: "{{ url('produsen-activated') }}"+'/'+id,
+              success: function (data) {
+              var oTable = $('#mytable').dataTable(); 
+              oTable.fnDraw(false);
+              },
+              error: function (data) {
+                  console.log('Error:', data);
+              }
+          });
+       }
+    }); 
+
 </script>
 @stop
