@@ -44,10 +44,6 @@ class UsersController extends Controller
                     ->editColumn('image', function($row){
                             return \GlobalHelper::imageShow($row->image);
                     })
-                    ->editColumn('created_at', function($row){
-                            return $row->created_at->format('d/F/Y')
-                                    .' by '.ucfirst($row->created_by);
-                    })
                     ->editColumn('role_id', function($row){
                             return Roles::where('id',$row->role_id)->first()->name;
                     })
@@ -56,11 +52,16 @@ class UsersController extends Controller
                                     .' by '.ucfirst($row->updated_by);
                     })
                     ->addColumn('action', function($row){
-
+                           $btnBlock = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Block" class="btn btn-sm btn-outline-warning py-0 blockAction">Block</a> ';
+                           $btnOpen = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Aktifkan" class="btn btn-sm btn-outline-success py-0 activateAction">Aktfikan</a> ';
                            $editUrl = url('users/'.$row->id);
                            $btn = '<a href="'.$editUrl.'" data-toggle="tooltip" data-original-title="Edit" class="btn btn-sm btn-outline-primary py-0">Edit</a>';
                            $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-sm btn-outline-danger py-0 deleteAction">Delete</a>';
-                            return $btn;
+                            if ($row->status==1) {
+                                return $btnBlock.$btn;
+                            }else{
+                                return $btnOpen.$btn;
+                            }
                     })
                     ->rawColumns(['action'])
                     ->make(true);
@@ -223,6 +224,28 @@ class UsersController extends Controller
     {
         $users->where('id', $id)->delete();
         $this->meesage('message','Roles deleted successfully!');
+        return redirect()->back();
+    }
+
+    public function block(Request $request, $id)
+    {
+        $dataUser = User::where('id',$id);
+        $dataUser->update(['status'=>0]);
+        if (\GlobalHelper::getLabelByRoleId($dataUser->first()->role_id)=='produsen') {
+            Produsen::where('user_id',$id)->update(['status'=>0]);
+        }
+        $this->meesage('message','User update successfully!');
+        return redirect()->back();
+    }
+
+    public function activated(Request $request, $id)
+    {
+        $dataUser = User::where('id',$id);
+        $dataUser->update(['status'=>1]);
+        if (\GlobalHelper::getLabelByRoleId($dataUser->first()->role_id)=='produsen') {
+            Produsen::where('user_id',$id)->update(['status'=>1]);
+        }
+        $this->meesage('message','User update successfully!');
         return redirect()->back();
     }
 

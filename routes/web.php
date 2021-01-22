@@ -46,6 +46,10 @@ Route::get('users', ['uses'=>'UsersController@index', 'as'=>'users.index']);
 Route::get('users/create', ['uses'=>'UsersController@create', 'as'=>'users.create']);
 Route::post('users', ['uses'=>'UsersController@store', 'as'=>'users.store']);
 Route::get('users-delete/{id}', ['uses'=>'UsersController@destroy', 'as'=>'users.destroy']);
+Route::get('users-block/{id}', 
+	['uses'=>'UsersController@block', 'as'=>'users.block']);
+Route::get('users-activated/{id}', 
+	['uses'=>'UsersController@activated', 'as'=>'users.activated']);
 Route::get('users/{id}', ['uses'=>'UsersController@edit', 'as'=>'users.edit']);
 
 // Products Category

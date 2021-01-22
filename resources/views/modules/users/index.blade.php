@@ -29,7 +29,7 @@
                                     <th>Email</th>
                                     <th>Status</th>
                                     <th>Role</th>
-                                    <th>Created</th>
+                                    <!-- <th>Created</th> -->
                                     <th>Updated</th>
                                     <th>Actions</th>
                                 </tr>
@@ -86,7 +86,7 @@
                 {data: 'email', name: 'email'},
                 {data: 'status', name: 'status'},
                 {data: 'role_id', name: 'role_id'},
-                {data: 'created_at', name: 'created_at'},
+                // {data: 'created_at', name: 'created_at'},
                 {data: 'updated_at', name: 'updated_at'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ]
@@ -100,6 +100,44 @@
           $.ajax({
               type: "get",
               url: "{{ url('users-delete') }}"+'/'+id,
+              success: function (data) {
+              var oTable = $('#mytable').dataTable(); 
+              oTable.fnDraw(false);
+              },
+              error: function (data) {
+                  console.log('Error:', data);
+              }
+          });
+       }
+    }); 
+
+    $('body').on('click', '.blockAction', function () {
+ 
+        var id = $(this).data("id");
+        if(confirm("Anda yakin usesr ini akan di block ?"))
+        {
+          $.ajax({
+              type: "get",
+              url: "{{ url('users-block') }}"+'/'+id,
+              success: function (data) {
+              var oTable = $('#mytable').dataTable(); 
+              oTable.fnDraw(false);
+              },
+              error: function (data) {
+                  console.log('Error:', data);
+              }
+          });
+       }
+    }); 
+
+    $('body').on('click', '.activateAction', function () {
+ 
+        var id = $(this).data("id");
+        if(confirm("Anda yakin usesr ini akan di aktifkan lagi ?"))
+        {
+          $.ajax({
+              type: "get",
+              url: "{{ url('users-activated') }}"+'/'+id,
               success: function (data) {
               var oTable = $('#mytable').dataTable(); 
               oTable.fnDraw(false);
