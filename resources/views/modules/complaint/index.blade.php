@@ -43,6 +43,27 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Beri Tanggapan <label id="label-tanggap"></label> </h4>
+            <input type="text" id="transCode">
+          </div>
+          <div class="modal-body">
+            <label>Jawaban</label>
+            <textarea class="form-control" id="response_complaint"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" id="store-response">Kirim Tanggapan</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
 </div>
 @stop
 @section('css')
@@ -123,7 +144,66 @@
                   }
               });
            }
-        });  
+        }); 
+
+        $('body').on('click', '.responseAction', function () {
+     
+            var code = $(this).data("id");
+            var status = $(this).data("status");
+            if(confirm("Apakah anda yakin mau menolak Komplain ini "))
+            {
+              $.ajax({
+                  type: "get",
+                  url: "{{ url('complaint-change-status') }}"+'/'+code+"/"+status,
+                  success: function (data) {
+                    console.log(data);
+                      var oTable = $('#mytable').dataTable(); 
+                      oTable.fnDraw(false);
+                  },
+                  error: function (data) {
+                      console.log('Error:', data);
+                  }
+              });
+           }
+        }); 
+
+        $('#myModal').on('show.bs.modal', function(e) {
+
+            //get data-id attribute of the clicked element
+            var complaintTrans = $(e.relatedTarget).data('complaint-trans');
+            var complaintId = $(e.relatedTarget).data('complaint-id');
+            var complaintDesc = $(e.relatedTarget).data('complaint-desc');
+
+            console.log(complaintDesc);
+            //populate the textbox
+            // $(e.currentTarget).find('input[name="bookId"]').val(bookId);
+            $(e.currentTarget).find('#label-tanggap').html(complaintTrans);
+            $('#transCode').val(complaintTrans);
+        });
+
+        $('body').on('click', '#store-response', function () {
+            $.ajax({
+                url: '{{url("complaint-response")}}',
+                type: 'POST',
+                data: {
+                  _token: "{{ csrf_token() }}", 
+                  response_complaint : $('#response_complaint').val(),
+                  transaction_code : $('#transCode').val()
+                },
+                success: function (data){
+                  $('#myModal').modal('hide');
+                  $('#response_complaint').val('')
+                  var oTable = $('#mytable').dataTable(); 
+                      oTable.fnDraw(false);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                  console.log("XHR",xhr);
+                  console.log("status",textStatus);
+                  console.log("Error in",errorThrown);
+                }
+            });
+        });
+
     });
 </script>
 @stop

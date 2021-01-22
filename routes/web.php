@@ -211,6 +211,8 @@ Route::get('complaint',
 	['uses'=>'ComplaintController@index', 'as'=>'complaint.index']);
 Route::get('complaint-change-status/{code}/{status}', 
 	['uses'=>'ComplaintController@complaintChange', 'as'=>'complaint.complaintChange']);
+Route::post('complaint-response', 
+	['uses'=>'ComplaintController@storeresponse', 'as'=>'complaint.storeresponse']);
 
 // Redeem
 Route::get('redeem', 

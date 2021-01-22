@@ -152,7 +152,7 @@ class TransactionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeEdit(
+    public function storeresponse(
         Transactions $model, 
         Request $request
     )
