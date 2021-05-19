@@ -66,8 +66,8 @@ class HomeMarketController extends Controller
         $banners = $banners->latest()->get();
     	$products = $products
                         ->with(['category','variant'])
-                        ->whereHas('seller') // hanya produk yg sudah dipilih seller yg bisa dijual
-                        ->where('status',1)
+                        // ->whereHas('seller') // hanya produk yg sudah dipilih seller yg bisa dijual
+                        // ->where('status',1)
     					->latest();
     	$product_category = $product_category->latest()->get();
         $menus = $menus->orderBy('sort','asc')->get();
