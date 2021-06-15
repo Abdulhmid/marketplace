@@ -32,17 +32,17 @@
                       <a class="ps-shoe__favorite" href="{{url('products/detail/'.$value->slug)}}">
                         <i class="ps-icon-heart"></i>
                       </a>
-                      <img src="{{$value->image}}" alt="">
+                      <img src="{{$value->image}}" style="max-width: 330px;max-height: 234px;" alt="">
                       <a class="ps-shoe__overlay" href="{{url('products/detail/'.$value->slug)}}"></a>
                     </div>
                     <div class="ps-shoe__content">
                       <div class="ps-shoe__variants">
                         <div class="ps-shoe__variant normal">
-                          <img src="{{$value->image}}" alt="">
-                          <img src="{{$value->image_1}}" alt="">
-                          <img src="{{$value->image_2}}" alt="">
-                          <img src="{{$value->image_3}}" alt="">
-                          <img src="{{$value->image_4}}" alt="">
+                          <img style="max-width: 55px;max-height: 39px;" src="{{$value->image}}" alt="">
+                          <img style="max-width: 55px;max-height: 39px;" src="{{$value->image_1}}" alt="">
+                          <img style="max-width: 55px;max-height: 39px;" src="{{$value->image_2}}" alt="">
+                          <img style="max-width: 55px;max-height: 39px;" src="{{$value->image_3}}" alt="">
+                          <img style="max-width: 55px;max-height: 39px;" src="{{$value->image_4}}" alt="">
                         </div>
                         <!-- <select class="ps-rating ps-shoe__rating">
                           <option value="1">1</option>
